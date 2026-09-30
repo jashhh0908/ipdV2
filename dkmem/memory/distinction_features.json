@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0",
+  "description": "DK-Mem distinction lexicon v1: pilot-reviewed Hindi kinship/register markers and Standard Turkey Turkish indirect-evidence morphology. Japanese, temporal deixis, classifiers, and context-dependent Hindi terms are intentionally excluded from this deterministic core.",
+  "entries": [
+    {
+      "id": "hi-kinship-tau",
+      "lang": "hi",
+      "distinction_class": "kinship",
+      "match_type": "exact_word",
+      "surface_forms": ["tau", "ताऊ"],
+      "value": "tau",
+      "notes": "Father's older brother. Pilot-reviewed. Native-script form is an orthographic equivalent of the Romanized form."
+    },
+    {
+      "id": "hi-kinship-chacha",
+      "lang": "hi",
+      "distinction_class": "kinship",
+      "match_type": "exact_word",
+      "surface_forms": ["chacha", "चाचा"],
+      "value": "chacha",
+      "notes": "Father's younger brother. Pilot-reviewed."
+    },
+    {
+      "id": "hi-kinship-tai",
+      "lang": "hi",
+      "distinction_class": "kinship",
+      "match_type": "exact_word",
+      "surface_forms": ["tai", "ताई"],
+      "value": "tai",
+      "notes": "Wife of father's older brother. Pilot-reviewed."
+    },
+    {
+      "id": "hi-kinship-chachi",
+      "lang": "hi",
+      "distinction_class": "kinship",
+      "match_type": "exact_word",
+      "surface_forms": ["chachi", "चाची"],
+      "value": "chachi",
+      "notes": "Wife of father's younger brother. Pilot-reviewed."
+    },
+    {
+      "id": "hi-kinship-mama",
+      "lang": "hi",
+      "distinction_class": "kinship",
+      "match_type": "exact_word",
+      "surface_forms": ["mama", "मामा"],
+      "value": "mama",
+      "notes": "Mother's brother. Pilot-reviewed."
+    },
+    {
+      "id": "hi-kinship-mausa",
+      "lang": "hi",
+      "distinction_class": "kinship",
+      "match_type": "exact_word",
+      "surface_forms": ["mausa", "मौसा"],
+      "value": "mausa",
+      "notes": "Husband of mother's sister. Pilot-reviewed."
+    },
+    {
+      "id": "hi-kinship-mami",
+      "lang": "hi",
+      "distinction_class": "kinship",
+      "match_type": "exact_word",
+      "surface_forms": ["mami", "मामी"],
+      "value": "mami",
+      "notes": "Wife of mother's brother. Pilot-reviewed."
+    },
+    {
+      "id": "hi-kinship-mausi",
+      "lang": "hi",
+      "distinction_class": "kinship",
+      "match_type": "exact_word",
+      "surface_forms": ["mausi", "मौसी"],
+      "value": "mausi",
+      "notes": "Mother's sister. Pilot-reviewed."
+    },
+    {
+      "id": "hi-kinship-nana",
+      "lang": "hi",
+      "distinction_class": "kinship",
+      "match_type": "exact_word",
+      "surface_forms": ["nana", "नाना"],
+      "value": "nana",
+      "notes": "Mother's father. Pilot-reviewed."
+    },
+    {
+      "id": "hi-kinship-dadi",
+      "lang": "hi",
+      "distinction_class": "kinship",
+      "match_type": "exact_word",
+      "surface_forms": ["dadi", "दादी"],
+      "value": "dadi",
+      "notes": "Father's mother. Pilot-reviewed."
+    },
+    {
+      "id": "hi-kinship-nani",
+      "lang": "hi",
+      "distinction_class": "kinship",
+      "match_type": "exact_word",
+      "surface_forms": ["nani", "नानी"],
+      "value": "nani",
+      "notes": "Mother's mother. Pilot-reviewed."
+    },
+    {
+      "id": "hi-kinship-bua",
+      "lang": "hi",
+      "distinction_class": "kinship",
+      "match_type": "exact_word",
+      "surface_forms": ["bua", "बुआ"],
+      "value": "bua",
+      "notes": "Father's sister. Pilot-reviewed."
+    },
+    {
+      "id": "hi-register-tu",
+      "lang": "hi",
+      "distinction_class": "register",
+      "match_type": "exact_word",
+      "surface_forms": ["tu", "तू"],
+      "value": "tu",
+      "notes": "Second-person pronoun associated with an informal/intimate register. Pilot-reviewed."
+    },
+    {
+      "id": "hi-register-tum",
+      "lang": "hi",
+      "distinction_class": "register",
+      "match_type": "exact_word",
+      "surface_forms": ["tum", "तुम"],
+      "value": "tum",
+      "notes": "Second-person pronoun with register/social-indexical value distinct from tu and aap. Pilot-reviewed."
+    },
+    {
+      "id": "hi-register-aap",
+      "lang": "hi",
+      "distinction_class": "register",
+      "match_type": "exact_word",
+      "surface_forms": ["aap", "आप"],
+      "value": "aap",
+      "notes": "Second-person pronoun associated with deferential/formal usage. Pilot-reviewed."
+    },
+    {
+      "id": "tr-evidentiality-mis",
+      "lang": "tr",
+      "distinction_class": "evidentiality",
+      "match_type": "suffix",
+      "surface_forms": ["mış", "miş", "muş", "müş"],
+      "value": "reported/hearsay",
+      "notes": "Standard Turkey Turkish indirect-evidence morphology. -mIş covers reportative/hearsay and inferential uses. The project schema's closed evidentiality vocabulary requires the value 'reported/hearsay'; this label therefore under-specifies the full linguistic range. Matcher should restrict suffix matching to appropriate verbal morphology."
+    }
+  ]
+}

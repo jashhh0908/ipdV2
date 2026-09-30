@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "pairwise_eval.schema.json",
+  "title": "PairwiseEvalRecord",
+  "description": "One line of pairwise_eval.jsonl. One record = one pair of memory entries that the system's consolidation step compared, plus the outcome of that comparison. This is the sole file Team B needs to compute FCR, MCR, the FCR-MCR frontier, and entity-clustering metrics.",
+  "type": "object",
+  "required": [
+    "record_id",
+    "run_id",
+    "strategy",
+    "threshold",
+    "similarity_score",
+    "entry_a",
+    "entry_b",
+    "decision"
+  ],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "description": "Unique ID for this pairwise comparison within the run."
+    },
+    "run_id": {
+      "type": "string",
+      "description": "Foreign key into run_manifest.json. Groups records by strategy+backbone+seed+dataset_tier."
+    },
+    "strategy": {
+      "type": "string",
+      "description": "System/baseline that produced this decision.",
+      "enum": [
+        "mem0",
+        "a-mem",
+        "lightmem",
+        "flat-dense-rag",
+        "store-surface-only",
+        "trag",
+        "crossrag",
+        "dk-mem-lexicon",
+        "dk-mem-lexicon-llm"
+      ]
+    },
+    "threshold": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Similarity threshold (tau) the system used as its merge cutoff for this decision. Recorded for provenance; Team B re-sweeps tau offline using similarity_score, so this need not match every tau in the frontier plot."
+    },
+    "similarity_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Raw sim(gloss_a, gloss_b) BEFORE any distinction gating is applied. Always reported, even when compatibility blocks the merge, so Team B can recompute merge(a,b) := similarity_score > tau at any tau without rerunning the system."
+    },
+    "compatibility": {
+      "type": ["string", "null"],
+      "enum": ["compatible", "incompatible", "underdetermined", null],
+      "description": "Output of compatible(distinction_a, distinction_b). Null for strategies with no distinction gating (e.g. mem0, flat-dense-rag, store-surface-only)."
+    },
+    "decision": {
+      "type": "string",
+      "enum": ["merge", "no_merge", "supersede", "underdetermined_link"],
+      "description": "The system's actual final action on this pair. 'supersede' = b is stored as replacing a (temporal update), not as a duplicate/co-reference. 'underdetermined_link' = neither merged nor discarded; entries kept separate and cross-referenced (DK-Mem's third branch)."
+    },
+    "superseded_entry_id": {
+      "type": ["string", "null"],
+      "description": "Only meaningful when decision == 'supersede': entry_id (a or b) that is now marked stale/replaced. Null otherwise."
+    },
+    "predicted_entity_id": {
+      "type": ["string", "null"],
+      "description": "Declares that entry_a and entry_b belong to the same cluster as of THIS record. Required (non-null) when decision is 'merge' or 'supersede'; must be null otherwise. This is an edge, not a globally-authoritative final answer: because records are written incrementally, a later record elsewhere in the file can chain-merge entry_a or entry_b into a larger cluster without this record being rewritten. To get each entry's true final cluster, union-find over entry_id across every merge/supersede record in the run -- do not read this field from a single record in isolation."
+    },
+    "entry_a": { "$ref": "#/definitions/MemoryEntry" },
+    "entry_b": { "$ref": "#/definitions/MemoryEntry" }
+  },
+  "if": {
+    "properties": { "decision": { "enum": ["merge", "supersede"] } },
+    "required": ["decision"]
+  },
+  "then": {
+    "properties": { "predicted_entity_id": { "type": "string" } },
+    "required": ["predicted_entity_id"]
+  },
+  "else": {
+    "properties": { "predicted_entity_id": { "type": "null" } }
+  },
+  "definitions": {
+    "MemoryEntry": {
+      "type": "object",
+      "required": ["entry_id", "language", "gloss", "gold_entity_id"],
+      "properties": {
+        "entry_id": {
+          "type": "string",
+          "description": "Stable ID for this stored memory entry (the write-stage output). Must be stable across a run so it can be joined against upstream probe metadata if needed."
+        },
+        "source_utterance_id": {
+          "type": ["string", "null"],
+          "description": "ID of the input utterance/turn this entry was extracted from, as assigned by Team B's dataset (Tier 1/2/3). Passthrough only."
+        },
+        "language": {
+          "type": "string",
+          "description": "BCP-47 tag of the source utterance, e.g. 'hi', 'en', 'hi-Latn' for romanized Hinglish, 'de', 'ja', 'tr'."
+        },
+        "surface": {
+          "type": ["string", "null"],
+          "description": "Verbatim original-language text the entry was extracted from. Null only for strategies that discard it (e.g. store-surface-only after the point it collapses to gloss -- should normally still be populated)."
+        },
+        "gloss": {
+          "type": "string",
+          "description": "Normalized English retrieval key produced by the write stage. This is the field similarity_score is computed over."
+        },
+        "distinction": {
+          "type": ["object", "null"],
+          "description": "Source-language discriminative feature extracted at write time. Null if the strategy has no distinction extraction, or if the lexicon found no discriminative marker in this utterance.",
+          "required": ["class", "value"],
+          "properties": {
+            "class": {
+              "type": "string",
+              "enum": [
+                "kinship",
+                "honorific_register",
+                "name_variant",
+                "evidentiality",
+                "classifier_measure",
+                "politeness_relationship",
+                "spatial_temporal_deixis"
+              ],
+              "description": "Which distinction class from the taxonomy this marker belongs to."
+            },
+            "value": {
+              "type": "string",
+              "description": "The specific discriminative value, e.g. 'chachi', 'tu', '-san', '-mis_evidential'."
+            },
+            "script": {
+              "type": ["string", "null"],
+              "description": "Script the marker was observed in, e.g. 'deva', 'latn'. Optional."
+            },
+            "extraction_method": {
+              "type": ["string", "null"],
+              "enum": ["lexicon", "lexicon+llm", null],
+              "description": "Which stage of the write-side cascade produced this distinction value."
+            }
+          }
+        },
+        "gold_entity_id": {
+          "type": "string",
+          "description": "Ground-truth entity ID for this entry, as assigned by Team B in the probe/eval dataset. Team A must pass this straight through from input to output unchanged; Team A never computes it."
+        }
+      }
+    }
+  }
+}

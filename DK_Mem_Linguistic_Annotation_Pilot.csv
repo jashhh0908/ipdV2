@@ -1,0 +1,19 @@
+```csv
+probe_id,language,utterance_a,utterance_b,distinction_class_candidate,distinction_a_candidate,distinction_b_candidate,same_entity,same_event,merge_expected,confidence,review_note
+HI-KIN-001,hi,"Mere tau Pune mein rehte hain.","Mere chacha Pune mein rehte hain.",kinship,tau,chacha,,,,,
+HI-KIN-002,hi,"Meri tai Pune mein rehti hain.","Meri chachi Pune mein rehti hain.",kinship,tai,chachi,,,,,
+HI-KIN-003,hi,"Mere mama Pune mein rehte hain.","Mere mausa Pune mein rehte hain.",kinship,mama,mausa,,,,,
+HI-KIN-004,hi,"Meri mami Pune mein rehti hain.","Meri mausi Pune mein rehti hain.",kinship,mami,mausi,,,,,
+HI-KIN-005,hi,"Mere dada Delhi mein rehte hain.","Mere nana Delhi mein rehte hain.",kinship,dada,nana,,,,,
+HI-KIN-006,hi,"Meri dadi Delhi mein rehti hain.","Meri nani Delhi mein rehti hain.",kinship,dadi,nani,,,,,
+HI-KIN-007,hi,"Mere chacha kal aaye the.","Mere tau kal aaye the.",kinship,chacha,tau,,,,,
+HI-KIN-008,hi,"Meri bua kal aayi thi.","Meri mausi kal aayi thi.",kinship,bua,mausi,,,,,
+HI-REG-001,hi,"Tum kal aaoge.","Aap kal aayenge.",register,tum,aap,,,,,
+HI-REG-002,hi,"Tu kal aayega.","Tum kal aaoge.",register,tu,tum,,,,,
+HI-REG-003,hi,"Tum yahan baitho.","Aap yahan baithiye.",register,tum,aap,,,,,
+HI-REG-004,hi,"Tu mere saath chal.","Aap mere saath chaliye.",register,tu,aap,,,,,
+TR-EVID-001,tr,"Ahmet eve geldi.","Ahmet eve gelmiş.",evidentiality,direct/confirmed,reported/hearsay,,,,,
+TR-EVID-002,tr,"Ayşe elmayı yedi.","Ayşe elmayı yemiş.",evidentiality,direct/confirmed,reported/hearsay,,,,,
+TR-EVID-003,tr,"Mehmet toplantıya gitti.","Mehmet toplantıya gitmiş.",evidentiality,direct/confirmed,reported/hearsay,,,,,
+TR-EVID-004,tr,"Çocuk uyudu.","Çocuk uyumuş.",evidentiality,direct/confirmed,reported/hearsay,,,,,
+```

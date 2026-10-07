@@ -14,7 +14,7 @@ either matched context-free or not matched at all. It does not construct
 ``Extraction`` records and does not import anything from
 ``dkmem.memory.extract`` (the Mem0-style baseline prompts/extractor): the
 two stay fully independent, so the lexicon path can be run and evaluated
-(lexicon-only vs lexicon+LLM, per research_idea_context.md Sec 4a) without
+(lexicon-only vs lexicon+LLM, per DKMEM_NEW_RESEARCH_IDEA.md Sec 5.3) without
 either depending on the other.
 
 Tokenization
@@ -82,11 +82,13 @@ Suffix stem-length guard
 A bare ``endswith`` check for ``suffix`` entries would also match a token
 that *is* the suffix on its own (zero-length stem) or leaves only one
 character before it -- never a real instance of a word bearing that suffix.
-This matters concretely for the lexicon's Turkish evidential suffix entry
-(``-mış``/``-miş``/``-muş``/``-müş``): the shortest attested Turkish verb
-roots are two letters (e.g. "de-" -> "demiş", "ol-" -> "olmuş"), so a token
-with fewer than ``_MIN_SUFFIX_STEM_LENGTH`` (2) characters before the suffix
-cannot be that suffix attached to a genuine verb root and is rejected.
+This matters concretely for a Turkish evidential suffix entry
+(``-mış``/``-miş``/``-muş``/``-müş``; no longer in the shipped lexicon now that
+evidentiality is out of scope, but still the clearest test of the mechanism):
+the shortest attested Turkish verb roots are two letters (e.g. "de-" ->
+"demiş", "ol-" -> "olmuş"), so a token with fewer than
+``_MIN_SUFFIX_STEM_LENGTH`` (2) characters before the suffix cannot be that
+suffix attached to a genuine verb root and is rejected.
 
 This is a narrow, mechanical guard, not morphological analysis: it does not
 verify the remaining stem is an actual verb root (that would need a root

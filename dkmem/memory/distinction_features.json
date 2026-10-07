@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "description": "DK-Mem distinction lexicon v1: pilot-reviewed Hindi kinship/register markers and Standard Turkey Turkish indirect-evidence morphology. Japanese, temporal deixis, classifiers, and context-dependent Hindi terms are intentionally excluded from this deterministic core.",
+  "description": "DK-Mem distinction lexicon v1: pilot-reviewed Hindi kinship and register markers, matching the current scope (kinship, register; see dkmem/memory/scope.py). Name-variant entries are not populated yet, and the Kinbank-generated kinship slice is still to come. Evidentiality (the earlier Turkish -mIs entry was removed), politeness, classifiers, temporal deixis and context-dependent Hindi terms are out of scope.",
   "entries": [
     {
       "id": "hi-kinship-tau",
@@ -136,15 +136,6 @@
       "surface_forms": ["aap", "आप"],
       "value": "aap",
       "notes": "Second-person pronoun associated with deferential/formal usage. Pilot-reviewed."
-    },
-    {
-      "id": "tr-evidentiality-mis",
-      "lang": "tr",
-      "distinction_class": "evidentiality",
-      "match_type": "suffix",
-      "surface_forms": ["mış", "miş", "muş", "müş"],
-      "value": "reported/hearsay",
-      "notes": "Standard Turkey Turkish indirect-evidence morphology. -mIş covers reportative/hearsay and inferential uses. The project schema's closed evidentiality vocabulary requires the value 'reported/hearsay'; this label therefore under-specifies the full linguistic range. Matcher should restrict suffix matching to appropriate verbal morphology."
     }
   ]
 }

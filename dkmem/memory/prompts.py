@@ -21,6 +21,8 @@ __all__ = [
     "MEM0_EXTRACTION_V1",
     "MEM0_EXTRACTION_V2",
     "MEM0_EXTRACTION_V3",
+    "MEM0_EXTRACTION_V4",
+    "DEFAULT_EXTRACTION_PROMPT",
     "PROMPTS",
     "get_prompt",
 ]
@@ -258,9 +260,73 @@ MEM0_EXTRACTION_V3 = PromptTemplate(
     ),
 )
 
-PROMPTS = MappingProxyType(
-    {p.prompt_id: p for p in (MEM0_EXTRACTION_V1, MEM0_EXTRACTION_V2, MEM0_EXTRACTION_V3)}
+# v4: the final prompt, re-scoped to the current research plan. It is v3 (the
+# best-performing prompt: same 10/20 target-feature accuracy as v2 but no
+# "you"/"My ..." gloss violations) restricted to the in-scope distinction
+# classes (kinship, register, name_variant; see dkmem.memory.scope). Removed
+# from v3: the politeness, evidentiality, classifier and temporal_deixis
+# definitions and the examples that only demonstrated them (the Turkish
+# examples stay, tagging only the name). One addition: "Use only the keys
+# below" (as in v1), because the parser rejects any other key outright. v1-v3
+# are kept unchanged for comparison and still describe the old 7-class scope.
+# Like v3, the examples are passed as chat turns. v4 has not been run on a
+# model yet.
+_MEM0_EXTRACTION_V4_SYSTEM = """\
+You convert one user utterance into one memory entry for a personal assistant. The utterance may be in any language or script, or code-mixed.
+
+Output exactly one JSON object with exactly these three keys and nothing else (no markdown, no code fences, no commentary):
+{"gloss": string, "distinction": object, "surface": string}
+
+## gloss
+- One short, accurate English sentence stating the fact. Translate the meaning faithfully: do not add, drop, or reverse who did what to whom.
+- Write in the third person. The speaker ("I", "me", "my" in any language) is "user"; the person spoken to ("you") is "addressee"; both in lowercase. Never write "I", "me", "my" or "you" in the gloss. Keep people's names.
+- Use plain, common English words only. For a kinship term, use the general English word for that relative (e.g. "uncle", "aunt", "grandmother"). Detail that English does not express goes in "distinction", not in the gloss.
+- Resolve time words to their meaning in context (e.g. "yesterday", "tomorrow", "last night").
+- Do not end with a period.
+
+## distinction
+An object recording source-language features that the English gloss loses. Use only the keys below. Most utterances mark zero or one feature. Add a key only when the utterance itself contains the marker described below; never carry a feature over from an earlier example. If none apply, use {}. All values are strings.
+
+- "kinship": a word for a relative in a language other than English.
+  Value: the source word, romanized and lowercase, when English has no exact single-word equivalent (e.g. Hindi "mama" = maternal uncle); otherwise its English translation (e.g. Spanish "hijo" -> "son").
+  Omit it for an English relative word inside a non-English sentence (e.g. "uncle", "aunty"), and for titles, jobs or roles (e.g. teacher, doctor, boss).
+- "register": the form of "you" chosen to address someone, showing familiarity or respect.
+  Value: that pronoun, romanized and lowercase (e.g. Hindi "tu", German "du" or "sie", French "tu" or "vous").
+  Only when a second-person pronoun is written in the utterance. Never for verb endings and never for "I" or "my".
+- "name_variant": the name of a specific person (never a pronoun such as "I" or "you").
+  Value: "<Name>-<script>": the name, then the script it is actually written in, lowercase (e.g. "Rahul-latin" for Latin letters, "Rahul-devanagari" for Devanagari letters).
+
+## surface
+The utterance copied exactly, character for character, in its original language and script."""
+
+MEM0_EXTRACTION_V4 = PromptTemplate(
+    prompt_id="mem0_extraction_v4",
+    system=_MEM0_EXTRACTION_V4_SYSTEM,
+    user_template="Utterance: {utterance}",
+    output_keys=("gloss", "distinction", "surface"),
+    examples=(
+        _example("Mere mama Jaipur mein padhate hain.", "user's uncle teaches in Jaipur", {"kinship": "mama"}),
+        _example("Mi hijo estudia en Madrid.", "user's son studies in Madrid", {"kinship": "son"}),
+        _example("Mere uncle Chennai mein rehte hain.", "user's uncle lives in Chennai", {}),
+        _example("Tu bahut accha khana banata hai.", "addressee cooks very well", {"register": "tu"}),
+        _example("Du hast morgen frei.", "addressee has the day off tomorrow", {"register": "du"}),
+        _example("Ayşe İzmir'e taşınmış.", "Ayşe moved to Izmir", {"name_variant": "Ayşe-latin"}),
+        _example("Mehmet dün eve geldi.", "Mehmet came home yesterday", {"name_variant": "Mehmet-latin"}),
+        _example("राहुल ने मुझे किताब दी।", "Rahul gave the user a book", {"name_variant": "Rahul-devanagari"}),
+        _example("Main har subah gym jaata hoon.", "user goes to the gym every morning", {}),
+    ),
 )
+
+PROMPTS = MappingProxyType(
+    {
+        p.prompt_id: p
+        for p in (MEM0_EXTRACTION_V1, MEM0_EXTRACTION_V2, MEM0_EXTRACTION_V3, MEM0_EXTRACTION_V4)
+    }
+)
+
+# The prompt used when a caller does not pass one. Results record their own
+# prompt_id, so runs made with v1 stay interpretable.
+DEFAULT_EXTRACTION_PROMPT = MEM0_EXTRACTION_V4
 
 
 def get_prompt(prompt_id: str) -> PromptTemplate:

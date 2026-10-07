@@ -4,7 +4,7 @@ TestRealLexiconIntegration runs the real, pilot-reviewed
 dkmem/memory/distinction_features.json through the full ProbeItem ->
 baseline extraction -> matcher -> distinction-enhanced Extraction pipeline.
 Everything else uses small synthetic Lexicons (built directly, not written
-to the JSON file) to exercise scenarios the real 16 entries don't contain by
+to the JSON file) to exercise scenarios the real 15 entries don't contain by
 design -- lexicon ambiguity, custom priorities, etc. No GPU; the baseline
 "model" is a fake generator.
 
@@ -27,7 +27,7 @@ from dkmem.memory.dkmem_extract import (
 )
 from dkmem.memory.extract import ExtractionBatchError, ExtractionError, extract
 from dkmem.memory.lexicon import Lexicon, LexiconEntry, load_lexicon
-from dkmem.memory.prompts import MEM0_EXTRACTION_V1
+from dkmem.memory.prompts import DEFAULT_EXTRACTION_PROMPT
 from dkmem.memory.schema import ProbeItem
 
 LEXICON_PATH = Path(__file__).parent.parent / "dkmem" / "memory" / "distinction_features.json"
@@ -66,7 +66,7 @@ class FakeGenerator:
 
     def generate(self, prompts, params=None):
         self.calls.append((prompts, params))
-        return [self.respond(p[1]["content"].removeprefix("Utterance: ")) for p in prompts]
+        return [self.respond(p[-1]["content"].removeprefix("Utterance: ")) for p in prompts]
 
 
 def model_output(utterance, gloss="user did something", distinction=None):
@@ -96,7 +96,7 @@ class TestRealLexiconIntegration(unittest.TestCase):
         gen = FakeGenerator(lambda u: model_output(u, gloss="user's aunt lives in Mumbai"))
         result = dkmem_extract(probe, "a", gen, self.lex, params=GenerationParams(seed=0))
         self.assertEqual(result.distinction, {"kinship": "chachi"})
-        self.assertEqual(result.prompt_id, "mem0_extraction_v1" + DKMEM_LEXICON_SUFFIX)
+        self.assertEqual(result.prompt_id, DEFAULT_EXTRACTION_PROMPT.prompt_id + DKMEM_LEXICON_SUFFIX)
         self.assertEqual(result.surface, probe.utt_a)
 
     def test_kinship_override_via_devanagari_utterance(self):
@@ -120,7 +120,9 @@ class TestRealLexiconIntegration(unittest.TestCase):
         result = dkmem_extract(probe, "a", gen, self.lex, params=GenerationParams(seed=0))
         self.assertEqual(result.distinction, {"register": "tum"})
 
-    def test_evidentiality_override_via_real_lexicon(self):
+    def test_out_of_scope_markers_are_not_in_the_real_lexicon(self):
+        # The Turkish evidential suffix left the lexicon with the scope change,
+        # so the lexicon contributes nothing for this utterance.
         probe = ProbeItem(
             pair_id="real-4", utt_a="Ali Ankara'ya gitmiş.", utt_b="x",
             lang="tr", distinction_class="evidentiality",
@@ -129,7 +131,7 @@ class TestRealLexiconIntegration(unittest.TestCase):
         )
         gen = FakeGenerator(lambda u: model_output(u, gloss="Ali went to Ankara"))
         result = dkmem_extract(probe, "a", gen, self.lex, params=GenerationParams(seed=0))
-        self.assertEqual(result.distinction, {"evidentiality": "reported/hearsay"})
+        self.assertEqual(result.distinction, {})
 
     def test_unrelated_utterance_keeps_model_value_untouched(self):
         probe = ProbeItem(
@@ -148,15 +150,15 @@ class TestRealLexiconIntegration(unittest.TestCase):
         probes = [
             ProbeItem("b1", "Meri bua Delhi mein rehti hai.", "x", "hi", "kinship",
                      "bua", None, True, "q"),
-            ProbeItem("b2", "Ali Ankara'ya gitmiş.", "x", "tr", "evidentiality",
-                     "reported/hearsay", None, True, "q"),
+            ProbeItem("b2", "Aap kal aaoge.", "x", "hi", "register",
+                     "aap", None, True, "q"),
         ]
         gen = FakeGenerator(lambda u: model_output(u, distinction={}))
         out = dkmem_extract_many(
             [(probes[0], "a"), (probes[1], "a")], gen, self.lex, params=GenerationParams(seed=0)
         )
         self.assertEqual(out[0].distinction, {"kinship": "bua"})
-        self.assertEqual(out[1].distinction, {"evidentiality": "reported/hearsay"})
+        self.assertEqual(out[1].distinction, {"register": "aap"})
         self.assertEqual(len(gen.calls), 1)  # one batched generate() call
 
 
@@ -236,9 +238,9 @@ class TestApplyLexicon(unittest.TestCase):
     def test_prompt_id_suffixed(self):
         base = self.baseline("Tu kal aana.")
         out = apply_lexicon(base, self.lex, "hi")
-        self.assertEqual(base.prompt_id, "mem0_extraction_v1")
-        self.assertEqual(out.prompt_id, "mem0_extraction_v1" + DKMEM_LEXICON_SUFFIX)
-        self.assertEqual(dkmem_prompt_id("mem0_extraction_v1"), out.prompt_id)
+        self.assertEqual(base.prompt_id, DEFAULT_EXTRACTION_PROMPT.prompt_id)
+        self.assertEqual(out.prompt_id, DEFAULT_EXTRACTION_PROMPT.prompt_id + DKMEM_LEXICON_SUFFIX)
+        self.assertEqual(dkmem_prompt_id(DEFAULT_EXTRACTION_PROMPT.prompt_id), out.prompt_id)
 
     def test_other_fields_copied_verbatim(self):
         base = self.baseline("Tu kal aana.")
@@ -276,8 +278,8 @@ class TestBaselineUnchanged(unittest.TestCase):
         for field in ("pair_id", "side", "raw_output", "gloss", "surface",
                       "lang_profile", "backbone", "seed"):
             self.assertEqual(getattr(combined, field), getattr(direct, field), field)
-        self.assertEqual(direct.prompt_id, "mem0_extraction_v1")
-        self.assertEqual(combined.prompt_id, "mem0_extraction_v1+dkmem_lexicon")
+        self.assertEqual(direct.prompt_id, DEFAULT_EXTRACTION_PROMPT.prompt_id)
+        self.assertEqual(combined.prompt_id, DEFAULT_EXTRACTION_PROMPT.prompt_id + DKMEM_LEXICON_SUFFIX)
 
 
 class TestCachePreserved(unittest.TestCase):
@@ -297,14 +299,14 @@ class TestCachePreserved(unittest.TestCase):
         result = dkmem_extract(PROBE_TU, "a", gen, self.lex, cache, self.params)
 
         self.assertEqual(len(cache), 1)
-        key = CacheKey.build(PROBE_TU, "a", prompt=MEM0_EXTRACTION_V1, backbone=gen.backbone,
+        key = CacheKey.build(PROBE_TU, "a", prompt=DEFAULT_EXTRACTION_PROMPT, backbone=gen.backbone,
                              params=self.params)
         cached = cache.get(key)
         self.assertIsNotNone(cached)
-        self.assertEqual(cached.prompt_id, "mem0_extraction_v1")
+        self.assertEqual(cached.prompt_id, DEFAULT_EXTRACTION_PROMPT.prompt_id)
         self.assertEqual(cached.distinction, {"register": "aap"})  # raw model output, un-augmented
         self.assertEqual(result.distinction, {"register": "tu"})  # lexicon overrode it
-        self.assertEqual(result.prompt_id, "mem0_extraction_v1+dkmem_lexicon")
+        self.assertEqual(result.prompt_id, DEFAULT_EXTRACTION_PROMPT.prompt_id + DKMEM_LEXICON_SUFFIX)
 
     def test_second_call_reuses_cache_no_regeneration(self):
         cache = ExtractionCache(self.cache_path)
@@ -366,7 +368,7 @@ class TestBatch(unittest.TestCase):
         self.assertEqual(err.failures[0].pair_id, "p2")
         # The successful item's Extraction on the exception is the raw
         # baseline record (prompt_id unsuffixed): the lexicon step never ran.
-        self.assertEqual(err.extractions[0].prompt_id, "mem0_extraction_v1")
+        self.assertEqual(err.extractions[0].prompt_id, DEFAULT_EXTRACTION_PROMPT.prompt_id)
         self.assertIsNone(err.extractions[1])
 
     def test_single_item_failure_raises_extraction_error(self):

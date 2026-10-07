@@ -10,11 +10,15 @@ from dkmem.memory.extract import derive_lang_profile
 from dkmem.memory.gate import (
     COMPATIBILITY,
     DEFAULT_DISCRIMINATIVE_FEATURES,
+    MERGING_DECISIONS,
+    GateResult,
+    apply_gate,
     build_merge_event,
     compatible,
     gate,
 )
 from dkmem.memory.schema import DECISIONS, Extraction, MergeEvent, read_jsonl
+from dkmem.memory.scope import LEGACY_DISCRIMINATIVE_CLASSES
 
 FIXTURE_DIR = Path(__file__).parent / "fixtures"
 
@@ -88,11 +92,23 @@ class TestCompatibleGeneral(unittest.TestCase):
         b = {"kinship": "mausi"}
         self.assertEqual(compatible(a, b), "incompatible")
 
-    def test_default_discriminative_features_match_agreed_set(self):
-        self.assertEqual(
-            DEFAULT_DISCRIMINATIVE_FEATURES,
-            {"kinship", "register", "classifier", "evidentiality", "politeness", "temporal_deixis"},
-        )
+    def test_default_discriminative_features_are_the_in_scope_cannot_link_set(self):
+        self.assertEqual(DEFAULT_DISCRIMINATIVE_FEATURES, {"kinship", "register"})
+
+    def test_out_of_scope_features_no_longer_gate_by_default(self):
+        for feature, a, b in (("evidentiality", "reported/hearsay", "direct/confirmed"),
+                              ("politeness", "formal", "informal"),
+                              ("classifier", "cup", "long-object"),
+                              ("temporal_deixis", "yesterday", "tomorrow")):
+            with self.subTest(feature=feature):
+                self.assertEqual(compatible({feature: a}, {feature: b}), "compatible")
+                self.assertEqual(compatible({feature: a}, {}), "compatible")
+                # ...but the legacy set still reproduces the old behaviour.
+                self.assertEqual(
+                    compatible({feature: a}, {feature: b},
+                               discriminative_features=LEGACY_DISCRIMINATIVE_CLASSES),
+                    "incompatible",
+                )
 
 
 class TestGateDecision(unittest.TestCase):
@@ -216,8 +232,110 @@ class TestReproducesFixtureConvention(unittest.TestCase):
                 # themselves use different wording per probe even for the
                 # same decision, e.g. "temporal deixis" vs the raw key
                 # "temporal_deixis"), so it is not asserted here.
-                _compatibility, decision, _reason = gate(a, b, expected.sim, expected.tau)
+                # The fixtures predate the scope change and cover all seven
+                # classes, so they are gated with the legacy feature set.
+                _compatibility, decision, _reason = gate(
+                    a, b, expected.sim, expected.tau,
+                    discriminative_features=LEGACY_DISCRIMINATIVE_CLASSES,
+                )
                 self.assertEqual(decision, expected.decision)
+
+
+class TestApplyGate(unittest.TestCase):
+    """apply_gate vetoes a *host* mechanism's proposal; it never decides on its own."""
+
+    CHACHI, MAUSI = {"kinship": "chachi"}, {"kinship": "mausi"}
+
+    def test_incompatible_merge_is_vetoed_to_keep_both(self):
+        r = apply_gate("merge", self.CHACHI, self.MAUSI)
+        self.assertIsInstance(r, GateResult)
+        self.assertEqual((r.compatibility, r.proposed, r.decision), ("incompatible", "merge", "keep_both"))
+        self.assertTrue(r.vetoed)
+        self.assertEqual(r.reason, "vetoed merge: incompatible kinship values: chachi vs mausi")
+
+    def test_incompatible_supersede_is_vetoed_to_keep_both(self):
+        # The motivating failure: an UPDATE of "aunt in Pune" by "aunt in Delhi"
+        # that would delete the first fact.
+        r = apply_gate("supersede", self.CHACHI, self.MAUSI)
+        self.assertEqual(r.decision, "keep_both")
+        self.assertTrue(r.vetoed)
+
+    def test_underdetermined_merge_becomes_link_unresolved(self):
+        for proposed in MERGING_DECISIONS:
+            with self.subTest(proposed=proposed):
+                r = apply_gate(proposed, self.CHACHI, {})
+                self.assertEqual((r.compatibility, r.decision), ("underdetermined", "link_unresolved"))
+                self.assertTrue(r.vetoed)
+                self.assertEqual(
+                    r.reason,
+                    f"vetoed {proposed}: kinship marked (chachi) on one side, unmarked on the other",
+                )
+
+    def test_compatible_proposal_passes_through_unchanged(self):
+        for proposed in MERGING_DECISIONS:
+            with self.subTest(proposed=proposed):
+                r = apply_gate(proposed, self.CHACHI, self.CHACHI)
+                self.assertEqual((r.compatibility, r.decision), ("compatible", proposed))
+                self.assertFalse(r.vetoed)
+        self.assertEqual(apply_gate("merge", {}, {}).decision, "merge")
+
+    def test_non_merging_host_decisions_are_never_changed(self):
+        # No merge proposed, so there is nothing to veto -- and no link is made
+        # for a pair the host would not have merged.
+        for proposed in ("keep_both", "link_unresolved"):
+            for a, b in ((self.CHACHI, self.MAUSI), (self.CHACHI, {}), (self.CHACHI, self.CHACHI)):
+                with self.subTest(proposed=proposed, a=a, b=b):
+                    r = apply_gate(proposed, a, b)
+                    self.assertEqual(r.decision, proposed)
+                    self.assertFalse(r.vetoed)
+
+    def test_compatibility_is_reported_even_when_nothing_is_vetoed(self):
+        self.assertEqual(apply_gate("keep_both", self.CHACHI, self.MAUSI).compatibility, "incompatible")
+        self.assertEqual(apply_gate("keep_both", self.CHACHI, {}).compatibility, "underdetermined")
+        self.assertEqual(apply_gate("keep_both", {}, {}).compatibility, "compatible")
+
+    def test_unknown_host_decision_rejected(self):
+        for bad in ("no_merge", "merged", "", None):
+            with self.subTest(bad=bad), self.assertRaises(ValueError):
+                apply_gate(bad, {}, {})
+
+    def test_vetoes_only_on_discriminative_features(self):
+        a, b = {"name_variant": "Priya-latin"}, {"name_variant": "Priya-devanagari"}
+        self.assertFalse(apply_gate("merge", a, b).vetoed)  # same entity: must still merge
+        self.assertTrue(apply_gate("merge", a, b, discriminative_features={"name_variant"}).vetoed)
+
+    def test_every_decision_is_in_the_schema_vocabulary(self):
+        for proposed in DECISIONS:
+            for a, b in ((self.CHACHI, self.MAUSI), (self.CHACHI, {}), ({}, {})):
+                self.assertIn(apply_gate(proposed, a, b).decision, DECISIONS)
+
+    def test_agrees_with_standalone_gate_whenever_the_host_would_merge(self):
+        # gate() proposes merge iff sim >= tau; when it does, apply_gate must give
+        # the same compatibility and decision.
+        cases = [(self.CHACHI, self.MAUSI), (self.CHACHI, {}), ({}, self.MAUSI),
+                 (self.CHACHI, self.CHACHI), ({}, {}),
+                 ({"kinship": "bua", "register": "tu"}, {"kinship": "mausi"})]
+        for a, b in cases:
+            with self.subTest(a=a, b=b):
+                compat, decision, _ = gate(a, b, sim=0.95, tau=0.85)
+                r = apply_gate("merge", a, b)
+                self.assertEqual((r.compatibility, r.decision), (compat, decision))
+
+    def test_differs_from_standalone_gate_only_below_tau_for_underdetermined(self):
+        # gate() links an underdetermined pair even far below tau; the veto layer
+        # does not, because the host would not have merged it.
+        _, standalone, _ = gate(self.CHACHI, {}, sim=0.1, tau=0.85)
+        self.assertEqual(standalone, "link_unresolved")
+        self.assertEqual(apply_gate("keep_both", self.CHACHI, {}).decision, "keep_both")
+        # Incompatible pairs agree at any similarity.
+        _, standalone, _ = gate(self.CHACHI, self.MAUSI, sim=0.1, tau=0.85)
+        self.assertEqual(standalone, apply_gate("keep_both", self.CHACHI, self.MAUSI).decision)
+
+    def test_wired_from_real_extraction_objects(self):
+        ext_a = real_extraction("p", "a", kinship="chachi")
+        ext_b = real_extraction("p", "b", kinship="mausi")
+        r = apply_gate("merge", ext_a.distinction, ext_b.distinction)
+        self.assertEqual(r.decision, "keep_both")
 
 
 if __name__ == "__main__":

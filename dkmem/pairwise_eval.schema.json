@@ -25,15 +25,15 @@
     },
     "strategy": {
       "type": "string",
-      "description": "System/baseline that produced this decision.",
+      "description": "System/baseline that produced this decision. The stage-attribution configuration (A-D) and whether the DK-Mem gate was on are recorded in run_manifest.json (pipeline_config, dkmem_mode), not here.",
       "enum": [
         "mem0",
         "a-mem",
-        "lightmem",
-        "flat-dense-rag",
         "store-surface-only",
-        "trag",
-        "crossrag",
+        "embedding-threshold",
+        "raise-tau",
+        "prompt-informed-judge",
+        "flat-dense-rag",
         "dk-mem-lexicon",
         "dk-mem-lexicon-llm"
       ]
@@ -53,7 +53,7 @@
     "compatibility": {
       "type": ["string", "null"],
       "enum": ["compatible", "incompatible", "underdetermined", null],
-      "description": "Output of compatible(distinction_a, distinction_b). Null for strategies with no distinction gating (e.g. mem0, flat-dense-rag, store-surface-only)."
+      "description": "Output of compatible(distinction_a, distinction_b). Null for runs with no distinction gating, i.e. DK-Mem off (dkmem_mode 'off' in run_manifest.json; e.g. plain mem0, flat-dense-rag, store-surface-only)."
     },
     "decision": {
       "type": "string",
@@ -117,17 +117,13 @@
               "enum": [
                 "kinship",
                 "honorific_register",
-                "name_variant",
-                "evidentiality",
-                "classifier_measure",
-                "politeness_relationship",
-                "spatial_temporal_deixis"
+                "name_variant"
               ],
-              "description": "Which distinction class from the taxonomy this marker belongs to."
+              "description": "Which in-scope distinction class this marker belongs to (kinship primary; honorific_register and name_variant secondary)."
             },
             "value": {
               "type": "string",
-              "description": "The specific discriminative value, e.g. 'chachi', 'tu', '-san', '-mis_evidential'."
+              "description": "The specific discriminative value, e.g. 'chachi', 'tu', 'Priya-devanagari'."
             },
             "script": {
               "type": ["string", "null"],

@@ -16,7 +16,12 @@ from dkmem.memory.extract import (
     extract_many,
     parse_model_output,
 )
-from dkmem.memory.prompts import MEM0_EXTRACTION_V1, PromptTemplate
+from dkmem.memory.prompts import (
+    DEFAULT_EXTRACTION_PROMPT,
+    MEM0_EXTRACTION_V1,
+    MEM0_EXTRACTION_V4,
+    PromptTemplate,
+)
 from dkmem.memory.schema import Extraction, ProbeItem, read_jsonl
 
 FIXTURE_DIR = Path(__file__).parent / "fixtures"
@@ -71,15 +76,18 @@ class TestExtract(unittest.TestCase):
         self.assertEqual(ex.surface, PROBE.utt_a)
         self.assertEqual(ex.lang_profile, {"hi": 1.0, "en": 0.0, "script_mix": 0.0})
         self.assertEqual(ex.backbone, "fake/backbone")
-        self.assertEqual(ex.prompt_id, "mem0_extraction_v1")
+        self.assertEqual(ex.prompt_id, DEFAULT_EXTRACTION_PROMPT.prompt_id)
         self.assertEqual(ex.seed, 7)
+
+    def test_default_prompt_is_v4(self):
+        self.assertIs(DEFAULT_EXTRACTION_PROMPT, MEM0_EXTRACTION_V4)
 
     def test_sends_frozen_prompt_and_params(self):
         gen = FakeGenerator([response(surface=PROBE.utt_b, distinction={"kinship": "mausi"})])
         params = GenerationParams(seed=3, max_new_tokens=128)
         extract(PROBE, "b", gen, params)
         (prompts, sent_params), = gen.calls
-        self.assertEqual(prompts, [MEM0_EXTRACTION_V1.render(PROBE.utt_b)])
+        self.assertEqual(prompts, [DEFAULT_EXTRACTION_PROMPT.render(PROBE.utt_b)])
         self.assertIs(sent_params, params)
 
     def test_default_params_seed(self):
@@ -119,7 +127,7 @@ class TestMalformedOutput(unittest.TestCase):
         "unknown distinction key": response(distinction={"kin": "chachi"}),
         "non-string distinction value": response(distinction={"kinship": 1}),
         "empty distinction value": response(distinction={"kinship": ""}),
-        "closed value violated": response(distinction={"politeness": "polite"}),
+        "out-of-scope distinction key": response(distinction={"politeness": "formal"}),
         "surface mismatch": response(surface="Meri chachi Mumbai me rehti hai."),
         "surface not string": response(surface=None),
     }
@@ -132,6 +140,15 @@ class TestMalformedOutput(unittest.TestCase):
                 err = ctx.exception
                 self.assertEqual((err.pair_id, err.side, err.raw_output), ("t_001", "a", raw))
                 self.assertIn("t_001/a", str(err))
+
+    def test_closed_values_still_enforced_for_legacy_prompt(self):
+        # politeness is a legacy (v1-v3) key with a closed value set.
+        raw = response(distinction={"politeness": "polite"})
+        with self.assertRaises(ExtractionError):
+            extract(PROBE, "a", FakeGenerator([raw]), prompt=MEM0_EXTRACTION_V1)
+        ok = response(distinction={"politeness": "formal"})
+        ex = extract(PROBE, "a", FakeGenerator([ok]), prompt=MEM0_EXTRACTION_V1)
+        self.assertEqual(ex.distinction, {"politeness": "formal"})
 
     def test_parser_directly(self):
         with self.assertRaises(ExtractionError):
@@ -208,7 +225,10 @@ class TestAgainstFixtures(unittest.TestCase):
         for fx in fixtures:
             with self.subTest(pair=fx.pair_id, side=fx.side):
                 gen = FakeGenerator([fx.raw_output], backbone=fx.backbone)
-                ex = extract(probes[fx.pair_id], fx.side, gen, GenerationParams(seed=fx.seed))
+                # The fixtures were written under the frozen v1 prompt and its
+                # 7-class key set, so they are replayed through v1.
+                ex = extract(probes[fx.pair_id], fx.side, gen, GenerationParams(seed=fx.seed),
+                             prompt=MEM0_EXTRACTION_V1)
                 self.assertEqual(ex, fx)
 
 

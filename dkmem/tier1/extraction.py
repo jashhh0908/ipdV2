@@ -4,8 +4,8 @@
 lexicon *on top of* a Mem0-style baseline call -- "model-second" is still a
 model call for whatever the lexicon leaves unmatched). Team B's
 ``dk-mem-lexicon`` strategy is the other half of the paper's own ablation:
-"Extra LLM calls: zero in the lexicon-only variant" (research_idea_context.md
-Sec 4a) and ``run_manifest.backbone: null``. Nothing existing produces that,
+"Extra LLM calls: zero in the lexicon-only variant" (DKMEM_NEW_RESEARCH_IDEA.md
+Sec 5.6) and ``run_manifest.backbone: null``. Nothing existing produces that,
 so this module adds it, without touching ``dkmem_extract.py`` or any other
 core module.
 

@@ -19,7 +19,7 @@ from dkmem.memory.cache import (
     cached_extract_many,
 )
 from dkmem.memory.extract import ExtractionBatchError, ExtractionError, extract
-from dkmem.memory.prompts import MEM0_EXTRACTION_V1
+from dkmem.memory.prompts import DEFAULT_EXTRACTION_PROMPT
 from dkmem.memory.schema import ProbeItem
 
 PROBE = ProbeItem(
@@ -57,7 +57,7 @@ class FakeGenerator:
 
     def generate(self, prompts, params=None):
         self.calls.append((prompts, params))
-        return [self.respond(p[1]["content"].removeprefix("Utterance: ")) for p in prompts]
+        return [self.respond(p[-1]["content"].removeprefix("Utterance: ")) for p in prompts]
 
 
 class CacheTestCase(unittest.TestCase):
@@ -131,7 +131,7 @@ class TestHitsAndMisses(CacheTestCase):
         self.assertEqual(reloaded.raw_output, raw)
         self.assertEqual((reloaded.pair_id, reloaded.side, reloaded.backbone,
                           reloaded.prompt_id, reloaded.seed),
-                         ("t_001", "a", "fake/backbone", "mem0_extraction_v1", 42))
+                         ("t_001", "a", "fake/backbone", DEFAULT_EXTRACTION_PROMPT.prompt_id, 42))
         # Identical to an uncached extraction of the same output.
         self.assertEqual(reloaded, extract(PROBE, "a", FakeGenerator(respond=lambda u: raw), params))
 
@@ -141,7 +141,7 @@ class TestHitsAndMisses(CacheTestCase):
         gen = FakeGenerator()
         out = cached_extract_many([(PROBE, "a"), (PROBE, "b"), (PROBE, "b")], gen, cache, self.params)
         self.assertEqual(len(gen.calls), 1)
-        self.assertEqual([p[1]["content"] for p in gen.calls[0][0]], [f"Utterance: {PROBE.utt_b}"])
+        self.assertEqual([p[-1]["content"] for p in gen.calls[0][0]], [f"Utterance: {PROBE.utt_b}"])
         self.assertEqual([e.side for e in out], ["a", "b", "b"])
         self.assertEqual(len(self.lines()), 2)
 
@@ -156,9 +156,9 @@ class TestHitsAndMisses(CacheTestCase):
         self.assertEqual(len(ExtractionCache(self.path)), 1)
 
     def test_key_is_deterministic(self):
-        k1 = CacheKey.build(PROBE, "a", prompt=MEM0_EXTRACTION_V1, backbone="m", params=self.params,
+        k1 = CacheKey.build(PROBE, "a", prompt=DEFAULT_EXTRACTION_PROMPT, backbone="m", params=self.params,
                             backend_info={"b": 1, "a": 2})
-        k2 = CacheKey.build(PROBE, "a", prompt=MEM0_EXTRACTION_V1, backbone="m", params=self.params,
+        k2 = CacheKey.build(PROBE, "a", prompt=DEFAULT_EXTRACTION_PROMPT, backbone="m", params=self.params,
                             backend_info={"a": 2, "b": 1})
         self.assertEqual(k1.digest, k2.digest)
         self.assertEqual(len(k1.digest), 64)
@@ -168,7 +168,7 @@ class TestNoOverwrite(CacheTestCase):
     def test_conflicting_put_rejected_and_not_written(self):
         cache = ExtractionCache(self.path)
         ex = cached_extract(PROBE, "a", FakeGenerator(), cache, self.params)
-        key = CacheKey.build(PROBE, "a", prompt=MEM0_EXTRACTION_V1, backbone="fake/backbone",
+        key = CacheKey.build(PROBE, "a", prompt=DEFAULT_EXTRACTION_PROMPT, backbone="fake/backbone",
                              params=self.params)
         other_raw = valid_response(PROBE.utt_a, gloss="user's aunt stays in Mumbai")
         other = replace(ex, raw_output=other_raw, gloss="user's aunt stays in Mumbai")
@@ -180,7 +180,7 @@ class TestNoOverwrite(CacheTestCase):
     def test_identical_put_is_noop(self):
         cache = ExtractionCache(self.path)
         ex = cached_extract(PROBE, "a", FakeGenerator(), cache, self.params)
-        key = CacheKey.build(PROBE, "a", prompt=MEM0_EXTRACTION_V1, backbone="fake/backbone",
+        key = CacheKey.build(PROBE, "a", prompt=DEFAULT_EXTRACTION_PROMPT, backbone="fake/backbone",
                              params=self.params)
         cache.put(key, ex)
         self.assertEqual(len(self.lines()), 1)
@@ -188,7 +188,7 @@ class TestNoOverwrite(CacheTestCase):
     def test_put_rejects_record_not_matching_key(self):
         cache = ExtractionCache(self.path)
         ex = cached_extract(PROBE, "a", FakeGenerator(), cache, self.params)
-        key_seed1 = CacheKey.build(PROBE, "a", prompt=MEM0_EXTRACTION_V1, backbone="fake/backbone",
+        key_seed1 = CacheKey.build(PROBE, "a", prompt=DEFAULT_EXTRACTION_PROMPT, backbone="fake/backbone",
                                    params=GenerationParams(seed=1))
         with self.assertRaises(CacheError):
             cache.put(key_seed1, ex)  # record says seed 0

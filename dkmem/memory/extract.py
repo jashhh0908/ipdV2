@@ -1,7 +1,7 @@
 """DK-Mem write-side extraction: one probe utterance -> one ``Extraction``.
 
-The model is prompted with a frozen prompt (default ``mem0_extraction_v1``)
-and must return one JSON object with ``gloss``, ``distinction`` and
+The model is prompted with a frozen prompt (default
+``DEFAULT_EXTRACTION_PROMPT``, currently ``mem0_extraction_v4``) and must return one JSON object with ``gloss``, ``distinction`` and
 ``surface``. Output is validated strictly: anything malformed raises
 ``ExtractionError`` carrying the raw response; nothing is repaired or dropped.
 
@@ -19,12 +19,15 @@ from typing import Any, Protocol, Sequence
 
 from dkmem.backends.llm import GenerationParams
 from dkmem.memory.prompts import (
+    DEFAULT_EXTRACTION_PROMPT,
     MEM0_EXTRACTION_V1,
     MEM0_EXTRACTION_V2,
     MEM0_EXTRACTION_V3,
+    MEM0_EXTRACTION_V4,
     PromptTemplate,
 )
 from dkmem.memory.schema import SIDES, Extraction, ProbeItem
+from dkmem.memory.scope import IN_SCOPE_CLASSES, LEGACY_CLASSES
 
 __all__ = [
     "DISTINCTION_KEYS",
@@ -40,28 +43,21 @@ __all__ = [
     "extract_many",
 ]
 
-_DK_FEATURE_KEYS = frozenset(
-    {
-        "kinship",
-        "register",
-        "politeness",
-        "evidentiality",
-        "classifier",
-        "temporal_deixis",
-        "name_variant",
-    }
-)
-
-# Distinction keys each prompt allows (must mirror the prompt text).
+# Distinction keys each prompt allows (must mirror the prompt text). v1-v3 are
+# the frozen pre-rescope prompts and describe the old 7-class scope; v4 is
+# limited to the in-scope classes (dkmem.memory.scope).
 DISTINCTION_KEYS = MappingProxyType(
     {
-        MEM0_EXTRACTION_V1.prompt_id: _DK_FEATURE_KEYS,
-        MEM0_EXTRACTION_V2.prompt_id: _DK_FEATURE_KEYS,
-        MEM0_EXTRACTION_V3.prompt_id: _DK_FEATURE_KEYS,
+        MEM0_EXTRACTION_V1.prompt_id: LEGACY_CLASSES,
+        MEM0_EXTRACTION_V2.prompt_id: LEGACY_CLASSES,
+        MEM0_EXTRACTION_V3.prompt_id: LEGACY_CLASSES,
+        MEM0_EXTRACTION_V4.prompt_id: IN_SCOPE_CLASSES,
     }
 )
 
-# Features whose values the prompt restricts to a closed set.
+# Features whose values the prompt restricts to a closed set. All three are out
+# of scope now; the table is kept for the frozen v1-v3 prompts and for the
+# lexicon loader's value check.
 CLOSED_DISTINCTION_VALUES = MappingProxyType(
     {
         "politeness": frozenset({"formal", "informal"}),
@@ -137,7 +133,7 @@ def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 
 def parse_model_output(
-    raw_output: str, *, utterance: str, prompt: PromptTemplate = MEM0_EXTRACTION_V1
+    raw_output: str, *, utterance: str, prompt: PromptTemplate = DEFAULT_EXTRACTION_PROMPT
 ) -> tuple[str, dict[str, str], str]:
     """Validate a raw model response; return ``(gloss, distinction, surface)``.
 
@@ -285,7 +281,7 @@ def build_extraction(
     *,
     backbone: str,
     seed: int,
-    prompt: PromptTemplate = MEM0_EXTRACTION_V1,
+    prompt: PromptTemplate = DEFAULT_EXTRACTION_PROMPT,
 ) -> Extraction:
     """Validate ``raw_output`` for one probe side and build its ``Extraction``."""
     utterance = utterance_for(probe, side)
@@ -314,7 +310,7 @@ def extract_many(
     generator: TextGenerator,
     params: GenerationParams | None = None,
     *,
-    prompt: PromptTemplate = MEM0_EXTRACTION_V1,
+    prompt: PromptTemplate = DEFAULT_EXTRACTION_PROMPT,
 ) -> list[Extraction]:
     """Extract ``(probe, side)`` items with one batched ``generate`` call.
 
@@ -360,7 +356,7 @@ def extract(
     generator: TextGenerator,
     params: GenerationParams | None = None,
     *,
-    prompt: PromptTemplate = MEM0_EXTRACTION_V1,
+    prompt: PromptTemplate = DEFAULT_EXTRACTION_PROMPT,
 ) -> Extraction:
     """Extract one side of one probe; raises ``ExtractionError`` on bad output."""
     try:

@@ -1,22 +1,28 @@
-"""Tests for dkmem.memory.similarity (candidate matching + gloss similarity).
+"""Tests for dkmem.memory.similarity (candidate matching + pluggable similarity).
+
+The similarity-to-gate glue lives in dkmem.memory.consolidation and is tested
+in tests/test_consolidation.py.
 
 Run: python -m unittest discover -s tests
 """
 
+import ast
 import unittest
 from pathlib import Path
 
+import dkmem.memory.similarity as similarity_module
 from dkmem.memory.extract import derive_lang_profile
-from dkmem.memory.schema import DECISIONS, Extraction, MergeEvent, read_jsonl
+from dkmem.memory.schema import Extraction
 from dkmem.memory.similarity import (
+    DEFAULT_SIMILARITY,
+    DIFFLIB_RATIO,
     SimilarityError,
+    SimilarityMetric,
     candidate_pairs,
-    evaluate_pair,
+    entry_similarity,
     gloss_similarity,
     normalize_gloss,
 )
-
-FIXTURE_DIR = Path(__file__).parent / "fixtures"
 
 
 def make_extraction(pair_id, side, gloss, distinction=None, **overrides):
@@ -85,6 +91,88 @@ class TestGlossSimilarity(unittest.TestCase):
             self.assertLessEqual(sim, 1.0)
 
 
+class TestSimilarityMetric(unittest.TestCase):
+    def test_default_is_the_difflib_placeholder(self):
+        self.assertIs(DEFAULT_SIMILARITY, DIFFLIB_RATIO)
+        self.assertEqual(DIFFLIB_RATIO.name, "difflib_ratio_v1")
+        a, b = "user's aunt lives in Mumbai", "user's aunt moved to Pune"
+        self.assertEqual(DIFFLIB_RATIO(a, b), gloss_similarity(a, b))
+
+    def test_wraps_any_text_function(self):
+        metric = SimilarityMetric("exact_match", lambda a, b: 1.0 if a == b else 0.0)
+        self.assertEqual(metric("x", "x"), 1.0)
+        self.assertEqual(metric("x", "y"), 0.0)
+
+    def test_integer_scores_become_float(self):
+        self.assertIsInstance(SimilarityMetric("const", lambda a, b: 1)("a", "b"), float)
+
+    def test_out_of_range_or_non_finite_scores_are_rejected_not_clipped(self):
+        for bad in (-0.01, 1.01, -1.0, float("nan"), float("inf"), "0.5", None, True):
+            with self.subTest(bad=bad):
+                metric = SimilarityMetric("bad", lambda a, b, bad=bad: bad)
+                with self.assertRaises(SimilarityError):
+                    metric("a", "b")
+
+    def test_boundaries_allowed(self):
+        self.assertEqual(SimilarityMetric("zero", lambda a, b: 0.0)("a", "b"), 0.0)
+        self.assertEqual(SimilarityMetric("one", lambda a, b: 1.0)("a", "b"), 1.0)
+
+    def test_name_and_callable_validated(self):
+        with self.assertRaises(ValueError):
+            SimilarityMetric("", lambda a, b: 1.0)
+        with self.assertRaises(ValueError):
+            SimilarityMetric("  ", lambda a, b: 1.0)
+        with self.assertRaises(TypeError):
+            SimilarityMetric("m", "not callable")
+
+
+class TestEntrySimilarity(unittest.TestCase):
+    def setUp(self):
+        self.a = make_extraction("p", "a", "user's aunt lives in Mumbai", surface="meri chachi Mumbai mein rehti hai")
+        self.b = make_extraction("p", "b", "user's aunt lives in Mumbai", surface="meri mausi Mumbai mein rehti hai")
+
+    def test_defaults_to_gloss_with_the_placeholder_metric(self):
+        self.assertEqual(entry_similarity(self.a, self.b), 1.0)
+        self.assertEqual(entry_similarity(self.a, self.b), gloss_similarity(self.a.gloss, self.b.gloss))
+
+    def test_surface_field(self):
+        sim = entry_similarity(self.a, self.b, text_field="surface")
+        self.assertEqual(sim, gloss_similarity(self.a.surface, self.b.surface))
+        self.assertLess(sim, 1.0)
+
+    def test_metric_is_swappable_without_touching_callers(self):
+        seen = []
+
+        def fake_embedding(x, y):
+            seen.append((x, y))
+            return 0.25
+
+        metric = SimilarityMetric("fake_embedding_v0", fake_embedding)
+        self.assertEqual(entry_similarity(self.a, self.b, metric), 0.25)
+        self.assertEqual(seen, [(self.a.gloss, self.b.gloss)])
+
+    def test_unknown_text_field_rejected(self):
+        for bad in ("distinction", "raw_output", "Gloss", ""):
+            with self.subTest(bad=bad), self.assertRaises(ValueError):
+                entry_similarity(self.a, self.b, text_field=bad)
+
+
+class TestSimilarityDoesNotDependOnTheGate(unittest.TestCase):
+    def test_similarity_module_imports_nothing_from_gate_or_consolidation(self):
+        tree = ast.parse(Path(similarity_module.__file__).read_text(encoding="utf-8"))
+        imported = set()
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ImportFrom) and node.module:
+                imported.add(node.module)
+            elif isinstance(node, ast.Import):
+                imported.update(alias.name for alias in node.names)
+        self.assertNotIn("dkmem.memory.gate", imported)
+        self.assertNotIn("dkmem.memory.consolidation", imported)
+
+    def test_evaluate_pair_no_longer_lives_here(self):
+        self.assertFalse(hasattr(similarity_module, "evaluate_pair"))
+
+
 class TestCandidatePairs(unittest.TestCase):
     def test_single_entry_each_side_is_one_pair(self):
         a = make_extraction("p1", "a", "g1")
@@ -122,103 +210,6 @@ class TestCandidatePairs(unittest.TestCase):
         wrong_b = make_extraction("p1", "a", "g2")  # side a, but passed as entries_b
         with self.assertRaises(SimilarityError):
             candidate_pairs([a], [wrong_b])
-
-
-class TestEvaluatePair(unittest.TestCase):
-    def test_returns_merge_event_with_computed_sim(self):
-        a = make_extraction("p1", "a", "user's aunt lives in Mumbai", {"kinship": "chachi"})
-        b = make_extraction("p1", "b", "user's aunt lives in Mumbai", {"kinship": "chachi"})
-        ev = evaluate_pair(a, b, tau=0.5, policy="dkmem_v1")
-        self.assertIsInstance(ev, MergeEvent)
-        self.assertEqual(ev.sim, gloss_similarity(a.gloss, b.gloss))
-        self.assertEqual(ev.sim, 1.0)
-        self.assertEqual(ev.decision, "merge")
-        self.assertEqual(ev.pair_id, "p1")
-        self.assertEqual(ev.tau, 0.5)
-        self.assertEqual(ev.policy, "dkmem_v1")
-        self.assertEqual(ev.backbone, "fake/backbone")
-        self.assertEqual(ev.seed, 0)
-        self.assertEqual(ev.prompt_id, "mem0_extraction_v1")
-
-    def test_incompatible_overrides_high_similarity(self):
-        a = make_extraction("p1", "a", "user's aunt lives in Mumbai", {"kinship": "bua"})
-        b = make_extraction("p1", "b", "user's aunt lives in Mumbai", {"kinship": "mausi"})
-        ev = evaluate_pair(a, b, tau=0.5, policy="dkmem_v1")
-        self.assertEqual(ev.sim, 1.0)  # similarity is raw/pre-gating: not clipped
-        self.assertEqual(ev.decision, "keep_both")
-
-    def test_underdetermined_overrides_high_similarity(self):
-        a = make_extraction("p1", "a", "user's aunt lives in Mumbai", {"kinship": "chachi"})
-        b = make_extraction("p1", "b", "user's aunt lives in Mumbai", {})
-        ev = evaluate_pair(a, b, tau=0.5, policy="dkmem_v1")
-        self.assertEqual(ev.sim, 1.0)
-        self.assertEqual(ev.decision, "link_unresolved")
-
-    def test_low_similarity_below_tau_keeps_both(self):
-        a = make_extraction("p1", "a", "user's aunt lives in Mumbai", {})
-        b = make_extraction("p1", "b", "completely unrelated fact", {})
-        ev = evaluate_pair(a, b, tau=0.9, policy="dkmem_v1")
-        self.assertLess(ev.sim, 0.9)
-        self.assertEqual(ev.decision, "keep_both")
-
-    def test_decision_never_supersede(self):
-        a = make_extraction("p1", "a", "g")
-        b = make_extraction("p1", "b", "g")
-        ev = evaluate_pair(a, b, tau=0.0, policy="dkmem_v1")
-        self.assertIn(ev.decision, DECISIONS)
-        self.assertNotEqual(ev.decision, "supersede")
-
-    def test_rejects_mismatched_pair_id(self):
-        a = make_extraction("p1", "a", "g")
-        b = make_extraction("p2", "b", "g")
-        with self.assertRaises(SimilarityError):
-            evaluate_pair(a, b, tau=0.5, policy="dkmem_v1")
-
-    def test_rejects_mismatched_backbone(self):
-        a = make_extraction("p1", "a", "g", backbone="model-1")
-        b = make_extraction("p1", "b", "g", backbone="model-2")
-        with self.assertRaises(SimilarityError):
-            evaluate_pair(a, b, tau=0.5, policy="dkmem_v1")
-
-    def test_rejects_mismatched_seed(self):
-        a = make_extraction("p1", "a", "g", seed=0)
-        b = make_extraction("p1", "b", "g", seed=1)
-        with self.assertRaises(SimilarityError):
-            evaluate_pair(a, b, tau=0.5, policy="dkmem_v1")
-
-    def test_rejects_mismatched_prompt_id(self):
-        a = make_extraction("p1", "a", "g", prompt_id="mem0_extraction_v1")
-        b = make_extraction("p1", "b", "g", prompt_id="mem0_extraction_v1+dkmem_lexicon")
-        with self.assertRaises(SimilarityError):
-            evaluate_pair(a, b, tau=0.5, policy="dkmem_v1")
-
-    def test_roundtrips_through_jsonl(self):
-        a = make_extraction("p1", "a", "g")
-        b = make_extraction("p1", "b", "g")
-        ev = evaluate_pair(a, b, tau=0.5, policy="dkmem_v1")
-        self.assertEqual(MergeEvent.from_json(ev.to_json()), ev)
-
-
-class TestEndToEndOnRealFixtures(unittest.TestCase):
-    """ProbeItem -> Extraction (fixture) -> similarity -> gate -> MergeEvent,
-    exercised on the real fixture Extractions (not the withheld Tier 1 file)."""
-
-    def test_full_flow_on_fixture_extractions(self):
-        by_pair = {}
-        for ext in read_jsonl(FIXTURE_DIR / "extractions.jsonl", Extraction):
-            by_pair.setdefault(ext.pair_id, {})[ext.side] = ext
-
-        for pair_id, sides in by_pair.items():
-            with self.subTest(pair_id=pair_id):
-                a, b = sides["a"], sides["b"]
-                pairs = candidate_pairs([a], [b])
-                self.assertEqual(len(pairs), 1)
-                ev = evaluate_pair(a, b, tau=0.85, policy="dkmem_v1")
-                self.assertIsInstance(ev, MergeEvent)
-                self.assertIn(ev.decision, DECISIONS)
-                self.assertNotEqual(ev.decision, "supersede")
-                # sim is raw/pre-gating: recomputable independently of the decision.
-                self.assertEqual(ev.sim, gloss_similarity(a.gloss, b.gloss))
 
 
 if __name__ == "__main__":

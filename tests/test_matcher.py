@@ -28,10 +28,20 @@ def entry(**overrides):
     return LexiconEntry(**d)
 
 
+def turkish_evidential_lexicon():
+    """A local lexicon with the Turkish -mIş evidential suffix. That entry was
+    removed from the shipped lexicon (evidentiality is out of scope); the suffix
+    mechanism (allomorph matching, stem-length guard) is still tested with it."""
+    return Lexicon((
+        entry(id="tr-mis", lang="tr", distinction_class="evidentiality", match_type="suffix",
+              surface_forms=["mış", "miş", "muş", "müş"], value="reported/hearsay"),
+    ))
+
+
 class TestRealLexiconMatching(unittest.TestCase):
     """Uses the real, pilot-reviewed tests/../distinction_features.json (12
-    Hindi kinship entries, hi register tu/tum/aap, Turkish -mIş
-    evidentiality)."""
+    Hindi kinship entries and hi register tu/tum/aap; nothing for other
+    languages or classes)."""
 
     @classmethod
     def setUpClass(cls):
@@ -63,25 +73,10 @@ class TestRealLexiconMatching(unittest.TestCase):
         self.assertEqual(match_distinctions(self.lex, "CHACHA ghar mein hai.", "hi"),
                          {"kinship": "chacha"})
 
-    def test_suffix_evidentiality_turkish(self):
-        self.assertEqual(
-            match_distinctions(self.lex, "Ali Ankara'ya gitmiş.", "tr"),
-            {"evidentiality": "reported/hearsay"},
-        )
-
-    def test_suffix_allomorphs(self):
-        # Derive test words directly from the entry's own surface_forms,
-        # rather than retyping the Turkish suffixes by hand, so this can't
-        # drift from the actual (dotted/dotless i) characters in the JSON.
-        (mis_entry,) = self.lex.for_lang_class("tr", "evidentiality")
-        self.assertEqual(set(mis_entry.surface_forms), {"mış", "miş", "muş", "müş"})
-        for suffix in mis_entry.surface_forms:
-            word = "git" + suffix  # "git-" (go): a genuine 3-letter verb stem
-            with self.subTest(word=word):
-                self.assertEqual(
-                    match_distinctions(self.lex, word, "tr"),
-                    {"evidentiality": "reported/hearsay"},
-                )
+    def test_out_of_scope_turkish_evidential_suffix_is_not_matched(self):
+        # The real lexicon no longer carries evidentiality.
+        self.assertEqual(match_distinctions(self.lex, "Ali Ankara'ya gitmiş.", "tr"), {})
+        self.assertEqual(self.lex.for_lang_class("tr", "evidentiality"), ())
 
     def test_no_match_returns_empty_dict(self):
         self.assertEqual(match_distinctions(self.lex, "This is plain English.", "en"), {})
@@ -134,6 +129,40 @@ class TestFalsePositives(unittest.TestCase):
         self.assertEqual(match_distinctions(self.lex, "chachaji ghar mein hai.", "hi"), {})
         self.assertEqual(match_distinctions(self.lex, "mamaji", "hi"), {})
 
+    def test_unrelated_language_text_under_hi_or_tr(self):
+        self.assertEqual(match_distinctions(self.lex, "This is plain English text.", "hi"), {})
+        self.assertEqual(match_distinctions(self.lex, "This is plain English text.", "tr"), {})
+
+
+class TestSuffixMechanism(unittest.TestCase):
+    """The ``suffix`` match type, exercised with a local Turkish -mIş evidential
+    entry: allomorphs match, look-alike endings do not, and a bare suffix or a
+    token with too little stem is rejected (see "Suffix stem-length guard" in
+    matcher.py's docstring)."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.lex = turkish_evidential_lexicon()
+
+    def test_suffix_evidentiality_turkish(self):
+        self.assertEqual(
+            match_distinctions(self.lex, "Ali Ankara'ya gitmiş.", "tr"),
+            {"evidentiality": "reported/hearsay"},
+        )
+
+    def test_suffix_allomorphs(self):
+        # Words are built from the entry's own surface_forms rather than
+        # retyped, so this can't drift from the dotted/dotless i characters.
+        (mis_entry,) = self.lex.for_lang_class("tr", "evidentiality")
+        self.assertEqual(set(mis_entry.surface_forms), {"mış", "miş", "muş", "müş"})
+        for suffix in mis_entry.surface_forms:
+            word = "git" + suffix  # "git-" (go): a genuine 3-letter verb stem
+            with self.subTest(word=word):
+                self.assertEqual(
+                    match_distinctions(self.lex, word, "tr"),
+                    {"evidentiality": "reported/hearsay"},
+                )
+
     def test_similar_looking_turkish_word_is_not_evidentiality(self):
         # "yarış" (race) ends in "-rış", not any of mış/miş/muş/müş.
         self.assertEqual(match_distinctions(self.lex, "Bu bir yarış.", "tr"), {})
@@ -142,19 +171,8 @@ class TestFalsePositives(unittest.TestCase):
         # "geldi" (came): witnessed/direct past (-dI), not the -mIş evidential.
         self.assertEqual(match_distinctions(self.lex, "Ali Ankara'ya geldi.", "tr"), {})
 
-    def test_unrelated_language_text_under_hi_or_tr(self):
-        self.assertEqual(match_distinctions(self.lex, "This is plain English text.", "hi"), {})
-        self.assertEqual(match_distinctions(self.lex, "This is plain English text.", "tr"), {})
-
-
-class TestSuffixStemLengthGuard(unittest.TestCase):
-    """The Turkish evidentiality suffix must not match a bare suffix, or a
-    token that leaves too little material to be a genuine verb stem (see
-    "Suffix stem-length guard" in matcher.py's docstring)."""
-
-    @classmethod
-    def setUpClass(cls):
-        cls.lex = load_lexicon(LEXICON_PATH)
+    def test_entry_for_other_language_is_not_checked(self):
+        self.assertEqual(match_distinctions(self.lex, "gitmiş", "hi"), {})
 
     def test_bare_suffix_alone_does_not_match(self):
         for suffix in ("mış", "miş", "muş", "müş"):

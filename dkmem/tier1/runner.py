@@ -19,11 +19,16 @@ Two strategies (Task scope):
 
 Both then run the identical translation: ``dkmem.memory.similarity.
 candidate_pairs`` for the (always exactly one, today) a-vs-b comparison,
-``dkmem.memory.similarity.gloss_similarity`` for the raw pre-gating
-similarity, and ``dkmem.memory.gate.gate`` (not ``evaluate_pair``/
-``build_merge_event``, which don't expose the ``compatibility`` label Team B
-requires) for the decision and compatibility. Neither ``gate.py`` nor
-``similarity.py`` is modified.
+``dkmem.memory.similarity.entry_similarity`` for the raw pre-gating
+similarity (the metric is a parameter, default the placeholder ``difflib``
+ratio; a real embedding metric is passed in as ``similarity=``), and
+``dkmem.memory.gate.gate`` (not ``evaluate_pair``/``build_merge_event``,
+which don't expose the ``compatibility`` label Team B requires) for the
+decision and compatibility. The standalone ``gate()`` policy is used, not
+``apply_gate()``: there is no host merge mechanism in Tier 1 to veto.
+
+The LLM strategy uses the default extraction prompt
+(``dkmem.memory.prompts.DEFAULT_EXTRACTION_PROMPT``).
 
 If extraction fails or raises for either side of an episode (a malformed
 LLM response, or an unsupported ``language`` tag), that side simply yields
@@ -42,7 +47,12 @@ from dkmem.memory.extract import ExtractionError, TextGenerator
 from dkmem.memory.gate import DEFAULT_DISCRIMINATIVE_FEATURES, gate
 from dkmem.memory.lexicon import Lexicon
 from dkmem.memory.schema import Extraction, ProbeItem
-from dkmem.memory.similarity import candidate_pairs, gloss_similarity
+from dkmem.memory.similarity import (
+    DEFAULT_SIMILARITY,
+    SimilarityMetric,
+    candidate_pairs,
+    entry_similarity,
+)
 from dkmem.tier1.extraction import extract_lexicon_only
 from dkmem.tier1.io import (
     DECISION_TRANSLATION,
@@ -61,6 +71,8 @@ __all__ = [
     "run_all_episodes_lexicon_llm",
 ]
 
+# tau is only meaningful for one metric: 0.85 goes with the placeholder difflib
+# ratio. A different similarity metric needs its own tau.
 DEFAULT_TAU = 0.85
 
 # strategy -> MemoryEntry.distinction.extraction_method (pairwise_eval.schema.json).
@@ -103,6 +115,7 @@ def _build_pairwise_records(
     run_id: str,
     strategy: str,
     tau: float,
+    similarity: SimilarityMetric = DEFAULT_SIMILARITY,
     discriminative_features=DEFAULT_DISCRIMINATIVE_FEATURES,
 ) -> list[PairwiseEvalRecord]:
     """Translate candidate (entry_a, entry_b) pairs into pairwise_eval rows."""
@@ -113,7 +126,7 @@ def _build_pairwise_records(
 
     rows = []
     for ext_a, ext_b in pairs:
-        sim = gloss_similarity(ext_a.gloss, ext_b.gloss)
+        sim = entry_similarity(ext_a, ext_b, similarity)
         compatibility, internal_decision, _reason = gate(
             ext_a.distinction, ext_b.distinction, sim, tau, discriminative_features
         )
@@ -167,6 +180,7 @@ def run_episode_lexicon_only(
     run_id: str,
     tau: float = DEFAULT_TAU,
     seed: int = 0,
+    similarity: SimilarityMetric = DEFAULT_SIMILARITY,
 ) -> list[PairwiseEvalRecord]:
     """One episode of ``dk-mem-lexicon`` (no LLM call)."""
     try:
@@ -179,7 +193,8 @@ def run_episode_lexicon_only(
     except ValueError:
         return []  # e.g. an unsupported language tag: no entries extracted
     return _build_pairwise_records(
-        record, [ext_a], [ext_b], run_id=run_id, strategy="dk-mem-lexicon", tau=tau
+        record, [ext_a], [ext_b], run_id=run_id, strategy="dk-mem-lexicon", tau=tau,
+        similarity=similarity,
     )
 
 
@@ -191,6 +206,7 @@ def run_episode_lexicon_llm(
     *,
     run_id: str,
     tau: float = DEFAULT_TAU,
+    similarity: SimilarityMetric = DEFAULT_SIMILARITY,
 ) -> list[PairwiseEvalRecord]:
     """One episode of ``dk-mem-lexicon-llm`` (Mem0 baseline + lexicon overlay)."""
     probe = _probe_item_adapter(record)
@@ -201,7 +217,8 @@ def run_episode_lexicon_llm(
     except (ExtractionError, ValueError):
         return []
     return _build_pairwise_records(
-        record, [ext_a], [ext_b], run_id=run_id, strategy="dk-mem-lexicon-llm", tau=tau
+        record, [ext_a], [ext_b], run_id=run_id, strategy="dk-mem-lexicon-llm", tau=tau,
+        similarity=similarity,
     )
 
 
@@ -212,11 +229,16 @@ def run_all_episodes_lexicon_only(
     run_id: str,
     tau: float = DEFAULT_TAU,
     seed: int = 0,
+    similarity: SimilarityMetric = DEFAULT_SIMILARITY,
 ) -> list[PairwiseEvalRecord]:
     """Run every record independently; concatenate their pairwise rows, in order."""
     rows: list[PairwiseEvalRecord] = []
     for record in records:
-        rows.extend(run_episode_lexicon_only(record, lexicon, run_id=run_id, tau=tau, seed=seed))
+        rows.extend(
+            run_episode_lexicon_only(
+                record, lexicon, run_id=run_id, tau=tau, seed=seed, similarity=similarity
+            )
+        )
     return rows
 
 
@@ -228,11 +250,14 @@ def run_all_episodes_lexicon_llm(
     *,
     run_id: str,
     tau: float = DEFAULT_TAU,
+    similarity: SimilarityMetric = DEFAULT_SIMILARITY,
 ) -> list[PairwiseEvalRecord]:
     """Run every record independently; concatenate their pairwise rows, in order."""
     rows: list[PairwiseEvalRecord] = []
     for record in records:
         rows.extend(
-            run_episode_lexicon_llm(record, lexicon, generator, params, run_id=run_id, tau=tau)
+            run_episode_lexicon_llm(
+                record, lexicon, generator, params, run_id=run_id, tau=tau, similarity=similarity
+            )
         )
     return rows

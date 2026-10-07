@@ -18,8 +18,15 @@ from pathlib import Path
 import jsonschema
 
 from dkmem.backends.llm import GenerationParams
+from dkmem.config import DKMEM_MODES, PIPELINE_CONFIG_IDS, STRATEGIES
 from dkmem.memory.lexicon import load_lexicon
-from dkmem.tier1.io import Tier1Record, load_tier1_input, write_pairwise_eval, write_run_manifest
+from dkmem.tier1.io import (
+    DISTINCTION_CLASSES,
+    Tier1Record,
+    load_tier1_input,
+    write_pairwise_eval,
+    write_run_manifest,
+)
 from dkmem.tier1.runner import run_all_episodes_lexicon_llm, run_all_episodes_lexicon_only
 
 REPO_ROOT = Path(__file__).parent.parent
@@ -53,7 +60,7 @@ class FakeGenerator:
         self.respond = respond
 
     def generate(self, prompts, params=None):
-        return [self.respond(p[1]["content"].removeprefix("Utterance: ")) for p in prompts]
+        return [self.respond(p[-1]["content"].removeprefix("Utterance: ")) for p in prompts]
 
 
 def model_output(utterance, gloss="user did something", distinction=None):
@@ -132,6 +139,70 @@ class TestRunManifestSchemaValidation(unittest.TestCase):
                 backbone="Qwen/Qwen2.5-3B-Instruct", created_at="2026-09-30T00:00:00Z",
             )
             jsonschema.validate(json.loads(path.read_text(encoding="utf-8")), self.schema)
+
+
+class TestSchemasMatchConfig(unittest.TestCase):
+    """The JSON schemas and dkmem.config / dkmem.tier1.io must not drift apart."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.pairwise = load_schema(PAIRWISE_SCHEMA_PATH)
+        cls.manifest = load_schema(RUN_MANIFEST_SCHEMA_PATH)
+
+    def test_strategy_enum_matches_config_in_both_schemas(self):
+        self.assertEqual(tuple(self.pairwise["properties"]["strategy"]["enum"]), STRATEGIES)
+        self.assertEqual(tuple(self.manifest["properties"]["strategy"]["enum"]), STRATEGIES)
+
+    def test_distinction_class_enum_matches_io(self):
+        enum = self.pairwise["definitions"]["MemoryEntry"]["properties"]["distinction"][
+            "properties"]["class"]["enum"]
+        self.assertEqual(tuple(enum), DISTINCTION_CLASSES)
+
+    def test_manifest_config_enums_match_config(self):
+        props = self.manifest["properties"]
+        self.assertEqual(tuple(props["pipeline_config"]["enum"]), PIPELINE_CONFIG_IDS)
+        self.assertEqual(tuple(props["dkmem_mode"]["enum"]), DKMEM_MODES)
+
+    def test_new_manifest_fields_are_optional(self):
+        self.assertEqual(set(self.manifest["required"]), {"run_id", "strategy", "dataset_tier", "seed"})
+
+    def test_manifest_with_config_and_mode_validates(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "run_manifest.json"
+            write_run_manifest(path, run_id="dry3", strategy="dk-mem-lexicon-llm", seed=2,
+                               backbone="Qwen/Qwen2.5-3B-Instruct", pipeline_config="A",
+                               dkmem_mode="lexicon+llm")
+            jsonschema.validate(json.loads(path.read_text(encoding="utf-8")), self.manifest)
+
+    def test_schema_rejects_unknown_config_mode_and_strategy(self):
+        base = {"run_id": "r", "strategy": "dk-mem-lexicon", "dataset_tier": "tier1_minimal_pairs", "seed": 0}
+        jsonschema.validate(base, self.manifest)
+        for bad in ({"pipeline_config": "E"}, {"dkmem_mode": "on"}, {"strategy": "lightmem"}):
+            with self.subTest(bad=bad), self.assertRaises(jsonschema.ValidationError):
+                jsonschema.validate({**base, **bad}, self.manifest)
+
+    def test_out_of_scope_distinction_class_rejected_by_schema(self):
+        example = json.loads(json.dumps({
+            "record_id": "r", "run_id": "run", "strategy": "dk-mem-lexicon", "threshold": 0.85,
+            "similarity_score": 0.5, "compatibility": "compatible", "decision": "no_merge",
+            "entry_a": {"entry_id": "a", "language": "tr", "gloss": "g", "gold_entity_id": "e1",
+                        "distinction": {"class": "evidentiality", "value": "reported/hearsay"}},
+            "entry_b": {"entry_id": "b", "language": "tr", "gloss": "g", "gold_entity_id": "e2"},
+        }))
+        with self.assertRaises(jsonschema.ValidationError):
+            jsonschema.validate(example, self.pairwise)
+        example["entry_a"]["distinction"]["class"] = "kinship"
+        jsonschema.validate(example, self.pairwise)
+
+    def test_null_compatibility_allowed_when_gate_is_off(self):
+        example = {
+            "record_id": "r", "run_id": "run", "strategy": "mem0", "threshold": 0.85,
+            "similarity_score": 0.9, "compatibility": None, "decision": "merge",
+            "predicted_entity_id": "a",
+            "entry_a": {"entry_id": "a", "language": "hi", "gloss": "g", "gold_entity_id": "e1"},
+            "entry_b": {"entry_id": "b", "language": "hi", "gloss": "g", "gold_entity_id": "e2"},
+        }
+        jsonschema.validate(example, self.pairwise)
 
 
 class TestWorkedExampleFromSpec(unittest.TestCase):

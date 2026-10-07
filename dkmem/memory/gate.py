@@ -1,12 +1,13 @@
-"""DK-Mem distinction gating (research_idea_context.md Sec 4(b)).
+"""DK-Mem distinction gating (DKMEM_NEW_RESEARCH_IDEA.md Sec 5.4).
 
 Replaces the plain similarity check
 
-    merge(a, b) if sim(gloss_a, gloss_b) > tau
+    merge(a, b) if sim(a, b) > tau
 
-with a deterministic compatibility gate on top of it:
+with a deterministic compatibility gate on top of it (a cannot-link
+constraint):
 
-    merge(a, b) if sim(gloss_a, gloss_b) > tau AND compatible(distinction_a, distinction_b)
+    merge(a, b) if sim(a, b) > tau AND compatible(distinction_a, distinction_b)
 
 ``compatible()`` is a pure function over two write-side distinction dicts
 (``Extraction.distinction`` -- never the hand-authored gold
@@ -33,19 +34,41 @@ underdetermined (the more severe finding wins); this precedence is a
 necessary completion of the rule, not specified verbatim in the research
 doc, and is documented here explicitly rather than left implicit.
 
-Scope of this module (Task 19 only):
+Two entry points
+----------------
 
-- ``compatible()``/``gate()`` are pure dictionary comparisons -- no model or
-  embedding calls, matching the spec's "compatible(): a dictionary
-  comparison. Free."
-- ``sim``/``tau`` are accepted as supplied inputs. No similarity or
-  candidate-pair generation is implemented here.
-- Only ``merge``, ``keep_both``, and ``link_unresolved`` are ever produced.
-  ``supersede`` (recognizing a same-entity *update*, e.g. a changed
-  location) needs a rule this module does not implement.
-- No retrieval, and no Tier-1 batch execution over the 173-pair evaluation
-  set -- this module only exposes the per-pair primitives a later task would
-  call to build that pipeline's outputs.
+- ``gate(distinction_a, distinction_b, sim, tau)`` is the standalone policy:
+  it derives its own merge proposal from ``sim >= tau`` and, for an
+  underdetermined pair, links *regardless of* ``sim`` (even a pair far below
+  ``tau`` is linked). It is what the Tier 1 runner and the ``dkmem_v1``
+  fixtures use, and its behaviour is unchanged.
+- ``apply_gate(proposed, distinction_a, distinction_b)`` is the veto layer
+  for a *host* merge mechanism (an LLM judge or an embedding threshold, as
+  in the A-D configurations of DKMEM_NEW_RESEARCH_IDEA.md Sec 5.4/6.2). The
+  host decides first; the gate only intervenes when the host proposed
+  ``merge`` or ``supersede``: an incompatible pair is turned into
+  ``keep_both``, an underdetermined one into ``link_unresolved``, and a
+  compatible one passes through unchanged. A host decision that does not
+  unify entries (``keep_both``/``link_unresolved``) is returned as is, so no
+  link is ever created for a pair the host would not have merged. This is the
+  one behavioural difference from ``gate()`` and matters for the
+  unresolved-link (bloat) count.
+
+Scope of this module:
+
+- ``compatible()``/``gate()``/``apply_gate()`` are pure dictionary
+  comparisons -- no model or embedding calls, matching the spec's
+  "compatible(): a dictionary comparison. Free."
+- ``sim``/``tau`` are accepted as supplied inputs; this module computes no
+  similarity (see ``dkmem.memory.similarity``) and picks no host mechanism.
+- ``gate()`` only ever produces ``merge``, ``keep_both`` and
+  ``link_unresolved``. ``apply_gate()`` passes a host's ``supersede`` through
+  when the pair is compatible; nothing in this repo detects an update itself.
+- No retrieval, no store, and no Tier-1 batch execution.
+
+The default discriminative features are the in-scope cannot-link classes in
+``dkmem.memory.scope`` (``kinship`` and ``register``); ``name_variant`` is
+recorded but does not gate, since same-entity name variants should merge.
 
 Reused, not reinvented: this module produces ``dkmem.memory.schema.
 MergeEvent`` records using the existing ``DECISIONS``. It defines no new
@@ -60,27 +83,32 @@ returns it as a plain string, not embedded in text.
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Mapping
 
-from dkmem.memory.schema import MergeEvent
+from dkmem.memory.schema import DECISIONS, MergeEvent
+from dkmem.memory.scope import DISCRIMINATIVE_CLASSES
 
 __all__ = [
     "COMPATIBILITY",
     "DEFAULT_DISCRIMINATIVE_FEATURES",
+    "MERGING_DECISIONS",
+    "GateResult",
     "compatible",
     "gate",
+    "apply_gate",
     "build_merge_event",
 ]
 
 COMPATIBILITY = ("compatible", "incompatible", "underdetermined")
 
-# Mirrors tests/fixtures/synthetic_fixtures.py's DISCRIMINATIVE_FEATURES (the
-# team's agreed set); duplicated here as a default because the fixture
-# module is test code, not an importable production constant. Callers may
-# override per policy/ablation.
-DEFAULT_DISCRIMINATIVE_FEATURES = frozenset(
-    {"kinship", "register", "classifier", "evidentiality", "politeness", "temporal_deixis"}
-)
+# Cannot-link classes in the current scope (dkmem.memory.scope). Callers may
+# override per policy/ablation, e.g. LEGACY_DISCRIMINATIVE_CLASSES to
+# reproduce the pre-rescope 6-feature gate.
+DEFAULT_DISCRIMINATIVE_FEATURES = DISCRIMINATIVE_CLASSES
+
+# Decisions that unify two entries, i.e. the ones the gate can veto.
+MERGING_DECISIONS = ("merge", "supersede")
 
 
 def _compatibility_detail(
@@ -163,6 +191,64 @@ def gate(
     decision = "merge" if sim >= tau else "keep_both"
     comparison = ">=" if sim >= tau else "<"
     return compatibility, decision, f"compatible: sim {sim:.3g} {comparison} tau {tau:.3g}"
+
+
+@dataclass(frozen=True)
+class GateResult:
+    """Outcome of ``apply_gate``: what the host proposed, what the gate
+    allowed, and why. ``compatibility`` is reported even when the host did not
+    propose a merge, so every comparison carries it."""
+
+    compatibility: str
+    proposed: str
+    decision: str
+    reason: str
+
+    @property
+    def vetoed(self) -> bool:
+        """True if the gate changed the host's proposed decision."""
+        return self.decision != self.proposed
+
+
+def apply_gate(
+    proposed: str,
+    distinction_a: Mapping[str, str],
+    distinction_b: Mapping[str, str],
+    discriminative_features=DEFAULT_DISCRIMINATIVE_FEATURES,
+) -> GateResult:
+    """Veto a host system's proposed merge when the distinctions forbid it.
+
+    ``proposed`` is the host mechanism's decision for this pair, one of
+    ``dkmem.memory.schema.DECISIONS``. If it is a unifying decision
+    (``MERGING_DECISIONS``) and the pair is ``incompatible`` the result is
+    ``keep_both``; if ``underdetermined``, ``link_unresolved``; if
+    ``compatible``, ``proposed`` stands. Any other host decision is returned
+    unchanged. Deterministic, no model call; takes ``Extraction.distinction``
+    dicts, never gold labels.
+    """
+    if proposed not in DECISIONS:
+        raise ValueError(f"proposed must be one of {DECISIONS}, got {proposed!r}")
+    compatibility, feature, a, b = _compatibility_detail(
+        distinction_a, distinction_b, discriminative_features
+    )
+
+    if proposed not in MERGING_DECISIONS:
+        return GateResult(
+            compatibility, proposed, proposed,
+            f"{proposed} proposed by host, nothing to veto ({compatibility})",
+        )
+    if compatibility == "incompatible":
+        return GateResult(
+            compatibility, proposed, "keep_both",
+            f"vetoed {proposed}: incompatible {feature} values: {a} vs {b}",
+        )
+    if compatibility == "underdetermined":
+        marked = a if a is not None else b
+        return GateResult(
+            compatibility, proposed, "link_unresolved",
+            f"vetoed {proposed}: {feature} marked ({marked}) on one side, unmarked on the other",
+        )
+    return GateResult(compatibility, proposed, proposed, f"compatible: {proposed} allowed")
 
 
 def build_merge_event(

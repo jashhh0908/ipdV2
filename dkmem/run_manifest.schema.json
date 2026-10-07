@@ -12,6 +12,17 @@
     },
     "strategy": {
       "type": "string",
+      "enum": [
+        "mem0",
+        "a-mem",
+        "store-surface-only",
+        "embedding-threshold",
+        "raise-tau",
+        "prompt-informed-judge",
+        "flat-dense-rag",
+        "dk-mem-lexicon",
+        "dk-mem-lexicon-llm"
+      ],
       "description": "Same enum as PairwiseEvalRecord.strategy."
     },
     "backbone": {
@@ -30,6 +41,16 @@
     "created_at": {
       "type": "string",
       "format": "date-time"
+    },
+    "pipeline_config": {
+      "type": "string",
+      "enum": ["A", "B", "C", "D"],
+      "description": "Stage-attribution configuration of the host pipeline: A = English-forced extraction + English gloss + LLM judge (isolates L1); B = Mem0 default prompt + extractor output + LLM judge (L2); C = verbatim surface text + LLM judge (L3); D = verbatim surface text + embedding threshold (L4). Omitted when the run is not one of the A-D configurations."
+    },
+    "dkmem_mode": {
+      "type": "string",
+      "enum": ["off", "lexicon", "lexicon+llm"],
+      "description": "Whether the DK-Mem gate is applied: 'off' (host only), 'lexicon' (gate on, distinctions from the lexicon alone) or 'lexicon+llm' (gate on, lexicon first, model second). Must agree with strategy: dk-mem-lexicon -> 'lexicon', dk-mem-lexicon-llm -> 'lexicon+llm', any other strategy -> 'off'. Omitted in runs that predate this field."
     }
   }
 }

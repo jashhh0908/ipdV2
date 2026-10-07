@@ -50,7 +50,7 @@ class FakeGenerator:
 
     def generate(self, prompts, params=None):
         self.calls.append((prompts, params))
-        return [self.respond(p[1]["content"].removeprefix("Utterance: ")) for p in prompts]
+        return [self.respond(p[-1]["content"].removeprefix("Utterance: ")) for p in prompts]
 
 
 def model_output(utterance, gloss="user did something", distinction=None):
@@ -248,11 +248,15 @@ class TestMemoryEntryContent(unittest.TestCase):
         self.assertEqual(row.entry_a.distinction.cls, "honorific_register")
         self.assertEqual(row.entry_a.distinction.value, "tum")
 
-    def test_evidentiality_class_stays_the_same_name(self):
+    def test_kinship_class_stays_the_same_name(self):
+        row = run_episode_lexicon_only(record(), self.lex, run_id="run1")[0]
+        self.assertEqual(row.entry_a.distinction.cls, "kinship")
+        self.assertEqual(row.entry_a.distinction.value, "chachi")
+
+    def test_out_of_scope_turkish_evidential_gives_no_distinction(self):
         r = record(language="tr", utterance_a="Ali Ankara'ya gitmiş.", utterance_b="Ali Ankara'ya gitmiş.")
         row = run_episode_lexicon_only(r, self.lex, run_id="run1")[0]
-        self.assertEqual(row.entry_a.distinction.cls, "evidentiality")
-        self.assertEqual(row.entry_a.distinction.value, "reported/hearsay")
+        self.assertIsNone(row.entry_a.distinction)
 
     def test_llm_strategy_extraction_method_is_lexicon_plus_llm(self):
         gen = FakeGenerator(lambda u: model_output(u, distinction={}))

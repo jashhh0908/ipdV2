@@ -39,7 +39,7 @@ from dkmem.memory.extract import (
     parse_model_output,
     utterance_for,
 )
-from dkmem.memory.prompts import MEM0_EXTRACTION_V1, PromptTemplate, get_prompt
+from dkmem.memory.prompts import DEFAULT_EXTRACTION_PROMPT, PromptTemplate, get_prompt
 from dkmem.memory.schema import Extraction, ProbeItem, SchemaError, _ends_without_newline
 
 __all__ = [
@@ -260,7 +260,7 @@ def cached_extract_many(
     cache: ExtractionCache,
     params: GenerationParams | None = None,
     *,
-    prompt: PromptTemplate = MEM0_EXTRACTION_V1,
+    prompt: PromptTemplate = DEFAULT_EXTRACTION_PROMPT,
     backend_info: Mapping[str, Any] | None = None,
 ) -> list[Extraction]:
     """``extract_many`` that only generates cache misses and persists them.
@@ -303,7 +303,7 @@ def cached_extract(
     cache: ExtractionCache,
     params: GenerationParams | None = None,
     *,
-    prompt: PromptTemplate = MEM0_EXTRACTION_V1,
+    prompt: PromptTemplate = DEFAULT_EXTRACTION_PROMPT,
     backend_info: Mapping[str, Any] | None = None,
 ) -> Extraction:
     """Single-item ``cached_extract_many``; raises ``ExtractionError`` on bad output."""

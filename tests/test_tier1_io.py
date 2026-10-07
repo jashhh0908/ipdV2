@@ -15,7 +15,9 @@ from pathlib import Path
 from unittest.mock import patch
 
 import dkmem.tier1.io as tier1_io
+from dkmem.memory.scope import IN_SCOPE_CLASSES
 from dkmem.tier1.io import (
+    DISTINCTION_CLASSES,
     DISTINCTION_CLASS_TRANSLATION,
     TIER1_INPUT_RECORD_COUNT,
     TIER1_INPUT_SHA256,
@@ -216,12 +218,23 @@ class TestTranslateDistinction(unittest.TestCase):
         m = translate_distinction({"register": "tu"}, extraction_method="lexicon")
         self.assertEqual(m.cls, "honorific_register")
 
+    def test_translation_covers_exactly_the_in_scope_classes(self):
+        self.assertEqual(set(DISTINCTION_CLASS_TRANSLATION), set(IN_SCOPE_CLASSES))
+        self.assertEqual(set(DISTINCTION_CLASS_TRANSLATION.values()), set(DISTINCTION_CLASSES))
+
+    def test_out_of_scope_class_has_no_external_name(self):
+        for key in ("evidentiality", "classifier", "politeness", "temporal_deixis"):
+            with self.subTest(key=key), self.assertRaises(Tier1InputError):
+                translate_distinction({key: "v"}, extraction_method="lexicon")
+            with self.subTest(external=key), self.assertRaises(Tier1InputError):
+                DistinctionMarker(cls=key, value="v")
+
     def test_multiple_keys_picks_deterministically(self):
-        # "evidentiality" sorts before "kinship" alphabetically.
-        m = translate_distinction({"kinship": "chachi", "evidentiality": "reported/hearsay"},
+        # "kinship" sorts before "register" alphabetically.
+        m = translate_distinction({"register": "tu", "kinship": "chachi"},
                                   extraction_method="lexicon+llm")
-        self.assertEqual(m.cls, "evidentiality")
-        self.assertEqual(m.value, "reported/hearsay")
+        self.assertEqual(m.cls, "kinship")
+        self.assertEqual(m.value, "chachi")
 
     def test_extraction_method_passed_through(self):
         m = translate_distinction({"kinship": "chachi"}, extraction_method="lexicon+llm")
@@ -334,6 +347,43 @@ class TestWriteRunManifest(unittest.TestCase):
             data = json.loads(path.read_text(encoding="utf-8"))
             self.assertEqual(data["backbone"], "Qwen/Qwen2.5-3B-Instruct")
             self.assertEqual(data["created_at"], "2026-09-30T00:00:00Z")
+
+    def test_pipeline_config_and_dkmem_mode_written_when_given(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "run_manifest.json"
+            write_run_manifest(path, run_id="r", strategy="dk-mem-lexicon", seed=0, backbone=None,
+                               pipeline_config="D", dkmem_mode="lexicon")
+            data = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(data["pipeline_config"], "D")
+            self.assertEqual(data["dkmem_mode"], "lexicon")
+
+    def test_pipeline_config_and_dkmem_mode_omitted_by_default(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "run_manifest.json"
+            write_run_manifest(path, run_id="r", strategy="dk-mem-lexicon", seed=0, backbone=None)
+            data = json.loads(path.read_text(encoding="utf-8"))
+            self.assertNotIn("pipeline_config", data)
+            self.assertNotIn("dkmem_mode", data)
+
+    def test_rejects_unknown_pipeline_config_or_mode(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "m.json"
+            with self.assertRaises(Tier1InputError):
+                write_run_manifest(path, run_id="r", strategy="dk-mem-lexicon", seed=0,
+                                   backbone=None, pipeline_config="E")
+            with self.assertRaises(Tier1InputError):
+                write_run_manifest(path, run_id="r", strategy="dk-mem-lexicon", seed=0,
+                                   backbone=None, dkmem_mode="on")
+            self.assertFalse(path.exists())
+
+    def test_dkmem_mode_must_agree_with_strategy(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "m.json"
+            for strategy, mode in (("dk-mem-lexicon", "off"), ("dk-mem-lexicon", "lexicon+llm"),
+                                   ("dk-mem-lexicon-llm", "lexicon")):
+                with self.subTest(strategy=strategy, mode=mode), self.assertRaises(Tier1InputError):
+                    write_run_manifest(path, run_id="r", strategy=strategy, seed=0,
+                                       backbone=None, dkmem_mode=mode)
 
     def test_rejects_out_of_scope_strategy(self):
         with tempfile.TemporaryDirectory() as tmp:

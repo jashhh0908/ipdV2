@@ -1,13 +1,15 @@
-"""DK-Mem consolidation candidates and gloss similarity.
+"""DK-Mem candidate pairs and pluggable text similarity.
 
-Completes the write-side pipeline's other half:
+This module owns only the "similarity" step of
 
     ProbeItem -> (extract / dkmem_extract) -> Extraction -> similarity -> gate -> MergeEvent
 
-This module supplies the "similarity" step and the glue that turns two
-``Extraction`` records into a ``MergeEvent`` via the existing, unmodified
-``dkmem.memory.gate``. It does not touch extraction, any future memory
-store, or the gate itself.
+and imports nothing from the gate: the gate takes ``sim`` as a plain number
+(``dkmem.memory.gate``), and ``dkmem.memory.consolidation`` is the one place
+that wires a similarity metric into the gate. Swapping the placeholder metric
+for a real embedding therefore means constructing a ``SimilarityMetric`` and
+passing it in; neither the gate nor any caller of ``entry_similarity``
+changes.
 
 Candidates (not retrieval)
 --------------------------
@@ -36,10 +38,10 @@ Gloss similarity
 already-normalized glosses (``Extraction.gloss`` -- "the normalized English
 retrieval key", per its own docstring). "Pre-gating" matters: this value
 must never be clipped, rounded, or overwritten by anything the compatibility
-gate decides (Team A handoff Sec 5) -- ``evaluate_pair`` below computes it
-and passes it to the gate unchanged, and it is exactly the ``sim`` that ends
-up on the resulting ``MergeEvent``, which is what a later Tier 1 writer
-would use as ``similarity_score`` in ``pairwise_eval.jsonl``.
+gate decides (Team A handoff Sec 5) -- ``dkmem.memory.consolidation.
+evaluate_pair`` passes it to the gate unchanged, and it is exactly the ``sim``
+that ends up on the resulting ``MergeEvent`` (and, in the Tier 1 runner, as
+``similarity_score`` in ``pairwise_eval.jsonl``).
 
 The metric is a deterministic character-sequence ratio
 (``difflib.SequenceMatcher``, stdlib, no model call) over the two glosses
@@ -48,36 +50,54 @@ technique already used for ``surface_similarity`` in
 ``tests/fixtures/synthetic_fixtures.py``, now promoted to production code so
 fixtures and the real pipeline share one implementation instead of two.
 This is a deterministic stand-in, not the paper's intended embedding
-similarity (e.g. bge-m3): it is free, reproducible, and enough to exercise
-the full Extraction -> similarity -> gate -> MergeEvent flow end to end.
-Swapping in a real embedding model later only requires replacing
-``gloss_similarity``'s body -- callers (``evaluate_pair``, and anything
-downstream) do not need to change, since they only see a
-``(gloss_a, gloss_b) -> float`` contract.
+similarity (bge-m3): it is free, reproducible, and enough to exercise the
+pipeline end to end. A real embedding metric is added by wrapping its
+``(text_a, text_b) -> float`` function in a ``SimilarityMetric`` (see below);
+this placeholder is just one such metric, ``DIFFLIB_RATIO``.
+
+Pluggable metrics
+-----------------
+``SimilarityMetric`` pairs a ``name`` (so the metric used can be reported with
+results) with a ``(text_a, text_b) -> float`` function, and checks
+every score is finite and within [0, 1] -- the range ``pairwise_eval.schema.
+json`` requires. An out-of-range score raises ``SimilarityError`` instead of
+being clipped, since the reported score must stay raw: a metric such as cosine
+similarity (range [-1, 1]) has to map itself into [0, 1] explicitly.
+Metrics should be symmetric. ``entry_similarity`` applies a metric to one text
+field of two ``Extraction`` s (``gloss`` by default; ``surface`` for
+configurations that compare verbatim text).
 """
 
 from __future__ import annotations
 
 import difflib
+import math
 import re
-from typing import Sequence
+from dataclasses import dataclass
+from typing import Callable, Sequence
 
-from dkmem.memory.gate import DEFAULT_DISCRIMINATIVE_FEATURES, build_merge_event
-from dkmem.memory.schema import Extraction, MergeEvent
+from dkmem.memory.schema import Extraction
 
 __all__ = [
     "SimilarityError",
+    "SimilarityMetric",
+    "SIMILARITY_TEXT_FIELDS",
+    "DIFFLIB_RATIO",
+    "DEFAULT_SIMILARITY",
     "normalize_gloss",
     "gloss_similarity",
+    "entry_similarity",
     "candidate_pairs",
-    "evaluate_pair",
 ]
+
+SIMILARITY_TEXT_FIELDS = ("gloss", "surface")
 
 _WHITESPACE_RE = re.compile(r"\s+")
 
 
 class SimilarityError(ValueError):
-    """Two Extractions can't be validly compared (mismatched pair/run identity)."""
+    """A similarity can't be validly computed: mismatched pair/run identity, or
+    a metric returned a score outside [0, 1]."""
 
 
 def normalize_gloss(gloss: str) -> str:
@@ -108,6 +128,54 @@ def gloss_similarity(gloss_a: str, gloss_b: str) -> float:
     return difflib.SequenceMatcher(None, x, y).ratio()
 
 
+@dataclass(frozen=True)
+class SimilarityMetric:
+    """A named text-similarity function returning a score in [0, 1].
+
+    ``name`` identifies the metric (and, for a learned one, should include the
+    model) so results can record exactly what produced ``sim``. Calling the
+    metric validates the score and never clips it.
+    """
+
+    name: str
+    fn: Callable[[str, str], float]
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.name, str) or not self.name.strip():
+            raise ValueError("SimilarityMetric.name must be a non-empty string")
+        if not callable(self.fn):
+            raise TypeError("SimilarityMetric.fn must be callable")
+
+    def __call__(self, text_a: str, text_b: str) -> float:
+        score = self.fn(text_a, text_b)
+        ok = isinstance(score, (int, float)) and not isinstance(score, bool) and math.isfinite(score)
+        if not ok or not 0.0 <= score <= 1.0:
+            raise SimilarityError(
+                f"metric {self.name!r} returned {score!r}; scores must be finite and in [0, 1] "
+                "(they are reported raw, never clipped)"
+            )
+        return float(score)
+
+
+# The deterministic placeholder (see "Gloss similarity" above).
+DIFFLIB_RATIO = SimilarityMetric("difflib_ratio_v1", gloss_similarity)
+
+DEFAULT_SIMILARITY = DIFFLIB_RATIO
+
+
+def entry_similarity(
+    entry_a: Extraction,
+    entry_b: Extraction,
+    metric: SimilarityMetric = DEFAULT_SIMILARITY,
+    text_field: str = "gloss",
+) -> float:
+    """``metric`` applied to ``text_field`` of two Extractions: the raw,
+    pre-gating similarity. Nothing here depends on the gate."""
+    if text_field not in SIMILARITY_TEXT_FIELDS:
+        raise ValueError(f"text_field must be one of {SIMILARITY_TEXT_FIELDS}, got {text_field!r}")
+    return metric(getattr(entry_a, text_field), getattr(entry_b, text_field))
+
+
 def candidate_pairs(
     entries_a: Sequence[Extraction], entries_b: Sequence[Extraction]
 ) -> list[tuple[Extraction, Extraction]]:
@@ -134,51 +202,3 @@ def candidate_pairs(
             f"entries_b must all have side='b' (got {bad_b})"
         )
     return [(a, b) for a in entries_a for b in entries_b]
-
-
-def evaluate_pair(
-    entry_a: Extraction,
-    entry_b: Extraction,
-    tau: float,
-    *,
-    policy: str,
-    discriminative_features=DEFAULT_DISCRIMINATIVE_FEATURES,
-) -> MergeEvent:
-    """Compute similarity, gate it, and return the resulting ``MergeEvent``.
-
-    This is the ``Extraction -> similarity -> gate -> MergeEvent`` wiring:
-    ``sim = gloss_similarity(entry_a.gloss, entry_b.gloss)`` is computed
-    once and handed unchanged to ``dkmem.memory.gate.build_merge_event``
-    along with ``entry_a``/``entry_b``'s own ``distinction`` dicts -- neither
-    the gate nor anything else here modifies it, so it stays the raw,
-    pre-gating value the module docstring describes.
-
-    ``entry_a``/``entry_b`` must share ``backbone``, ``prompt_id`` and
-    ``seed`` (both sides of one comparison came from the same run) --
-    raises ``SimilarityError`` otherwise. ``policy`` names the merge
-    strategy being evaluated (e.g. ``"dkmem_v1"``) and is not inherent to
-    either Extraction, so it is always caller-supplied, matching
-    ``build_merge_event``'s own parameter.
-    """
-    for field in ("backbone", "prompt_id", "seed"):
-        va, vb = getattr(entry_a, field), getattr(entry_b, field)
-        if va != vb:
-            raise SimilarityError(f"entry_a.{field} ({va!r}) != entry_b.{field} ({vb!r})")
-    if entry_a.pair_id != entry_b.pair_id:
-        raise SimilarityError(
-            f"entry_a.pair_id ({entry_a.pair_id!r}) != entry_b.pair_id ({entry_b.pair_id!r})"
-        )
-
-    sim = gloss_similarity(entry_a.gloss, entry_b.gloss)
-    return build_merge_event(
-        entry_a.pair_id,
-        entry_a.distinction,
-        entry_b.distinction,
-        sim=sim,
-        tau=tau,
-        policy=policy,
-        backbone=entry_a.backbone,
-        seed=entry_a.seed,
-        prompt_id=entry_a.prompt_id,
-        discriminative_features=discriminative_features,
-    )

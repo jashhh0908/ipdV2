@@ -1,8 +1,8 @@
 # Distinction lexicon format
 
 `distinction_features.json` is a static, hand-curated table used by the
-DK-Mem "lexicon-first" extractor described in `research_idea_context.md`
-Sec 4(a): a deterministic dictionary that maps a *surface marker* in a
+DK-Mem "lexicon-first" extractor described in `DKMEM_NEW_RESEARCH_IDEA.md`
+Sec 5.3: a deterministic dictionary that maps a *surface marker* in a
 source-language utterance (a word, prefix, suffix, or pattern) to the
 `Extraction.distinction` key/value it implies, without calling a model.
 
@@ -12,10 +12,12 @@ validates the JSON into `LexiconEntry`/`Lexicon` objects. It does **not**
 scan an utterance for matches; that matcher is a separate, later piece of
 work that will consume the `Lexicon` this file loads.
 
-The current file (v1) is the pilot-reviewed core: 12 Hindi kinship terms,
-Hindi register `tu`/`tum`/`aap`, and Turkish `-mIş` evidentiality — see the
-file's own `description` field for exactly what it covers and what it
-deliberately leaves out.
+The current file (v1) is the pilot-reviewed core: 12 Hindi kinship terms and
+Hindi register `tu`/`tum`/`aap` (15 entries). It follows the current scope
+(`dkmem/memory/scope.py`: kinship, register, name_variant); the earlier Turkish
+`-mIş` evidentiality entry was removed because evidentiality is out of scope.
+The Kinbank-generated kinship slice and name-variant entries are still to come
+— see the file's own `description` field.
 
 ## Top-level shape
 
@@ -68,14 +70,14 @@ token per whitespace-delimited chunk.
   a pronoun like Hindi `"tu"`).
 - **`prefix`** — a token starts with the marker.
 - **`suffix`** — a token ends with the marker. This is the usual choice for
-  verb/case endings (evidentiality, politeness). The matcher additionally
+  verb/case endings. The matcher additionally
   requires at least 2 characters of token before the suffix, so the bare
   suffix alone (or a 1-character remainder) never counts as a match — see
   "Suffix stem-length guard" in `matcher.py`'s docstring. This is a
   mechanical safeguard, not morphological validation: it cannot tell a
   genuine verbal use of a suffix from an unrelated grammatical use that
-  happens to share the same ending (see the Turkish `-mIş` entry's own
-  `notes` for a concrete case).
+  happens to share the same ending (e.g. a Turkish `-mIş` participle that
+  is not reported speech).
 - **`regex`** — the marker is a regular expression, tested against a token
   with `re.search`. Use this when a simple prefix/suffix isn't enough (e.g.
   a counter word that follows a numeral). `^`/`$` anchor to the token's
@@ -90,32 +92,34 @@ case-folding — add `(?i)` yourself if you want that.
 
 ## Distinction classes
 
-`distinction_class` is deliberately **not** a closed enum in the loader —
-DK-Mem may need classes the current Mem0-style baseline prompts don't use
-(e.g. spatial deixis). The classes already used by the rest of the pipeline
-(`dkmem/memory/extract.py`'s `DISTINCTION_KEYS`, and the fixtures in
-`tests/fixtures/`) are:
+`distinction_class` is deliberately **not** a closed enum in the loader, so
+the format can hold any snake_case class. What the project actually uses is set
+by `dkmem/memory/scope.py`:
 
-- `kinship`, `register`, `politeness`, `evidentiality`, `classifier`,
-  `temporal_deixis`
+- **In scope:** `kinship` (primary), `register` (honorific/register) and
+  `name_variant` (secondary). Of these, `kinship` and `register` are the
+  cannot-link classes the gate compares (`DISCRIMINATIVE_CLASSES`).
+- **Out of scope** (dropped from the core plan): `politeness`,
+  `evidentiality`, `classifier`, `temporal_deixis`. Do not add entries for them
+  to the shipped file; `tests/test_lexicon.py` checks that the real file
+  contains only in-scope classes.
 
-**`name_variant` is out of scope for this lexicon.** A person's name is an
-open vocabulary; recognizing one and its script is a
-script-detection/NER problem, not a dictionary lookup, so don't add
-`name_variant` entries here.
+`name_variant` is in scope but has **no entries yet**. A person's name is an
+open vocabulary, so how a dictionary should cover it (and what a mismatch
+between two variants of a name should do at merge time) is still undecided.
 
-If you introduce a new class (e.g. `spatial_deixis` for Hindi
-*yeh/woh*), just start using it — the loader accepts any snake_case name.
-Tell the extraction-pipeline maintainer so `DISTINCTION_KEYS` in
-`extract.py` can allow it once a prompt/matcher actually produces it.
+If you need a new class, tell the extraction-pipeline maintainer: the key sets
+in `dkmem/memory/extract.py` (`DISTINCTION_KEYS`) and `dkmem/memory/scope.py`
+must allow it before a prompt or the gate can use it.
 
 ## Closed-vocabulary classes
 
 For `politeness`, `evidentiality`, and `temporal_deixis`, `extract.py`
-already restricts the model's own output to a fixed value set
-(`CLOSED_DISTINCTION_VALUES`). The lexicon loader enforces the *same* sets,
-so a lexicon entry can never produce a value the rest of the pipeline would
-reject:
+restricts the model's output to a fixed value set (`CLOSED_DISTINCTION_VALUES`)
+under the legacy prompts `mem0_extraction_v1`-`v3`. These classes are now out
+of scope (the current default prompt, v4, does not allow them), but the
+lexicon loader still enforces the *same* sets for any entry that uses them, so
+a lexicon entry can never produce a value those prompts would reject:
 
 | `distinction_class` | allowed `value`s |
 |---|---|
@@ -123,12 +127,11 @@ reject:
 | `evidentiality` | `"direct/confirmed"`, `"reported/hearsay"` |
 | `temporal_deixis` | `"yesterday"`, `"tomorrow"` |
 
-All other classes (`kinship`, `register`, `classifier`, and any new class
-you add) take free-text values — see `dkmem/memory/prompts.py` for the
-value conventions the extraction prompts already use for these (e.g.
-`classifier` values like `"cup"`, `"long-object"`, `"flat-object"`; `kinship`
-values are the romanized source word, or its English translation when
-English has an exact equivalent).
+All other classes (`kinship`, `register`, and any new class you add) take
+free-text values — see `dkmem/memory/prompts.py` for the value conventions the
+extraction prompts already use (`kinship` values are the romanized source word,
+or its English translation when English has an exact equivalent; `register`
+values are the romanized second-person pronoun).
 
 ## Conflict and duplicate rules
 
@@ -156,6 +159,9 @@ isolation:
   "notes": "Maternal uncle (mother's brother). No single-word English equivalent, so the value is the romanized source term, matching prompts.py's kinship convention."
 }
 ```
+
+A `suffix` entry (format illustration only: politeness is out of scope, so this
+entry is not in the shipped file):
 
 ```json
 {
@@ -199,9 +205,9 @@ tokenization and tie-break rules.
 
 ## What this format does *not* cover yet
 
-- `name_variant` (see above) — not handled by the lexicon or the matcher.
+- `name_variant` entries (see above) — in scope, not populated, and no
+  matching approach is decided.
 - Anything that needs sentence-level context to disambiguate, such as
-  Hindi *kal*'s yesterday/tomorrow reading (which also depends on verb
-  tense, not just the word itself). Model this as a `temporal_deixis` entry
-  for the word plus a note explaining the tense dependency; the matcher is
-  deliberately context-free and cannot resolve that dependency itself.
+  Hindi *kal*'s yesterday/tomorrow reading (which depends on verb tense, not
+  just the word itself). That case is out of scope for the project; the
+  matcher is deliberately context-free and cannot resolve such dependencies.

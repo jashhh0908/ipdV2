@@ -52,9 +52,9 @@ class TestExtractLexiconOnly(unittest.TestCase):
         ext = extract_lexicon_only("p1", "a", "मेरी चाची मुंबई में रहती है", "hi", self.lex, seed=0)
         self.assertEqual(ext.distinction, {"kinship": "chachi"})
 
-    def test_turkish_suffix_matched(self):
+    def test_turkish_evidential_suffix_not_matched_out_of_scope(self):
         ext = extract_lexicon_only("p1", "a", "Ali Ankara'ya gitmiş.", "tr", self.lex, seed=0)
-        self.assertEqual(ext.distinction, {"evidentiality": "reported/hearsay"})
+        self.assertEqual(ext.distinction, {})
 
     def test_code_mixed_lang_checks_both_components(self):
         ext = extract_lexicon_only("p1", "a", "meri chachi call kiya", "hi-en", self.lex, seed=0)

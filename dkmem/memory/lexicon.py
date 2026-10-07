@@ -5,7 +5,7 @@ hand-curated table mapping source-language surface markers (kinship terms,
 address pronouns, evidential suffixes, classifier/counter words, politeness
 endings, deixis words, ...) to the ``Extraction.distinction`` key/value they
 imply. It is the "lexicon" half of the lexicon-first, model-second cascade
-described in research_idea_context.md Sec 4(a): a deterministic dictionary
+described in DKMEM_NEW_RESEARCH_IDEA.md Sec 5.3: a deterministic dictionary
 lookup meant to cover the common/closed-class cases cheaply, before any model
 call is needed for the rest.
 
@@ -15,9 +15,12 @@ against an utterance -- scanning text for hits and building an
 ``Extraction.distinction`` dict is the DK-Mem extractor's job, built
 separately on top of the ``Lexicon`` this module returns.
 
-Out of scope for this lexicon: ``name_variant`` entries. A person's name is
-an open vocabulary; identifying it is a script-detection/NER problem, not a
-dictionary lookup, so it is not modeled here.
+Current content and scope: Hindi kinship and register entries, matching the
+in-scope classes in ``dkmem.memory.scope``. The loader itself accepts any
+snake_case ``distinction_class``; keeping the file in scope is checked by
+tests, not enforced here. ``name_variant`` is in scope for the project but has
+no entries yet: a person's name is an open vocabulary, so whether and how a
+dictionary covers it is undecided.
 
 See ``dkmem/memory/distinction_features.md`` for the field-by-field format
 and instructions for populating the JSON file.

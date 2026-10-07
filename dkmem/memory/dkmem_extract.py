@@ -2,7 +2,7 @@
 
 Combines the deterministic ``dkmem.memory.matcher`` with the existing,
 **unmodified** Mem0/Qwen baseline extractor (``dkmem.memory.extract``), per
-research_idea_context.md Sec 4(a):
+DKMEM_NEW_RESEARCH_IDEA.md Sec 5.3:
 
     1. Run the frozen baseline extraction (``extract``/``extract_many``, or
        their ``cached_extract``/``cached_extract_many`` wrappers) exactly as
@@ -21,7 +21,7 @@ research_idea_context.md Sec 4(a):
        - the lexicon found more than one *different* candidate value for
          the class (a real conflict on this utterance, not the same value
          confirmed twice) -> this is the "ambiguous" case in
-         research_idea_context.md Sec 4(a) ("a small LLM call only for
+         DKMEM_NEW_RESEARCH_IDEA.md Sec 5.3 ("a small LLM call only for
          spans the lexicon flags as ambiguous"): the lexicon's own
          tie-broken guess (from ``match_distinctions``) is set aside and
          the model's value is kept instead;
@@ -62,7 +62,7 @@ from dkmem.memory.cache import ExtractionCache, cached_extract_many
 from dkmem.memory.extract import TextGenerator, _parse_lang_tag, extract_many
 from dkmem.memory.lexicon import Lexicon
 from dkmem.memory.matcher import find_matches, match_distinctions
-from dkmem.memory.prompts import MEM0_EXTRACTION_V1, PromptTemplate
+from dkmem.memory.prompts import DEFAULT_EXTRACTION_PROMPT, PromptTemplate
 from dkmem.memory.schema import Extraction, ProbeItem
 
 __all__ = [
@@ -139,7 +139,7 @@ def dkmem_extract_many(
     cache: ExtractionCache | None = None,
     params: GenerationParams | None = None,
     *,
-    prompt: PromptTemplate = MEM0_EXTRACTION_V1,
+    prompt: PromptTemplate = DEFAULT_EXTRACTION_PROMPT,
     backend_info: Mapping[str, Any] | None = None,
 ) -> list[Extraction]:
     """Baseline-extract ``items`` (cached if ``cache`` is given, else not),
@@ -172,7 +172,7 @@ def dkmem_extract(
     cache: ExtractionCache | None = None,
     params: GenerationParams | None = None,
     *,
-    prompt: PromptTemplate = MEM0_EXTRACTION_V1,
+    prompt: PromptTemplate = DEFAULT_EXTRACTION_PROMPT,
     backend_info: Mapping[str, Any] | None = None,
 ) -> Extraction:
     """Single-item ``dkmem_extract_many``."""

@@ -14,6 +14,7 @@ from dkmem.memory.lexicon import (
     LexiconError,
     load_lexicon,
 )
+from dkmem.memory.scope import IN_SCOPE_CLASSES
 
 LEXICON_PATH = Path(__file__).parent.parent / "dkmem" / "memory" / "distinction_features.json"
 
@@ -46,8 +47,8 @@ def write_tmp(data):
 
 class TestRealLexiconFile(unittest.TestCase):
     """dkmem/memory/distinction_features.json (the pilot-reviewed lexicon,
-    v1: 12 Hindi kinship terms, hi register tu/tum/aap, Turkish -mIş
-    evidentiality) must load cleanly and have exactly this shape."""
+    v1: 12 Hindi kinship terms and hi register tu/tum/aap) must load cleanly
+    and have exactly this shape."""
 
     KINSHIP_VALUES = {
         "tau", "chacha", "tai", "chachi", "mama", "mausa",
@@ -57,12 +58,18 @@ class TestRealLexiconFile(unittest.TestCase):
 
     def test_loads(self):
         lex = load_lexicon(LEXICON_PATH)
-        self.assertEqual(len(lex), 16)
+        self.assertEqual(len(lex), 15)
 
     def test_classes_and_langs(self):
         lex = load_lexicon(LEXICON_PATH)
-        self.assertEqual(lex.distinction_classes, {"kinship", "register", "evidentiality"})
-        self.assertEqual(lex.langs, {"hi", "tr"})
+        self.assertEqual(lex.distinction_classes, {"kinship", "register"})
+        self.assertEqual(lex.langs, {"hi"})
+
+    def test_only_in_scope_classes(self):
+        # The loader accepts any class; this keeps the shipped file within the
+        # current scope (dkmem.memory.scope).
+        lex = load_lexicon(LEXICON_PATH)
+        self.assertLessEqual(lex.distinction_classes, IN_SCOPE_CLASSES)
 
     def test_kinship_entries(self):
         lex = load_lexicon(LEXICON_PATH)
@@ -77,17 +84,12 @@ class TestRealLexiconFile(unittest.TestCase):
         self.assertEqual(len(register), 3)
         self.assertEqual({e.value for e in register}, self.REGISTER_VALUES)
 
-    def test_evidentiality_entry(self):
-        lex = load_lexicon(LEXICON_PATH)
-        (mis,) = lex.for_lang_class("tr", "evidentiality")
-        self.assertEqual(mis.match_type, "suffix")
-        self.assertEqual(mis.value, "reported/hearsay")
-        self.assertEqual(set(mis.surface_forms), {"mış", "miş", "muş", "müş"})
-
     def test_no_unrelated_language_or_class(self):
         lex = load_lexicon(LEXICON_PATH)
         self.assertEqual(lex.for_lang_class("fr", "register"), ())
         self.assertEqual(lex.for_lang_class("ja", "classifier"), ())
+        # Evidentiality (the former Turkish -mIş entry) is out of scope.
+        self.assertEqual(lex.for_lang_class("tr", "evidentiality"), ())
 
     def test_every_hi_entry_has_latin_and_devanagari_forms(self):
         lex = load_lexicon(LEXICON_PATH)

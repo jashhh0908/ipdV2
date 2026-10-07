@@ -36,19 +36,21 @@ does not implement supersede detection.
 
 Distinction translation (``MemoryEntry.distinction``): the external schema
 wants *one* ``{class, value, script, extraction_method}`` object per entry,
-using its own 7-class enum, not ``Extraction.distinction``'s internal
-``dict[str, str]`` (which can hold several class/value pairs at once, and
-uses different names for 4 of the 7 classes: ``register`` ->
-``honorific_register``, ``classifier`` -> ``classifier_measure``,
-``politeness`` -> ``politeness_relationship``, ``temporal_deixis`` ->
-``spatial_temporal_deixis``; ``kinship``/``evidentiality``/``name_variant``
-are unchanged). ``dkmem.memory.gate`` keeps gating on the full internal
+using its own class enum, not ``Extraction.distinction``'s internal
+``dict[str, str]`` (which can hold several class/value pairs at once). The
+enum covers only the in-scope classes (``dkmem.memory.scope``): ``kinship`` and
+``name_variant`` keep their names, and ``register`` is reported as
+``honorific_register``. ``dkmem.memory.gate`` keeps gating on the full internal
 dict, unchanged -- this translation only affects what gets *reported* per
 entry. When an entry's distinction dict has more than one key (e.g. a
 sentence marking both kinship and register), only one is reported, chosen
 deterministically (the alphabetically-first internal key) -- a limitation
 of this serialization, not of the gate's own (unaffected) decision, which
 still considers every key.
+
+Run manifest: besides the base fields, ``write_run_manifest`` can record the
+stage-attribution configuration (``pipeline_config``, "A"-"D") and the DK-Mem
+mode (``dkmem_mode``: "off", "lexicon", "lexicon+llm"); see ``dkmem.config``.
 """
 
 from __future__ import annotations
@@ -60,6 +62,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from dkmem.config import DKMEM_MODES, PIPELINE_CONFIG_IDS, dkmem_mode_for_strategy
 from dkmem.memory.gate import COMPATIBILITY
 
 __all__ = [
@@ -85,7 +88,8 @@ __all__ = [
 TIER1_INPUT_SHA256 = "eab5dcb23375eb2e744c72a98cb31c25da0171b2ba3297a0843574ed9a34cd07"
 TIER1_INPUT_RECORD_COUNT = 173
 
-# This task's scope only; the full Team B list has 9 strategies.
+# The strategies this package implements. The full contract list (the
+# ``strategy`` enum in both JSON schemas) is ``dkmem.config.STRATEGIES``.
 TIER1_STRATEGIES = ("dk-mem-lexicon", "dk-mem-lexicon-llm")
 
 PAIRWISE_DECISIONS = ("merge", "no_merge", "supersede", "underdetermined_link")
@@ -98,28 +102,20 @@ DECISION_TRANSLATION = {
     "link_unresolved": "underdetermined_link",
 }
 
-# pairwise_eval.schema.json's MemoryEntry.distinction.class enum.
+# pairwise_eval.schema.json's MemoryEntry.distinction.class enum (in-scope
+# classes only; see dkmem.memory.scope).
 DISTINCTION_CLASSES = (
     "kinship",
     "honorific_register",
     "name_variant",
-    "evidentiality",
-    "classifier_measure",
-    "politeness_relationship",
-    "spatial_temporal_deixis",
 )
 
-# Internal distinction key (dkmem.memory.extract.DISTINCTION_KEYS /
-# dkmem.memory.gate.DEFAULT_DISCRIMINATIVE_FEATURES) -> external class name.
-# A 1:1, onto mapping: every internal key has exactly one external name.
+# Internal distinction key (dkmem.memory.scope.IN_SCOPE_CLASSES) -> external
+# class name. A 1:1, onto mapping.
 DISTINCTION_CLASS_TRANSLATION = {
     "kinship": "kinship",
     "register": "honorific_register",
     "name_variant": "name_variant",
-    "evidentiality": "evidentiality",
-    "classifier": "classifier_measure",
-    "politeness": "politeness_relationship",
-    "temporal_deixis": "spatial_temporal_deixis",
 }
 
 EXTRACTION_METHODS = ("lexicon", "lexicon+llm")
@@ -409,9 +405,15 @@ def write_run_manifest(
     seed: int,
     backbone: str | None,
     created_at: str | None = None,
+    pipeline_config: str | None = None,
+    dkmem_mode: str | None = None,
 ) -> None:
     """Write ``run_manifest.json``. ``backbone`` is ``None`` (JSON ``null``)
     only for a strategy with no LLM stage.
+
+    ``pipeline_config`` ("A"-"D") and ``dkmem_mode`` ("off", "lexicon",
+    "lexicon+llm") are written only when given. ``dkmem_mode`` must agree with
+    ``strategy`` (``dkmem.config.dkmem_mode_for_strategy``).
     """
     if strategy not in TIER1_STRATEGIES:
         raise Tier1InputError(f"strategy must be one of {TIER1_STRATEGIES}, got {strategy!r}")
@@ -422,6 +424,16 @@ def write_run_manifest(
             datetime.fromisoformat(created_at.replace("Z", "+00:00"))
         except ValueError as e:
             raise Tier1InputError(f"created_at must be an RFC 3339 date-time, got {created_at!r}: {e}") from e
+    if pipeline_config is not None and pipeline_config not in PIPELINE_CONFIG_IDS:
+        raise Tier1InputError(f"pipeline_config must be one of {PIPELINE_CONFIG_IDS}, got {pipeline_config!r}")
+    if dkmem_mode is not None:
+        if dkmem_mode not in DKMEM_MODES:
+            raise Tier1InputError(f"dkmem_mode must be one of {DKMEM_MODES}, got {dkmem_mode!r}")
+        implied = dkmem_mode_for_strategy(strategy)
+        if dkmem_mode != implied:
+            raise Tier1InputError(
+                f"dkmem_mode {dkmem_mode!r} contradicts strategy {strategy!r} (which implies {implied!r})"
+            )
     manifest = {
         "run_id": run_id,
         "strategy": strategy,
@@ -431,6 +443,10 @@ def write_run_manifest(
     }
     if created_at is not None:
         manifest["created_at"] = created_at
+    if pipeline_config is not None:
+        manifest["pipeline_config"] = pipeline_config
+    if dkmem_mode is not None:
+        manifest["dkmem_mode"] = dkmem_mode
     Path(path).write_text(
         json.dumps(manifest, ensure_ascii=False, allow_nan=False, indent=2), encoding="utf-8"
     )

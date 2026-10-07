@@ -211,6 +211,49 @@ class HFGenerator:
         device_name = torch.cuda.get_device_name(torch.device(config.device)) if is_cuda else "cpu"
         return cls(model, tokenizer, config, device_name=device_name)
 
+    @classmethod
+    def load_sharded(
+        cls, config: ModelConfig | None = None, *, max_memory: dict[int, str] | None = None
+    ) -> "HFGenerator":
+        """Like ``load``, but the weights are split over the visible GPUs.
+
+        For a model that does not fit one T4 in fp16 (Qwen2.5-7B-Instruct, ~15 GB).
+        Same dtype, tokenizer handling and generation-config reset as ``load``, so
+        decoding is unchanged; only the placement differs. ``config.device`` is
+        ignored. With two or more GPUs and no ``max_memory`` given, GPU 0 is
+        capped at 10 GiB and GPU 1 at 12 GiB (this leaves room for activations on
+        2 x T4); this is the recipe the Config B pre-freeze runs used for the 7B.
+        """
+        import torch
+        from transformers import AutoModelForCausalLM, AutoTokenizer
+        from transformers import GenerationConfig as HFGenerationConfig
+
+        config = config or ModelConfig()
+        n_gpu = torch.cuda.device_count()
+        if n_gpu < 1:
+            raise RuntimeError("load_sharded needs at least one CUDA device")
+        if max_memory is None and n_gpu >= 2:
+            max_memory = {0: "10GiB", 1: "12GiB"}
+
+        tokenizer = AutoTokenizer.from_pretrained(config.model_id, revision=config.revision)
+        tokenizer.padding_side = "left"
+        if tokenizer.pad_token is None:
+            tokenizer.pad_token = tokenizer.eos_token
+        kwargs: dict[str, Any] = dict(_dtype_kwarg(getattr(torch, config.dtype)))
+        if max_memory is not None:
+            kwargs["max_memory"] = max_memory
+        model = AutoModelForCausalLM.from_pretrained(
+            config.model_id, revision=config.revision, device_map="auto", **kwargs
+        )
+        model.eval()
+        shipped = model.generation_config
+        model.generation_config = HFGenerationConfig(
+            bos_token_id=shipped.bos_token_id,
+            eos_token_id=shipped.eos_token_id,
+            pad_token_id=tokenizer.pad_token_id,
+        )
+        return cls(model, tokenizer, config, device_name=f"{n_gpu}x {torch.cuda.get_device_name(0)} (sharded)")
+
     @property
     def backbone(self) -> str:
         """Backbone identifier for ``Extraction.backbone`` / ``MergeEvent.backbone``."""

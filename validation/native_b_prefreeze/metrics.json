@@ -1,0 +1,1457 @@
+{
+ "models": {
+  "Qwen2.5-1.5B-Instruct": {
+   "sides": 346,
+   "parsed": {
+    "k": 346,
+    "n": 346,
+    "rate": 1.0,
+    "ci95": [
+     0.989,
+     1.0
+    ]
+   },
+   "exactly_one_fact": {
+    "k": 344,
+    "n": 346,
+    "rate": 0.994,
+    "ci95": [
+     0.979,
+     0.998
+    ]
+   },
+   "exact_copy": {
+    "k": 17,
+    "n": 346,
+    "rate": 0.049,
+    "ci95": [
+     0.031,
+     0.077
+    ]
+   },
+   "copy_ignoring_case_punct_space": {
+    "k": 21,
+    "n": 346,
+    "rate": 0.061,
+    "ci95": [
+     0.04,
+     0.091
+    ]
+   },
+   "hand_language_counts": {
+    "E": 319,
+    "M": 1,
+    "S": 25,
+    "T": 1
+   },
+   "language_drift_E_O_N": {
+    "k": 319,
+    "n": 346,
+    "rate": 0.922,
+    "ci95": [
+     0.889,
+     0.946
+    ]
+   },
+   "language_drift_to_English_E": {
+    "k": 319,
+    "n": 346,
+    "rate": 0.922,
+    "ci95": [
+     0.889,
+     0.946
+    ]
+   },
+   "script_drift_same_language_T": {
+    "k": 1,
+    "n": 346,
+    "rate": 0.003,
+    "ci95": [
+     0.001,
+     0.016
+    ]
+   },
+   "mixed_M": {
+    "k": 1,
+    "n": 346,
+    "rate": 0.003,
+    "ci95": [
+     0.001,
+     0.016
+    ]
+   },
+   "source_language_and_script_kept_S": {
+    "k": 25,
+    "n": 346,
+    "rate": 0.072,
+    "ci95": [
+     0.049,
+     0.104
+    ]
+   },
+   "any_departure_from_instruction": {
+    "k": 321,
+    "n": 346,
+    "rate": 0.928,
+    "ci95": [
+     0.896,
+     0.951
+    ]
+   },
+   "corruption_any": {
+    "k": 257,
+    "n": 346,
+    "rate": 0.743,
+    "ci95": [
+     0.694,
+     0.786
+    ]
+   },
+   "corruption_types_count": {
+    "g": 2,
+    "i": 1,
+    "m": 220,
+    "o": 56
+   },
+   "corruption_excluding_omission_only": {
+    "k": 222,
+    "n": 346,
+    "rate": 0.642,
+    "ci95": [
+     0.59,
+     0.69
+    ]
+   },
+   "drift_x_corruption": {
+    "language_drift|clean": 65,
+    "language_drift|corrupt": 254,
+    "mixed|corrupt": 1,
+    "script_changed|clean": 1,
+    "source|clean": 23,
+    "source|corrupt": 2
+   },
+   "classifier_v2_label_rates": {
+    "source_language": {
+     "k": 29,
+     "n": 346,
+     "rate": 0.084,
+     "ci95": [
+      0.059,
+      0.118
+     ]
+    },
+    "translated_to_english": {
+     "k": 297,
+     "n": 346,
+     "rate": 0.858,
+     "ci95": [
+      0.818,
+      0.891
+     ]
+    },
+    "mixed": {
+     "k": 19,
+     "n": 346,
+     "rate": 0.055,
+     "ci95": [
+      0.035,
+      0.084
+     ]
+    },
+    "script_changed": {
+     "k": 1,
+     "n": 346,
+     "rate": 0.003,
+     "ci95": [
+      0.001,
+      0.016
+     ]
+    },
+    "undetermined": {
+     "k": 0,
+     "n": 346,
+     "rate": 0.0,
+     "ci95": [
+      -0.0,
+      0.011
+     ]
+    }
+   },
+   "classifier_v1_label_rates": {
+    "source_language": {
+     "k": 60,
+     "n": 346,
+     "rate": 0.173,
+     "ci95": [
+      0.137,
+      0.217
+     ]
+    },
+    "translated_to_english": {
+     "k": 198,
+     "n": 346,
+     "rate": 0.572,
+     "ci95": [
+      0.52,
+      0.623
+     ]
+    },
+    "mixed": {
+     "k": 88,
+     "n": 346,
+     "rate": 0.254,
+     "ci95": [
+      0.211,
+      0.303
+     ]
+    },
+    "script_changed": {
+     "k": 0,
+     "n": 346,
+     "rate": 0.0,
+     "ci95": [
+      -0.0,
+      0.011
+     ]
+    },
+    "undetermined": {
+     "k": 0,
+     "n": 346,
+     "rate": 0.0,
+     "ci95": [
+      -0.0,
+      0.011
+     ]
+    }
+   },
+   "kinship_sides": 118,
+   "kinship_preserved_as_written": {
+    "k": 36,
+    "n": 118,
+    "rate": 0.305,
+    "ci95": [
+     0.229,
+     0.393
+    ]
+   },
+   "lexicon_kinship_sides": 76,
+   "lexicon_kinship_preserved": {
+    "k": 15,
+    "n": 76,
+    "rate": 0.197,
+    "ci95": [
+     0.123,
+     0.3
+    ]
+   },
+   "kinship_lost_by_cause": {
+    "translated": 81,
+    "other": 1
+   },
+   "by_language": {
+    "de": {
+     "sides": 12,
+     "source_kept_S": 1,
+     "language_drift_E_O_N": 11,
+     "script_changed_T": 0,
+     "mixed_M": 0,
+     "corrupt": 5,
+     "exact_copy": 1
+    },
+    "hi": {
+     "sides": 290,
+     "source_kept_S": 19,
+     "language_drift_E_O_N": 269,
+     "script_changed_T": 1,
+     "mixed_M": 1,
+     "corrupt": 243,
+     "exact_copy": 14
+    },
+    "ko": {
+     "sides": 24,
+     "source_kept_S": 3,
+     "language_drift_E_O_N": 21,
+     "script_changed_T": 0,
+     "mixed_M": 0,
+     "corrupt": 8,
+     "exact_copy": 0
+    },
+    "tr": {
+     "sides": 20,
+     "source_kept_S": 2,
+     "language_drift_E_O_N": 18,
+     "script_changed_T": 0,
+     "mixed_M": 0,
+     "corrupt": 1,
+     "exact_copy": 2
+    }
+   },
+   "format_leaks_Utterance_prefix": 0
+  },
+  "Qwen2.5-3B-Instruct": {
+   "sides": 346,
+   "parsed": {
+    "k": 346,
+    "n": 346,
+    "rate": 1.0,
+    "ci95": [
+     0.989,
+     1.0
+    ]
+   },
+   "exactly_one_fact": {
+    "k": 346,
+    "n": 346,
+    "rate": 1.0,
+    "ci95": [
+     0.989,
+     1.0
+    ]
+   },
+   "exact_copy": {
+    "k": 190,
+    "n": 346,
+    "rate": 0.549,
+    "ci95": [
+     0.496,
+     0.601
+    ]
+   },
+   "copy_ignoring_case_punct_space": {
+    "k": 248,
+    "n": 346,
+    "rate": 0.717,
+    "ci95": [
+     0.667,
+     0.762
+    ]
+   },
+   "hand_language_counts": {
+    "E": 24,
+    "S": 305,
+    "O": 4,
+    "M": 2,
+    "T": 9,
+    "N": 2
+   },
+   "language_drift_E_O_N": {
+    "k": 30,
+    "n": 346,
+    "rate": 0.087,
+    "ci95": [
+     0.061,
+     0.121
+    ]
+   },
+   "language_drift_to_English_E": {
+    "k": 24,
+    "n": 346,
+    "rate": 0.069,
+    "ci95": [
+     0.047,
+     0.101
+    ]
+   },
+   "script_drift_same_language_T": {
+    "k": 9,
+    "n": 346,
+    "rate": 0.026,
+    "ci95": [
+     0.014,
+     0.049
+    ]
+   },
+   "mixed_M": {
+    "k": 2,
+    "n": 346,
+    "rate": 0.006,
+    "ci95": [
+     0.002,
+     0.021
+    ]
+   },
+   "source_language_and_script_kept_S": {
+    "k": 305,
+    "n": 346,
+    "rate": 0.882,
+    "ci95": [
+     0.843,
+     0.911
+    ]
+   },
+   "any_departure_from_instruction": {
+    "k": 41,
+    "n": 346,
+    "rate": 0.118,
+    "ci95": [
+     0.089,
+     0.157
+    ]
+   },
+   "corruption_any": {
+    "k": 62,
+    "n": 346,
+    "rate": 0.179,
+    "ci95": [
+     0.142,
+     0.223
+    ]
+   },
+   "corruption_types_count": {
+    "g": 22,
+    "i": 1,
+    "m": 36,
+    "o": 20
+   },
+   "corruption_excluding_omission_only": {
+    "k": 44,
+    "n": 346,
+    "rate": 0.127,
+    "ci95": [
+     0.096,
+     0.166
+    ]
+   },
+   "drift_x_corruption": {
+    "language_drift|clean": 11,
+    "language_drift|corrupt": 19,
+    "mixed|clean": 2,
+    "script_changed|clean": 3,
+    "script_changed|corrupt": 6,
+    "source|clean": 268,
+    "source|corrupt": 37
+   },
+   "classifier_v2_label_rates": {
+    "source_language": {
+     "k": 303,
+     "n": 346,
+     "rate": 0.876,
+     "ci95": [
+      0.837,
+      0.906
+     ]
+    },
+    "translated_to_english": {
+     "k": 30,
+     "n": 346,
+     "rate": 0.087,
+     "ci95": [
+      0.061,
+      0.121
+     ]
+    },
+    "mixed": {
+     "k": 4,
+     "n": 346,
+     "rate": 0.012,
+     "ci95": [
+      0.005,
+      0.029
+     ]
+    },
+    "script_changed": {
+     "k": 9,
+     "n": 346,
+     "rate": 0.026,
+     "ci95": [
+      0.014,
+      0.049
+     ]
+    },
+    "undetermined": {
+     "k": 0,
+     "n": 346,
+     "rate": 0.0,
+     "ci95": [
+      -0.0,
+      0.011
+     ]
+    }
+   },
+   "classifier_v1_label_rates": {
+    "source_language": {
+     "k": 314,
+     "n": 346,
+     "rate": 0.908,
+     "ci95": [
+      0.872,
+      0.934
+     ]
+    },
+    "translated_to_english": {
+     "k": 20,
+     "n": 346,
+     "rate": 0.058,
+     "ci95": [
+      0.038,
+      0.088
+     ]
+    },
+    "mixed": {
+     "k": 12,
+     "n": 346,
+     "rate": 0.035,
+     "ci95": [
+      0.02,
+      0.06
+     ]
+    },
+    "script_changed": {
+     "k": 0,
+     "n": 346,
+     "rate": 0.0,
+     "ci95": [
+      -0.0,
+      0.011
+     ]
+    },
+    "undetermined": {
+     "k": 0,
+     "n": 346,
+     "rate": 0.0,
+     "ci95": [
+      -0.0,
+      0.011
+     ]
+    }
+   },
+   "kinship_sides": 118,
+   "kinship_preserved_as_written": {
+    "k": 115,
+    "n": 118,
+    "rate": 0.975,
+    "ci95": [
+     0.928,
+     0.991
+    ]
+   },
+   "lexicon_kinship_sides": 76,
+   "lexicon_kinship_preserved": {
+    "k": 75,
+    "n": 76,
+    "rate": 0.987,
+    "ci95": [
+     0.929,
+     0.998
+    ]
+   },
+   "kinship_lost_by_cause": {
+    "translated": 2,
+    "garbled": 1
+   },
+   "by_language": {
+    "de": {
+     "sides": 12,
+     "source_kept_S": 12,
+     "language_drift_E_O_N": 0,
+     "script_changed_T": 0,
+     "mixed_M": 0,
+     "corrupt": 1,
+     "exact_copy": 11
+    },
+    "hi": {
+     "sides": 290,
+     "source_kept_S": 253,
+     "language_drift_E_O_N": 26,
+     "script_changed_T": 9,
+     "mixed_M": 2,
+     "corrupt": 58,
+     "exact_copy": 147
+    },
+    "ko": {
+     "sides": 24,
+     "source_kept_S": 20,
+     "language_drift_E_O_N": 4,
+     "script_changed_T": 0,
+     "mixed_M": 0,
+     "corrupt": 3,
+     "exact_copy": 18
+    },
+    "tr": {
+     "sides": 20,
+     "source_kept_S": 20,
+     "language_drift_E_O_N": 0,
+     "script_changed_T": 0,
+     "mixed_M": 0,
+     "corrupt": 0,
+     "exact_copy": 14
+    }
+   },
+   "format_leaks_Utterance_prefix": 0
+  },
+  "Qwen2.5-7B-Instruct": {
+   "sides": 346,
+   "parsed": {
+    "k": 346,
+    "n": 346,
+    "rate": 1.0,
+    "ci95": [
+     0.989,
+     1.0
+    ]
+   },
+   "exactly_one_fact": {
+    "k": 346,
+    "n": 346,
+    "rate": 1.0,
+    "ci95": [
+     0.989,
+     1.0
+    ]
+   },
+   "exact_copy": {
+    "k": 160,
+    "n": 346,
+    "rate": 0.462,
+    "ci95": [
+     0.411,
+     0.515
+    ]
+   },
+   "copy_ignoring_case_punct_space": {
+    "k": 166,
+    "n": 346,
+    "rate": 0.48,
+    "ci95": [
+     0.428,
+     0.532
+    ]
+   },
+   "hand_language_counts": {
+    "T": 143,
+    "S": 194,
+    "E": 1,
+    "M": 6,
+    "N": 2
+   },
+   "language_drift_E_O_N": {
+    "k": 3,
+    "n": 346,
+    "rate": 0.009,
+    "ci95": [
+     0.003,
+     0.025
+    ]
+   },
+   "language_drift_to_English_E": {
+    "k": 1,
+    "n": 346,
+    "rate": 0.003,
+    "ci95": [
+     0.001,
+     0.016
+    ]
+   },
+   "script_drift_same_language_T": {
+    "k": 143,
+    "n": 346,
+    "rate": 0.413,
+    "ci95": [
+     0.363,
+     0.466
+    ]
+   },
+   "mixed_M": {
+    "k": 6,
+    "n": 346,
+    "rate": 0.017,
+    "ci95": [
+     0.008,
+     0.037
+    ]
+   },
+   "source_language_and_script_kept_S": {
+    "k": 194,
+    "n": 346,
+    "rate": 0.561,
+    "ci95": [
+     0.508,
+     0.612
+    ]
+   },
+   "any_departure_from_instruction": {
+    "k": 152,
+    "n": 346,
+    "rate": 0.439,
+    "ci95": [
+     0.388,
+     0.492
+    ]
+   },
+   "corruption_any": {
+    "k": 81,
+    "n": 346,
+    "rate": 0.234,
+    "ci95": [
+     0.193,
+     0.281
+    ]
+   },
+   "corruption_types_count": {
+    "g": 39,
+    "i": 1,
+    "m": 8,
+    "o": 41
+   },
+   "corruption_excluding_omission_only": {
+    "k": 43,
+    "n": 346,
+    "rate": 0.124,
+    "ci95": [
+     0.094,
+     0.163
+    ]
+   },
+   "drift_x_corruption": {
+    "language_drift|corrupt": 3,
+    "mixed|corrupt": 6,
+    "script_changed|clean": 99,
+    "script_changed|corrupt": 44,
+    "source|clean": 166,
+    "source|corrupt": 28
+   },
+   "classifier_v2_label_rates": {
+    "source_language": {
+     "k": 187,
+     "n": 346,
+     "rate": 0.54,
+     "ci95": [
+      0.488,
+      0.592
+     ]
+    },
+    "translated_to_english": {
+     "k": 1,
+     "n": 346,
+     "rate": 0.003,
+     "ci95": [
+      0.001,
+      0.016
+     ]
+    },
+    "mixed": {
+     "k": 12,
+     "n": 346,
+     "rate": 0.035,
+     "ci95": [
+      0.02,
+      0.06
+     ]
+    },
+    "script_changed": {
+     "k": 146,
+     "n": 346,
+     "rate": 0.422,
+     "ci95": [
+      0.371,
+      0.475
+     ]
+    },
+    "undetermined": {
+     "k": 0,
+     "n": 346,
+     "rate": 0.0,
+     "ci95": [
+      -0.0,
+      0.011
+     ]
+    }
+   },
+   "classifier_v1_label_rates": {
+    "source_language": {
+     "k": 197,
+     "n": 346,
+     "rate": 0.569,
+     "ci95": [
+      0.517,
+      0.62
+     ]
+    },
+    "translated_to_english": {
+     "k": 146,
+     "n": 346,
+     "rate": 0.422,
+     "ci95": [
+      0.371,
+      0.475
+     ]
+    },
+    "mixed": {
+     "k": 3,
+     "n": 346,
+     "rate": 0.009,
+     "ci95": [
+      0.003,
+      0.025
+     ]
+    },
+    "script_changed": {
+     "k": 0,
+     "n": 346,
+     "rate": 0.0,
+     "ci95": [
+      -0.0,
+      0.011
+     ]
+    },
+    "undetermined": {
+     "k": 0,
+     "n": 346,
+     "rate": 0.0,
+     "ci95": [
+      -0.0,
+      0.011
+     ]
+    }
+   },
+   "kinship_sides": 118,
+   "kinship_preserved_as_written": {
+    "k": 97,
+    "n": 118,
+    "rate": 0.822,
+    "ci95": [
+     0.743,
+     0.881
+    ]
+   },
+   "lexicon_kinship_sides": 76,
+   "lexicon_kinship_preserved": {
+    "k": 58,
+    "n": 76,
+    "rate": 0.763,
+    "ci95": [
+     0.656,
+     0.845
+    ]
+   },
+   "kinship_lost_by_cause": {
+    "garbled": 20,
+    "translated": 1
+   },
+   "by_language": {
+    "de": {
+     "sides": 12,
+     "source_kept_S": 12,
+     "language_drift_E_O_N": 0,
+     "script_changed_T": 0,
+     "mixed_M": 0,
+     "corrupt": 0,
+     "exact_copy": 12
+    },
+    "hi": {
+     "sides": 290,
+     "source_kept_S": 138,
+     "language_drift_E_O_N": 3,
+     "script_changed_T": 143,
+     "mixed_M": 6,
+     "corrupt": 79,
+     "exact_copy": 106
+    },
+    "ko": {
+     "sides": 24,
+     "source_kept_S": 24,
+     "language_drift_E_O_N": 0,
+     "script_changed_T": 0,
+     "mixed_M": 0,
+     "corrupt": 0,
+     "exact_copy": 24
+    },
+    "tr": {
+     "sides": 20,
+     "source_kept_S": 20,
+     "language_drift_E_O_N": 0,
+     "script_changed_T": 0,
+     "mixed_M": 0,
+     "corrupt": 2,
+     "exact_copy": 18
+    }
+   },
+   "format_leaks_Utterance_prefix": 1
+  }
+ },
+ "kin_flag_inconsistencies_hand_vs_auto": [
+  [
+   "Maa, tumne khana khaya?",
+   "The user is asking if the person is eating food.",
+   "l",
+   false
+  ],
+  [
+   "Maa, aapne khana khaya?",
+   "Are you eating?",
+   "l",
+   false
+  ],
+  [
+   "Maa, tu chinta mat kar",
+   "Do not worry",
+   "l",
+   false
+  ],
+  [
+   "Maa, tum chinta mat karo",
+   "Stop worrying",
+   "l",
+   false
+  ],
+  [
+   "Maa, tum kab ghar aaogi?",
+   "The user is asking about the time or current time.",
+   "l",
+   false
+  ],
+  [
+   "Maa, aap kab ghar aayengi?",
+   "The user is asking when the assistant will go home.",
+   "l",
+   false
+  ],
+  [
+   "Maa, tumne khana khaya?",
+   "माई, तुमने खाना खाया?",
+   "l",
+   false
+  ],
+  [
+   "Maa, aapne khana khaya?",
+   "माँ, आपने खाना खाया?",
+   "k",
+   false
+  ],
+  [
+   "Maa, tu chinta mat kar",
+   "माई, तुम चिंता मत कर",
+   "l",
+   false
+  ],
+  [
+   "Maa, tum chinta mat karo",
+   "माँ, तुम चिंता मत करो",
+   "k",
+   false
+  ],
+  [
+   "Maa, tum kab ghar aaogi?",
+   "माँ, तुम कब घर आओगी?",
+   "k",
+   false
+  ],
+  [
+   "Maa, aap kab ghar aayengi?",
+   "میں میں کب دارجے میں آیںگی؟",
+   "l",
+   false
+  ]
+ ],
+ "classifier_validation": {
+  "v2_all_sides": {
+   "accuracy": 0.961,
+   "n": 1038,
+   "hand_rows_classifier_cols": {
+    "translated_to_english": {
+     "translated_to_english": 328,
+     "mixed": 18,
+     "source_language": 4
+    },
+    "mixed": {
+     "mixed": 4,
+     "source_language": 4,
+     "script_changed": 1
+    },
+    "source_language": {
+     "source_language": 511,
+     "mixed": 13
+    },
+    "script_changed": {
+     "script_changed": 155
+    }
+   }
+  },
+  "v1_all_sides": {
+   "accuracy": 0.717,
+   "n": 1038,
+   "hand_rows_classifier_cols": {
+    "translated_to_english": {
+     "translated_to_english": 218,
+     "mixed": 98,
+     "source_language": 34
+    },
+    "mixed": {
+     "mixed": 3,
+     "source_language": 5,
+     "translated_to_english": 1
+    },
+    "source_language": {
+     "source_language": 523,
+     "mixed": 1
+    },
+    "script_changed": {
+     "source_language": 9,
+     "mixed": 1,
+     "translated_to_english": 145
+    }
+   }
+  },
+  "v2_non_copy_sides": {
+   "accuracy": 0.934,
+   "n": 603,
+   "hand_rows_classifier_cols": {
+    "translated_to_english": {
+     "translated_to_english": 328,
+     "mixed": 18,
+     "source_language": 4
+    },
+    "mixed": {
+     "mixed": 4,
+     "source_language": 4,
+     "script_changed": 1
+    },
+    "source_language": {
+     "source_language": 76,
+     "mixed": 13
+    },
+    "script_changed": {
+     "script_changed": 155
+    }
+   }
+  },
+  "v1_non_copy_sides": {
+   "accuracy": 0.512,
+   "n": 603,
+   "hand_rows_classifier_cols": {
+    "translated_to_english": {
+     "translated_to_english": 218,
+     "mixed": 98,
+     "source_language": 34
+    },
+    "mixed": {
+     "mixed": 3,
+     "source_language": 5,
+     "translated_to_english": 1
+    },
+    "source_language": {
+     "source_language": 88,
+     "mixed": 1
+    },
+    "script_changed": {
+     "source_language": 9,
+     "mixed": 1,
+     "translated_to_english": 145
+    }
+   }
+  },
+  "v2_non_copy_per_model_accuracy": {
+   "Qwen2.5-1.5B-Instruct": 0.932,
+   "Qwen2.5-3B-Instruct": 0.98,
+   "Qwen2.5-7B-Instruct": 0.911
+  },
+  "v1_non_copy_per_model_accuracy": {
+   "Qwen2.5-1.5B-Instruct": 0.625,
+   "Qwen2.5-3B-Instruct": 0.776,
+   "Qwen2.5-7B-Instruct": 0.167
+  }
+ },
+ "classifier_rate_error": {
+  "Qwen2.5-1.5B-Instruct": {
+   "n": 346,
+   "translated": {
+    "hand": 319,
+    "v2": 297,
+    "v1": 198
+   },
+   "not_source": {
+    "hand": 321,
+    "v2": 317,
+    "v1": 286
+   }
+  },
+  "Qwen2.5-3B-Instruct": {
+   "n": 346,
+   "translated": {
+    "hand": 30,
+    "v2": 30,
+    "v1": 20
+   },
+   "not_source": {
+    "hand": 41,
+    "v2": 43,
+    "v1": 32
+   }
+  },
+  "Qwen2.5-7B-Instruct": {
+   "n": 346,
+   "translated": {
+    "hand": 1,
+    "v2": 1,
+    "v1": 146
+   },
+   "not_source": {
+    "hand": 152,
+    "v2": 159,
+    "v1": 149
+   }
+  }
+ },
+ "v2_disagreements": [
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "Dadi ji ne pooja karwayi",
+   "fact": "Dadi ji is performing a puja.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "mixed",
+   "v1": "mixed"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "Verma bhaiya kal ghar aaye the",
+   "fact": "Verma bhaiya went home that day.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "mixed",
+   "v1": "mixed"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "Nani ji ne achaar bheja",
+   "fact": "The user wants to know about a dish called 'bheja gosht'.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "mixed",
+   "v1": "translated_to_english"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "Nani ne achaar bheja",
+   "fact": "The user wants to know about the dish 'bheja'.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "mixed",
+   "v1": "mixed"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "yeh bag mera hai",
+   "fact": "I have a bag.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "mixed",
+   "v1": "mixed"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "woh bag mera hai",
+   "fact": "I have a bag.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "mixed",
+   "v1": "mixed"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "Can geldi",
+   "fact": "Geldi is Turkish for 'it is true'.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "source_language",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "Kapoor didi ne party mein bulaya",
+   "fact": "Kapoor didi went to the party and talked.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "mixed",
+   "v1": "mixed"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "Mishra didi ne khana bheja",
+   "fact": "Mishra didi ate bheja.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "source_language",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "Gupta bhaiya ne gaadi di",
+   "fact": "Gupta bhaiya owns a car.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "mixed",
+   "v1": "mixed"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "Papa, tumne mera result dekha?",
+   "fact": "Papa has seen my result.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "mixed",
+   "v1": "mixed"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "Papa, aapne mera result dekha?",
+   "fact": "Papa has given me my result.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "mixed",
+   "v1": "mixed"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "yeh scooter mera hai",
+   "fact": "The user owns a scooter.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "mixed",
+   "v1": "mixed"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "woh scooter mera hai",
+   "fact": "The user owns a scooter.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "mixed",
+   "v1": "mixed"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "Sharma aunty ne ladoo bheje",
+   "fact": "Sharma aunty baked ladoo.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "mixed",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "Sharma didi ne ladoo bheje",
+   "fact": "Sharma didi gave ladoo to someone.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "source_language",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "Singh bhaiya ne maths padhaya",
+   "fact": "Singh bhaiya is studying maths.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "source_language",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "maine khud dekha Vikram Pune gaya",
+   "fact": "Vikram from Pune visited Maine.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "mixed",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "Nani ji ne sweater buna",
+   "fact": "The sweater is nice.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "mixed",
+   "v1": "translated_to_english"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "Nani ne sweater buna",
+   "fact": "The sweater is nice.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "mixed",
+   "v1": "mixed"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "Dadi ji ne kahani sunayi",
+   "fact": "Dadi ji is reading a story.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "mixed",
+   "v1": "mixed"
+  },
+  {
+   "model": "Qwen2.5-1.5B-Instruct",
+   "utterance": "maine khud dekha Deepak Pune gaya",
+   "fact": "Deepak from Pune visited Maine.",
+   "hand": "E",
+   "hand_coarse": "translated_to_english",
+   "v2": "mixed",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-3B-Instruct",
+   "utterance": "Arjun ek botal paani piya",
+   "fact": "Arjun traga wata wata piya",
+   "hand": "S",
+   "hand_coarse": "source_language",
+   "v2": "mixed",
+   "v1": "mixed"
+  },
+  {
+   "model": "Qwen2.5-3B-Instruct",
+   "utterance": "maine khud dekha Rahul bimar hai",
+   "fact": "Rahul bimar hai.",
+   "hand": "S",
+   "hand_coarse": "source_language",
+   "v2": "mixed",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-7B-Instruct",
+   "utterance": "suna hai Deepak Jaipur gaya",
+   "fact": "Deepak Jaipur gaya",
+   "hand": "S",
+   "hand_coarse": "source_language",
+   "v2": "mixed",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-7B-Instruct",
+   "utterance": "suna hai Amit Pune gaya",
+   "fact": "Amit Pune gaya",
+   "hand": "S",
+   "hand_coarse": "source_language",
+   "v2": "mixed",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-7B-Instruct",
+   "utterance": "Nana ne cycle dilayi",
+   "fact": "نana ne cycle dilayi",
+   "hand": "M",
+   "hand_coarse": "mixed",
+   "v2": "source_language",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-7B-Instruct",
+   "utterance": "suna hai Amit Jaipur gaya",
+   "fact": "Amit Jaipur gaya",
+   "hand": "S",
+   "hand_coarse": "source_language",
+   "v2": "mixed",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-7B-Instruct",
+   "utterance": "suna hai Suresh Jaipur gaya",
+   "fact": "Suresh Jaipur gaya",
+   "hand": "S",
+   "hand_coarse": "source_language",
+   "v2": "mixed",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-7B-Instruct",
+   "utterance": "suna hai Manoj Pune gaya",
+   "fact": "Manoj Pune gaya",
+   "hand": "S",
+   "hand_coarse": "source_language",
+   "v2": "mixed",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-7B-Instruct",
+   "utterance": "suna hai Manoj Jaipur gaya",
+   "fact": "Manoj Jaipur gaya",
+   "hand": "S",
+   "hand_coarse": "source_language",
+   "v2": "mixed",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-7B-Instruct",
+   "utterance": "suna hai Rahul Jaipur gaya",
+   "fact": "Rahul Jaipur gaya",
+   "hand": "S",
+   "hand_coarse": "source_language",
+   "v2": "mixed",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-7B-Instruct",
+   "utterance": "suna hai Rohan Jaipur gaya",
+   "fact": "Rohan Jaipur gaya",
+   "hand": "S",
+   "hand_coarse": "source_language",
+   "v2": "mixed",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-7B-Instruct",
+   "utterance": "suna hai Rahul Pune gaya",
+   "fact": "Rahul Pune gaya",
+   "hand": "S",
+   "hand_coarse": "source_language",
+   "v2": "mixed",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-7B-Instruct",
+   "utterance": "suna hai Suresh Pune gaya",
+   "fact": "Suresh Pune gaya",
+   "hand": "S",
+   "hand_coarse": "source_language",
+   "v2": "mixed",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-7B-Instruct",
+   "utterance": "Nani, tum dawai le lo",
+   "fact": "नानी, तुम दवा� lo लो",
+   "hand": "M",
+   "hand_coarse": "mixed",
+   "v2": "script_changed",
+   "v1": "translated_to_english"
+  },
+  {
+   "model": "Qwen2.5-7B-Instruct",
+   "utterance": "Nani, aap dawai le lijiye",
+   "fact": "नानी, आप दवा� le lijiye",
+   "hand": "M",
+   "hand_coarse": "mixed",
+   "v2": "source_language",
+   "v1": "mixed"
+  },
+  {
+   "model": "Qwen2.5-7B-Instruct",
+   "utterance": "Nani ne sweater buna",
+   "fact": "نani ne sweater buna",
+   "hand": "M",
+   "hand_coarse": "mixed",
+   "v2": "source_language",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-7B-Instruct",
+   "utterance": "Dadi ne kahani sunayi",
+   "fact": "دadi ne کہانی sunayi",
+   "hand": "M",
+   "hand_coarse": "mixed",
+   "v2": "source_language",
+   "v1": "source_language"
+  },
+  {
+   "model": "Qwen2.5-7B-Instruct",
+   "utterance": "suna hai Deepak Pune gaya",
+   "fact": "Deepak Pune gaya",
+   "hand": "S",
+   "hand_coarse": "source_language",
+   "v2": "mixed",
+   "v1": "source_language"
+  }
+ ]
+}

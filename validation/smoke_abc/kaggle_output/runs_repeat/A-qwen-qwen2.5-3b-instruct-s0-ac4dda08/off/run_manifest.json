@@ -1,0 +1,10 @@
+{
+  "run_id": "A-qwen-qwen2.5-3b-instruct-s0-ac4dda08-off",
+  "strategy": "mem0",
+  "dataset_tier": "tier1_minimal_pairs",
+  "seed": 0,
+  "backbone": "Qwen/Qwen2.5-3B-Instruct",
+  "created_at": "2026-10-07T18:32:42+00:00",
+  "pipeline_config": "A",
+  "dkmem_mode": "off"
+}

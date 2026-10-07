@@ -39,16 +39,16 @@
       ]
     },
     "threshold": {
-      "type": "number",
+      "type": ["number", "null"],
       "minimum": 0,
       "maximum": 1,
-      "description": "Similarity threshold (tau) the system used as its merge cutoff for this decision. Recorded for provenance; Team B re-sweeps tau offline using similarity_score, so this need not match every tau in the frontier plot."
+      "description": "Similarity threshold (tau) the system used as its merge cutoff for this decision. Recorded for provenance; Team B re-sweeps tau offline using similarity_score, so this need not match every tau in the frontier plot. Null when the host's merge decision uses no similarity cutoff (an LLM merge judge: stage-attribution Configs A, B and C); there is then no tau to sweep and similarity_score is informational only."
     },
     "similarity_score": {
       "type": "number",
       "minimum": 0,
       "maximum": 1,
-      "description": "Raw sim(gloss_a, gloss_b) BEFORE any distinction gating is applied. Always reported, even when compatibility blocks the merge, so Team B can recompute merge(a,b) := similarity_score > tau at any tau without rerunning the system."
+      "description": "Raw sim(gloss_a, gloss_b) BEFORE any distinction gating is applied. Always reported, even when compatibility blocks the merge, so Team B can recompute merge(a,b) := similarity_score > tau at any tau without rerunning the system. For a run whose host is an LLM merge judge (threshold null) it is logged for analysis but did not decide the merge."
     },
     "compatibility": {
       "type": ["string", "null"],

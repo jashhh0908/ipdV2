@@ -1,0 +1,314 @@
+[
+  {
+    "prompt_id": "mem0_extraction_v2",
+    "prompt_sha256": "59ebe2b8be62d8bc3b9ac28cb6d5139150f27b399b582325795cdc31dbf02f45",
+    "n": 20,
+    "target_correct": 10,
+    "exact": 9,
+    "in_scope_n": 12,
+    "in_scope_correct": 7,
+    "in_scope_exact": 7,
+    "out_of_scope_target_correct": 3,
+    "outcomes": {
+      "correct": 10,
+      "wrong_value": 3,
+      "missing": 6,
+      "over_marked": 1,
+      "invalid": 0
+    },
+    "in_scope_outcomes": {
+      "correct": 7,
+      "wrong_value": 2,
+      "missing": 2,
+      "over_marked": 1,
+      "invalid": 0
+    },
+    "spurious_keys_valid_outputs": 10,
+    "spurious_in_scope_keys": 8,
+    "spurious_out_of_scope_keys": 2,
+    "sides_with_spurious_key": 9,
+    "out_of_scope_keys_in_valid_outputs": 6,
+    "spurious_detail": [
+      [
+        "probe_004",
+        "b",
+        "kinship",
+        "aunty"
+      ],
+      [
+        "probe_005",
+        "b",
+        "kinship",
+        "call"
+      ],
+      [
+        "probe_006",
+        "a",
+        "name_variant",
+        "Ali-latin"
+      ],
+      [
+        "probe_006",
+        "b",
+        "name_variant",
+        "Ali-latin"
+      ],
+      [
+        "probe_007",
+        "b",
+        "politeness",
+        "formal"
+      ],
+      [
+        "probe_008",
+        "a",
+        "kinship",
+        "선생님"
+      ],
+      [
+        "probe_008",
+        "b",
+        "kinship",
+        "선생님"
+      ],
+      [
+        "probe_009",
+        "b",
+        "evidentiality",
+        "direct/confirmed"
+      ],
+      [
+        "probe_009",
+        "b",
+        "name_variant",
+        "मैं-hindi"
+      ],
+      [
+        "probe_010",
+        "b",
+        "register",
+        "du"
+      ]
+    ],
+    "out_of_scope_keys_in_rejected_outputs": 0,
+    "gloss_violations": 4,
+    "gloss_violation_detail": [
+      [
+        "probe_001",
+        "a",
+        "My grandmother lives in Mumbai"
+      ],
+      [
+        "probe_002",
+        "a",
+        "My grandmother lives in Mumbai"
+      ],
+      [
+        "probe_002",
+        "b",
+        "My grandmother is working in Pune"
+      ],
+      [
+        "probe_004",
+        "a",
+        "My grandmother lives in Mumbai"
+      ]
+    ],
+    "invalid_or_failed": 0,
+    "failure_categories": {},
+    "failure_detail": [],
+    "surface_mismatches": 0
+  },
+  {
+    "prompt_id": "mem0_extraction_v3",
+    "prompt_sha256": "142489d5164e610931b9e143a70ee246912e5162a48b04b87a177e58cafa6aa2",
+    "n": 20,
+    "target_correct": 10,
+    "exact": 6,
+    "in_scope_n": 12,
+    "in_scope_correct": 7,
+    "in_scope_exact": 6,
+    "out_of_scope_target_correct": 3,
+    "outcomes": {
+      "correct": 10,
+      "wrong_value": 4,
+      "missing": 5,
+      "over_marked": 1,
+      "invalid": 0
+    },
+    "in_scope_outcomes": {
+      "correct": 7,
+      "wrong_value": 3,
+      "missing": 1,
+      "over_marked": 1,
+      "invalid": 0
+    },
+    "spurious_keys_valid_outputs": 12,
+    "spurious_in_scope_keys": 7,
+    "spurious_out_of_scope_keys": 5,
+    "sides_with_spurious_key": 12,
+    "out_of_scope_keys_in_valid_outputs": 9,
+    "spurious_detail": [
+      [
+        "probe_003",
+        "b",
+        "politeness",
+        "formal"
+      ],
+      [
+        "probe_004",
+        "b",
+        "kinship",
+        "aunty"
+      ],
+      [
+        "probe_006",
+        "a",
+        "name_variant",
+        "Ali-devanagari"
+      ],
+      [
+        "probe_006",
+        "b",
+        "name_variant",
+        "Ali-latin"
+      ],
+      [
+        "probe_007",
+        "a",
+        "politeness",
+        "formal"
+      ],
+      [
+        "probe_007",
+        "b",
+        "politeness",
+        "formal"
+      ],
+      [
+        "probe_008",
+        "a",
+        "register",
+        "teacher"
+      ],
+      [
+        "probe_008",
+        "b",
+        "register",
+        "you"
+      ],
+      [
+        "probe_009",
+        "a",
+        "politeness",
+        "formal"
+      ],
+      [
+        "probe_009",
+        "b",
+        "politeness",
+        "formal"
+      ],
+      [
+        "probe_010",
+        "a",
+        "register",
+        "du"
+      ],
+      [
+        "probe_010",
+        "b",
+        "register",
+        "du"
+      ]
+    ],
+    "out_of_scope_keys_in_rejected_outputs": 0,
+    "gloss_violations": 0,
+    "gloss_violation_detail": [],
+    "invalid_or_failed": 0,
+    "failure_categories": {},
+    "failure_detail": [],
+    "surface_mismatches": 0
+  },
+  {
+    "prompt_id": "mem0_extraction_v4",
+    "prompt_sha256": "3b4e1de73ac89d5142d0e0cfba52a18e03307f87ac69b2646fb1c9abbabdf00a",
+    "n": 20,
+    "target_correct": 8,
+    "exact": 8,
+    "in_scope_n": 12,
+    "in_scope_correct": 8,
+    "in_scope_exact": 8,
+    "out_of_scope_target_correct": 0,
+    "outcomes": {
+      "correct": 8,
+      "wrong_value": 2,
+      "missing": 9,
+      "over_marked": 1,
+      "invalid": 0
+    },
+    "in_scope_outcomes": {
+      "correct": 8,
+      "wrong_value": 2,
+      "missing": 1,
+      "over_marked": 1,
+      "invalid": 0
+    },
+    "spurious_keys_valid_outputs": 6,
+    "spurious_in_scope_keys": 6,
+    "spurious_out_of_scope_keys": 0,
+    "sides_with_spurious_key": 6,
+    "out_of_scope_keys_in_valid_outputs": 0,
+    "spurious_detail": [
+      [
+        "probe_004",
+        "b",
+        "kinship",
+        "aunty"
+      ],
+      [
+        "probe_006",
+        "a",
+        "name_variant",
+        "Ali-latin"
+      ],
+      [
+        "probe_006",
+        "b",
+        "name_variant",
+        "Ali-latin"
+      ],
+      [
+        "probe_008",
+        "a",
+        "register",
+        "선생님"
+      ],
+      [
+        "probe_008",
+        "b",
+        "register",
+        "선생님"
+      ],
+      [
+        "probe_010",
+        "b",
+        "register",
+        "meine"
+      ]
+    ],
+    "out_of_scope_keys_in_rejected_outputs": 0,
+    "gloss_violations": 1,
+    "gloss_violation_detail": [
+      [
+        "probe_003",
+        "a",
+        "you come to the office tomorrow"
+      ]
+    ],
+    "invalid_or_failed": 0,
+    "failure_categories": {},
+    "failure_detail": [],
+    "surface_mismatches": 0
+  }
+]

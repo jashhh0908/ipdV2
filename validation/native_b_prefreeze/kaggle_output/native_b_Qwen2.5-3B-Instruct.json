@@ -1,0 +1,2480 @@
+{
+ "model_id": "Qwen/Qwen2.5-3B-Instruct",
+ "prompt_id": "native_b_candidate_v1",
+ "prompt_sha256": "6ca296ec04dc04c02bb7911618359f6ea82aaab25c92edec74d3bcfe635716af",
+ "params": {
+  "max_new_tokens": 256,
+  "do_sample": false,
+  "temperature": 1.0,
+  "top_p": 1.0,
+  "top_k": 0,
+  "repetition_penalty": 1.0,
+  "seed": 0,
+  "batch_size": 8
+ },
+ "tier1_sha256": "eab5dcb23375eb2e744c72a98cb31c25da0171b2ba3297a0843574ed9a34cd07",
+ "nvidia_smi_L": "GPU 0: Tesla T4 (UUID: GPU-c9861800-2dea-478a-3ebe-4e9cc7d82fc1)\nGPU 1: Tesla T4 (UUID: GPU-e2981e19-2415-682e-ba34-d68915fa9d5d)",
+ "file_sha256": {
+  "dkmem/__init__.py": "b76cf641a7a1f28473aa2242b6de5b0e4e0ca69e39bcfa50f566fc2262aec5cf",
+  "dkmem/backends/__init__.py": "5636e769d42009317b0d4e3385729a98c29ecdc250a4e4ea2fddd74beffc181e",
+  "dkmem/backends/llm.py": "078452212ec5dd4bdd8a649aeae6034e7f3a08d5895aaa758b14fbd5d178aeb5",
+  "dkmem/memory/__init__.py": "5d9e99361f72fc89d73acb8fc18d5a29c21c776444246d527a46ce127174173d",
+  "dkmem/memory/prompts.py": "bdf82ed044567f7a2fc79b248ea39d6263fd613533f4e3d848b6b14f720823f1",
+  "candidate_prompts.py": "85b491e3a351d9d9245276b1e0dc257c45005b119d217fbe6631af7f70a42489"
+ },
+ "run_info": {
+  "backbone": "Qwen/Qwen2.5-3B-Instruct",
+  "model_config": {
+   "model_id": "Qwen/Qwen2.5-3B-Instruct",
+   "revision": null,
+   "device": "cuda:0",
+   "dtype": "float16",
+   "use_chat_template": true
+  },
+  "resolved_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+  "generation_params": {
+   "max_new_tokens": 256,
+   "do_sample": false,
+   "temperature": 1.0,
+   "top_p": 1.0,
+   "top_k": 0,
+   "repetition_penalty": 1.0,
+   "seed": 0,
+   "batch_size": 8
+  },
+  "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+  "device_name": "Tesla T4",
+  "torch_version": "2.11.0+cu128",
+  "transformers_version": "5.16.1"
+ },
+ "sides": [
+  {
+   "eval_pair_id": "ep_00d9e3e8e1dc",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Rohan ek botal doodh laaya",
+   "raw_output": "{\"fact\": \"Rohan gave one carton of milk.\"}"
+  },
+  {
+   "eval_pair_id": "ep_00d9e3e8e1dc",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Rohan ek gilaas doodh laaya",
+   "raw_output": "{\"fact\": \"Rohan gave some strange milk.\"}"
+  },
+  {
+   "eval_pair_id": "ep_012cefccce85",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Dadi ji ne pooja karwayi",
+   "raw_output": "{\"fact\": \"Dadi ji ne pooja karwayi\"}"
+  },
+  {
+   "eval_pair_id": "ep_012cefccce85",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Dadi ne pooja karwayi",
+   "raw_output": "{\"fact\": \"Dadi ne pooja karwayi\"}"
+  },
+  {
+   "eval_pair_id": "ep_05a8f3624b3d",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal Suresh Pune gaya tha",
+   "raw_output": "{\"fact\": \"kal Suresh Pune gaya tha\"}"
+  },
+  {
+   "eval_pair_id": "ep_05a8f3624b3d",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal Suresh Pune jayega",
+   "raw_output": "{\"fact\": \"kal Suresh Pune jayega\"}"
+  },
+  {
+   "eval_pair_id": "ep_062e1bbcaef7",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Vikram ek gilaas paani piya",
+   "raw_output": "{\"fact\": \"Vikram ek gilaas paani piya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_062e1bbcaef7",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Vikram ek botal paani piya",
+   "raw_output": "{\"fact\": \"Vikram paī botal paani piya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_07b2f8bfd19d",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Neha party mein aayi thi",
+   "raw_output": "{\"fact\": \"Neha party mein aayi thi\"}"
+  },
+  {
+   "eval_pair_id": "ep_07b2f8bfd19d",
+   "side": "b",
+   "language": "hi",
+   "utterance": "नेहा party mein aayi thi",
+   "raw_output": "{\"fact\": \"नेहा party mein aayi thi\"}"
+  },
+  {
+   "eval_pair_id": "ep_0bb42af13886",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Neha office se aa rahi hai",
+   "raw_output": "{\"fact\": \"Neha office se aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_0bb42af13886",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Neha college se aa rahi hai",
+   "raw_output": "{\"fact\": \"Neha college se aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_0bc69265f85a",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Vikram ne do jode kapde diye",
+   "raw_output": "{\"fact\": \"Vikram ne do jode kapde diye.\"}"
+  },
+  {
+   "eval_pair_id": "ep_0bc69265f85a",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Vikram ne do tukde kapda diya",
+   "raw_output": "{\"fact\": \"Vikram ne do tukde kapda diya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_0c1aff41679e",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Manoj ek botal doodh laaya",
+   "raw_output": "{\"fact\": \"Manoj dadaa ek botal doodh laaya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_0c1aff41679e",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Manoj ek gilaas doodh laaya",
+   "raw_output": "{\"fact\": \"Manoj gave some strange milk.\"}"
+  },
+  {
+   "eval_pair_id": "ep_0c7a822043a3",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal Manoj Pune gaya tha",
+   "raw_output": "{\"fact\": \"kal Manoj Pune gaya tha\"}"
+  },
+  {
+   "eval_pair_id": "ep_0c7a822043a3",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal Manoj Pune jayega",
+   "raw_output": "{\"fact\": \"Kal Manoj Pune gareebega.\"}"
+  },
+  {
+   "eval_pair_id": "ep_0d3583ba4a2c",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kehte hain Arjun bimar hai",
+   "raw_output": "{\"fact\": \"kehte hain Arjun bimar hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_0d3583ba4a2c",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Arjun bimar hai",
+   "raw_output": "{\"fact\": \"maine khud dekha Arjun bimar hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_0e9a64760b25",
+   "side": "a",
+   "language": "de",
+   "utterance": "Markus, wie war dein Urlaub in Italien?",
+   "raw_output": "{\"fact\": \"Markus, wie war dein Urlaub in Italien?\"}"
+  },
+  {
+   "eval_pair_id": "ep_0e9a64760b25",
+   "side": "b",
+   "language": "de",
+   "utterance": "Markus, wie war Ihr Urlaub in Italien?",
+   "raw_output": "{\"fact\": \"Markus, wie war Ihr Urlaub in Italien?\"}"
+  },
+  {
+   "eval_pair_id": "ep_0ea4b6f891d5",
+   "side": "a",
+   "language": "hi",
+   "utterance": "yeh laptop mera hai",
+   "raw_output": "{\"fact\": \"yeh laptop mera hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_0ea4b6f891d5",
+   "side": "b",
+   "language": "hi",
+   "utterance": "woh laptop mera hai",
+   "raw_output": "{\"fact\": \"laptop mera hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_10e9171f181e",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Suresh ne do jode kapde diye",
+   "raw_output": "{\"fact\": \"Suresh ne do jode kapde diye.\"}"
+  },
+  {
+   "eval_pair_id": "ep_10e9171f181e",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Suresh ne do tukde kapda diya",
+   "raw_output": "{\"fact\": \"Suresh gave two clothes to him.\"}"
+  },
+  {
+   "eval_pair_id": "ep_132f435dc64d",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Verma uncle kal ghar aaye the",
+   "raw_output": "{\"fact\": \"Verma uncle kal ghar aaye the\"}"
+  },
+  {
+   "eval_pair_id": "ep_132f435dc64d",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Verma bhaiya kal ghar aaye the",
+   "raw_output": "{\"fact\": \"Verma bhaiya kal ghar aaye the\"}"
+  },
+  {
+   "eval_pair_id": "ep_15313d2b8e23",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Anjali aa rahi hai",
+   "raw_output": "{\"fact\": \"Anjali is coming.\"}"
+  },
+  {
+   "eval_pair_id": "ep_15313d2b8e23",
+   "side": "b",
+   "language": "hi",
+   "utterance": "अंजलि aa rahi hai",
+   "raw_output": "{\"fact\": \"अंजलि aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_16911db6d82e",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Nani ji ne achaar bheja",
+   "raw_output": "{\"fact\": \"Nani ji ne achaar bheja\"}"
+  },
+  {
+   "eval_pair_id": "ep_16911db6d82e",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Nani ne achaar bheja",
+   "raw_output": "{\"fact\": \"Nani ne achaar bheja\"}"
+  },
+  {
+   "eval_pair_id": "ep_181080352535",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Neha school se aa rahi hai",
+   "raw_output": "{\"fact\": \"Neha school se aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_181080352535",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Neha gym se aa rahi hai",
+   "raw_output": "{\"fact\": \"Neha gym se aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_18da7b28b7ac",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Neha aa rahi hai",
+   "raw_output": "{\"fact\": \"Neha está llegando.\"}"
+  },
+  {
+   "eval_pair_id": "ep_18da7b28b7ac",
+   "side": "b",
+   "language": "hi",
+   "utterance": "नेहा aa rahi hai",
+   "raw_output": "{\"fact\": \"नेहा aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_1e1799ead1db",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri mami Jaipur aa rahi hai",
+   "raw_output": "{\"fact\": \"meri mami Jaipur aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_1e1799ead1db",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri mausi Jaipur aa rahi hai",
+   "raw_output": "{\"fact\": \"meri mausi Jaipur aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_1f4bfa2a61e5",
+   "side": "a",
+   "language": "tr",
+   "utterance": "Ali geldi",
+   "raw_output": "{\"fact\": \"Ali geldi\"}"
+  },
+  {
+   "eval_pair_id": "ep_1f4bfa2a61e5",
+   "side": "b",
+   "language": "tr",
+   "utterance": "Ali gelmiş",
+   "raw_output": "{\"fact\": \"Ali gelmiş\"}"
+  },
+  {
+   "eval_pair_id": "ep_1f550425367c",
+   "side": "a",
+   "language": "ko",
+   "utterance": "내 동생이 시험에 합격했어",
+   "raw_output": "{\"fact\": \"동생이 시험에 합격했다.\"}"
+  },
+  {
+   "eval_pair_id": "ep_1f550425367c",
+   "side": "b",
+   "language": "ko",
+   "utterance": "제 동생이 시험에 합격했어요",
+   "raw_output": "{\"fact\": \"제 동생이 시험에 합격했어요\"}"
+  },
+  {
+   "eval_pair_id": "ep_20b80e68b83d",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Papa, tum kal Delhi ja rahe ho?",
+   "raw_output": "{\"fact\": \"Papa, today you are going to Delhi.\"}"
+  },
+  {
+   "eval_pair_id": "ep_20b80e68b83d",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Papa, aap kal Delhi ja rahe hain?",
+   "raw_output": "{\"fact\": \"Papa, aap kal Delhi ja rahe hain.\"}"
+  },
+  {
+   "eval_pair_id": "ep_228232ae74a2",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri bua Jaipur aa rahi hai",
+   "raw_output": "{\"fact\": \"meri bua Jaipur aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_228232ae74a2",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri mami Jaipur aa rahi hai",
+   "raw_output": "{\"fact\": \"meri mami Jaipur aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_2386dab836fb",
+   "side": "a",
+   "language": "hi",
+   "utterance": "yeh ghar mera hai",
+   "raw_output": "{\"fact\": \"ghar mera hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_2386dab836fb",
+   "side": "b",
+   "language": "hi",
+   "utterance": "woh ghar mera hai",
+   "raw_output": "{\"fact\": \"ghar mera hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_23a7dd21e064",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri bua Pune aa rahi hai",
+   "raw_output": "{\"fact\": \"meri bua Pune aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_23a7dd21e064",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri mami Pune aa rahi hai",
+   "raw_output": "{\"fact\": \"meri mami Pune aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_253dd920ed10",
+   "side": "a",
+   "language": "de",
+   "utterance": "Jonas, kannst du mich morgen vom Bahnhof abholen?",
+   "raw_output": "{\"fact\": \"Jonas, kannst du mich morgen vom Bahnhof abholen?\"}"
+  },
+  {
+   "eval_pair_id": "ep_253dd920ed10",
+   "side": "b",
+   "language": "de",
+   "utterance": "Jonas, können Sie mich morgen vom Bahnhof abholen?",
+   "raw_output": "{\"fact\": \"Jonas können Sie morgen vom Bahnhof abholen.\"}"
+  },
+  {
+   "eval_pair_id": "ep_254ef4996b9c",
+   "side": "a",
+   "language": "hi",
+   "utterance": "suna hai Deepak Jaipur gaya",
+   "raw_output": "{\"fact\": \"suna hai Deepak Jaipur gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_254ef4996b9c",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Deepak Jaipur gaya",
+   "raw_output": "{\"fact\": \"Deepak Jaipur gaya maine khud dekha.\"}"
+  },
+  {
+   "eval_pair_id": "ep_25b78b673372",
+   "side": "a",
+   "language": "hi",
+   "utterance": "yeh bag mera hai",
+   "raw_output": "{\"fact\": \"bag mera hai.\"}"
+  },
+  {
+   "eval_pair_id": "ep_25b78b673372",
+   "side": "b",
+   "language": "hi",
+   "utterance": "woh bag mera hai",
+   "raw_output": "{\"fact\": \"bag mera hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_25dfb6b202a5",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri chachi Jaipur aa rahi hai",
+   "raw_output": "{\"fact\": \"meri chachi Jaipur aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_25dfb6b202a5",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri mausi Jaipur aa rahi hai",
+   "raw_output": "{\"fact\": \"meri mausi Jaipur aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_25e72aea3868",
+   "side": "a",
+   "language": "hi",
+   "utterance": "suna hai Amit Pune gaya",
+   "raw_output": "{\"fact\": \"suna hai Amit Pune gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_25e72aea3868",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Amit Pune gaya",
+   "raw_output": "{\"fact\": \"maine khud dekha Amit Pune gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_2605664e0f44",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Maa, tumne khana khaya?",
+   "raw_output": "{\"fact\": \"Maa, tumne khana khaya?\"}"
+  },
+  {
+   "eval_pair_id": "ep_2605664e0f44",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Maa, aapne khana khaya?",
+   "raw_output": "{\"fact\": \"Maa, aapne khana khaya?\"}"
+  },
+  {
+   "eval_pair_id": "ep_2715d058025c",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal Deepak Pune gaya tha",
+   "raw_output": "{\"fact\": \"Kal Deepak Pune गया था\"}"
+  },
+  {
+   "eval_pair_id": "ep_2715d058025c",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal Deepak Pune jayega",
+   "raw_output": "{\"fact\": \"Kal Deepak Pune gareeb aayega.\"}"
+  },
+  {
+   "eval_pair_id": "ep_279ddb70d1bf",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri mami Pune aa rahi hai",
+   "raw_output": "{\"fact\": \"meri mami Pune aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_279ddb70d1bf",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri mausi Pune aa rahi hai",
+   "raw_output": "{\"fact\": \"meri mausi Pune aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_27b02ab5a187",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri chachi Pune mein rehti hai",
+   "raw_output": "{\"fact\": \"meri chachi Pune mein rehti hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_27b02ab5a187",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri mausi Pune mein rehti hai",
+   "raw_output": "{\"fact\": \"Meri mausi Pune mein rehti hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_28d6a7ff85fd",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Nana ji ne cycle dilayi",
+   "raw_output": "{\"fact\": \"Nana ji ne cycle dilayi\"}"
+  },
+  {
+   "eval_pair_id": "ep_28d6a7ff85fd",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Nana ne cycle dilayi",
+   "raw_output": "{\"fact\": \"Nana ne cycle dilayi\"}"
+  },
+  {
+   "eval_pair_id": "ep_2d5a715c2a8e",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Anjali ne call kiya",
+   "raw_output": "{\"fact\": \"Anjali ne call kiya\"}"
+  },
+  {
+   "eval_pair_id": "ep_2d5a715c2a8e",
+   "side": "b",
+   "language": "hi",
+   "utterance": "अंजलि ne call kiya",
+   "raw_output": "{\"fact\": \"अंजलि को फोन किया गया\"}"
+  },
+  {
+   "eval_pair_id": "ep_2d7f86b23f12",
+   "side": "a",
+   "language": "hi",
+   "utterance": "aaj meri mami ka phone aaya",
+   "raw_output": "{\"fact\": \"aaj meri mami ka phone aaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_2d7f86b23f12",
+   "side": "b",
+   "language": "hi",
+   "utterance": "aaj meri mausi ka phone aaya",
+   "raw_output": "{\"fact\": \"aaj meri mausi ka phone aaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_2ec33409b197",
+   "side": "a",
+   "language": "hi",
+   "utterance": "suna hai Amit Jaipur gaya",
+   "raw_output": "{\"fact\": \"suna hai Amit Jaipur gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_2ec33409b197",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Amit Jaipur gaya",
+   "raw_output": "{\"fact\": \"maine khud dekha Amit Jaipur gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_2f9b9bc31bca",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Papa, tum khana kha lo",
+   "raw_output": "{\"fact\": \"Papa, tum khana kha lo.\"}"
+  },
+  {
+   "eval_pair_id": "ep_2f9b9bc31bca",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Papa, aap khana kha lijiye",
+   "raw_output": "{\"fact\": \"Papa, aap khana kha lijiye.\"}"
+  },
+  {
+   "eval_pair_id": "ep_30a0996b7c0e",
+   "side": "a",
+   "language": "ko",
+   "utterance": "아빠가 새 차를 샀어",
+   "raw_output": "{\"fact\": \"אבא买了新车。\"}"
+  },
+  {
+   "eval_pair_id": "ep_30a0996b7c0e",
+   "side": "b",
+   "language": "ko",
+   "utterance": "아빠가 새 차를 샀어요",
+   "raw_output": "{\"fact\": \"아빠가 새 차를 샀어요\"}"
+  },
+  {
+   "eval_pair_id": "ep_30f5d0db0fb7",
+   "side": "a",
+   "language": "hi",
+   "utterance": "suna hai Suresh Jaipur gaya",
+   "raw_output": "{\"fact\": \"suna hai Suresh Jaipur gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_30f5d0db0fb7",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Suresh Jaipur gaya",
+   "raw_output": "{\"fact\": \"maine khud dekha Suresh Jaipur gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_34ac78409813",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Anjali party mein aayi thi",
+   "raw_output": "{\"fact\": \"Anjali party mein aayi thi\"}"
+  },
+  {
+   "eval_pair_id": "ep_34ac78409813",
+   "side": "b",
+   "language": "hi",
+   "utterance": "अंजलि party mein aayi thi",
+   "raw_output": "{\"fact\": \"अंजलि party mein aayi thi\"}"
+  },
+  {
+   "eval_pair_id": "ep_365f141106ad",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri dadi ka phone aaj aaya",
+   "raw_output": "{\"fact\": \"meri dadi ka phone aaj aaya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_365f141106ad",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri nani ka phone aaj aaya",
+   "raw_output": "{\"fact\": \"meri nani ka phone aaj aaya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_374a0258384b",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Rahul ne do jode kapde diye",
+   "raw_output": "{\"fact\": \"Rahul ne do jode kapde diye\"}"
+  },
+  {
+   "eval_pair_id": "ep_374a0258384b",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Rahul ne do tukde kapda diya",
+   "raw_output": "{\"fact\": \"Rahul ne do tukde kapda diya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_38570e28f10c",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Manoj ek gilaas paani piya",
+   "raw_output": "{\"fact\": \"Manoj is drinking some strange water.\"}"
+  },
+  {
+   "eval_pair_id": "ep_38570e28f10c",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Manoj ek botal paani piya",
+   "raw_output": "{\"fact\": \"Manoj tràp pit botal paani.\"}"
+  },
+  {
+   "eval_pair_id": "ep_390601491b34",
+   "side": "a",
+   "language": "ko",
+   "utterance": "우리 형이 결혼했어",
+   "raw_output": "{\"fact\": \"나의 형이 결혼했어\"}"
+  },
+  {
+   "eval_pair_id": "ep_390601491b34",
+   "side": "b",
+   "language": "ko",
+   "utterance": "우리 형이 결혼했어요",
+   "raw_output": "{\"fact\": \"우리 형이 결혼했어요\"}"
+  },
+  {
+   "eval_pair_id": "ep_3c934849ebff",
+   "side": "a",
+   "language": "tr",
+   "utterance": "Can geldi",
+   "raw_output": "{\"fact\": \"Can geldi.\"}"
+  },
+  {
+   "eval_pair_id": "ep_3c934849ebff",
+   "side": "b",
+   "language": "tr",
+   "utterance": "Can gelmiş",
+   "raw_output": "{\"fact\": \"Can gelmiş\"}"
+  },
+  {
+   "eval_pair_id": "ep_3caa35aa704e",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal Arjun Jaipur gaya tha",
+   "raw_output": "{\"fact\": \"Kal Arjun jaagaya tha.\"}"
+  },
+  {
+   "eval_pair_id": "ep_3caa35aa704e",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal Arjun Jaipur jayega",
+   "raw_output": "{\"fact\": \"Kal Arjun jaipur jayega.\"}"
+  },
+  {
+   "eval_pair_id": "ep_3cd239092a62",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Vikram aa raha hai",
+   "raw_output": "{\"fact\": \"Vikram is coming.\"}"
+  },
+  {
+   "eval_pair_id": "ep_3cd239092a62",
+   "side": "b",
+   "language": "hi",
+   "utterance": "विक्रम aa raha hai",
+   "raw_output": "{\"fact\": \"विक्रम आ रहा है\"}"
+  },
+  {
+   "eval_pair_id": "ep_3cd37d03ccba",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri dadi Delhi aa rahi hain",
+   "raw_output": "{\"fact\": \"meri dadi Delhi aa rahi hain.\"}"
+  },
+  {
+   "eval_pair_id": "ep_3cd37d03ccba",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri nani Delhi aa rahi hain",
+   "raw_output": "{\"fact\": \"meri nani Delhi aa rahi hain.\"}"
+  },
+  {
+   "eval_pair_id": "ep_3da9569f1eee",
+   "side": "a",
+   "language": "hi",
+   "utterance": "aaj meri bua ka phone aaya",
+   "raw_output": "{\"fact\": \"aaj meri bua ka phone aaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_3da9569f1eee",
+   "side": "b",
+   "language": "hi",
+   "utterance": "aaj meri mami ka phone aaya",
+   "raw_output": "{\"fact\": \"aaj meri mami ka phone aaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_3df2bc51735f",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Priya school se aa rahi hai",
+   "raw_output": "{\"fact\": \"Priya school se aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_3df2bc51735f",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Priya gym se aa rahi hai",
+   "raw_output": "{\"fact\": \"Priya gym se aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_42f93e0479c1",
+   "side": "a",
+   "language": "ko",
+   "utterance": "아내가 병원에 갔어요",
+   "raw_output": "{\"fact\": \"妻去了医院。\"}"
+  },
+  {
+   "eval_pair_id": "ep_42f93e0479c1",
+   "side": "b",
+   "language": "ko",
+   "utterance": "부인이 병원에 가셨어요",
+   "raw_output": "{\"fact\": \"부인이 병원에 가셨어요\"}"
+  },
+  {
+   "eval_pair_id": "ep_43fb1450839d",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Kapoor aunty ne party mein bulaya",
+   "raw_output": "{\"fact\": \"Kapoor aunty ne party mein bulaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_43fb1450839d",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Kapoor didi ne party mein bulaya",
+   "raw_output": "{\"fact\": \"Kapoor didi ne party mein bulaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_47ae4a0846a0",
+   "side": "a",
+   "language": "hi",
+   "utterance": "suna hai Rohan Pune gaya",
+   "raw_output": "{\"fact\": \"suna hai Rohan Pune gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_47ae4a0846a0",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Rohan Pune gaya",
+   "raw_output": "{\"fact\": \"Rohan Pune gaya maine khud dekha.\"}"
+  },
+  {
+   "eval_pair_id": "ep_47d1ab8fd4b1",
+   "side": "a",
+   "language": "ko",
+   "utterance": "딸이 서울로 이사했어요",
+   "raw_output": "{\"fact\": \"딸이 서울로 이사했어요\"}"
+  },
+  {
+   "eval_pair_id": "ep_47d1ab8fd4b1",
+   "side": "b",
+   "language": "ko",
+   "utterance": "따님이 서울로 이사하셨어요",
+   "raw_output": "{\"fact\": \"따님이 서울로 이사하셨어요\"}"
+  },
+  {
+   "eval_pair_id": "ep_483772000fcb",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal Rahul Pune gaya tha",
+   "raw_output": "{\"fact\": \"Rahul Pune gaya tha\"}"
+  },
+  {
+   "eval_pair_id": "ep_483772000fcb",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal Rahul Pune jayega",
+   "raw_output": "{\"fact\": \"Kal Rahul Pune jaayega.\"}"
+  },
+  {
+   "eval_pair_id": "ep_4907c04217a9",
+   "side": "a",
+   "language": "hi",
+   "utterance": "suna hai Manoj Pune gaya",
+   "raw_output": "{\"fact\": \"suna hai Manoj Pune gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_4907c04217a9",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Manoj Pune gaya",
+   "raw_output": "{\"fact\": \"Manoj Pune gaya maine khud dekha.\"}"
+  },
+  {
+   "eval_pair_id": "ep_497a5c74804c",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri mami Pune mein rehti hai",
+   "raw_output": "{\"fact\": \"meri mami Pune mein rehti hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_497a5c74804c",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri mausi Pune mein rehti hai",
+   "raw_output": "{\"fact\": \"Meri mausi Pune mein rehti hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_49a0779a4faf",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Priya party mein aayi thi",
+   "raw_output": "{\"fact\": \"Priya party mein aayi thi\"}"
+  },
+  {
+   "eval_pair_id": "ep_49a0779a4faf",
+   "side": "b",
+   "language": "hi",
+   "utterance": "प्रिया party mein aayi thi",
+   "raw_output": "{\"fact\": \"प्रिया party mein aayi thi\"}"
+  },
+  {
+   "eval_pair_id": "ep_4ad61ee9163e",
+   "side": "a",
+   "language": "hi",
+   "utterance": "aaj meri chachi ka phone aaya",
+   "raw_output": "{\"fact\": \"aaj meri chachi ka phone aaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_4ad61ee9163e",
+   "side": "b",
+   "language": "hi",
+   "utterance": "aaj meri bua ka phone aaya",
+   "raw_output": "{\"fact\": \"aaj meri bua ka phone aaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_4ae1fb2ccf7e",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Rahul ek gilaas paani piya",
+   "raw_output": "{\"fact\": \"Rahul ek gilaas paani piya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_4ae1fb2ccf7e",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Rahul ek botal paani piya",
+   "raw_output": "{\"fact\": \"Rahul ek botal paani piya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_4d5928e71b89",
+   "side": "a",
+   "language": "hi",
+   "utterance": "suna hai Vikram Jaipur gaya",
+   "raw_output": "{\"fact\": \"suna hai Vikram Jaipur gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_4d5928e71b89",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Vikram Jaipur gaya",
+   "raw_output": "{\"fact\": \"maine khud dekha Vikram Jaipur gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_4e79e595d857",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri dadi ka phone abhi aaya",
+   "raw_output": "{\"fact\": \"meri dadi ka phone abhi aaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_4e79e595d857",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri nani ka phone abhi aaya",
+   "raw_output": "{\"fact\": \"Meri nani ka phone abhi aaya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_4ec7936fdc09",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Mishra aunty ne khana bheja",
+   "raw_output": "{\"fact\": \"Mishra aunty ne khana bheja\"}"
+  },
+  {
+   "eval_pair_id": "ep_4ec7936fdc09",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Mishra didi ne khana bheja",
+   "raw_output": "{\"fact\": \"Mishra didi ne khana bheja\"}"
+  },
+  {
+   "eval_pair_id": "ep_4f70a0ab0116",
+   "side": "a",
+   "language": "hi",
+   "utterance": "suna hai Manoj Jaipur gaya",
+   "raw_output": "{\"fact\": \"suna hai Manoj Jaipur gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_4f70a0ab0116",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Manoj Jaipur gaya",
+   "raw_output": "{\"fact\": \"maine khud dekha Manoj Jaipur gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_50202163246a",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Vikram ne call kiya",
+   "raw_output": "{\"fact\": \"Vikram ne call kiya\"}"
+  },
+  {
+   "eval_pair_id": "ep_50202163246a",
+   "side": "b",
+   "language": "hi",
+   "utterance": "विक्रम ne call kiya",
+   "raw_output": "{\"fact\": \"विक्रम ने कलिया यहाँ नहीं किया\"}"
+  },
+  {
+   "eval_pair_id": "ep_516f4a900983",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Arjun ek gilaas paani piya",
+   "raw_output": "{\"fact\": \"Arjun ek gilaas paani piya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_516f4a900983",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Arjun ek botal paani piya",
+   "raw_output": "{\"fact\": \"Arjun traga wata wata piya\"}"
+  },
+  {
+   "eval_pair_id": "ep_526d85507e3c",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Maa, tu chinta mat kar",
+   "raw_output": "{\"fact\": \"Maa, tu chinta mat kar.\"}"
+  },
+  {
+   "eval_pair_id": "ep_526d85507e3c",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Maa, tum chinta mat karo",
+   "raw_output": "{\"fact\": \"Maa, tum chinta mat karo.\"}"
+  },
+  {
+   "eval_pair_id": "ep_5921d31234db",
+   "side": "a",
+   "language": "tr",
+   "utterance": "Zeynep geldi",
+   "raw_output": "{\"fact\": \"Zeynep geldi\"}"
+  },
+  {
+   "eval_pair_id": "ep_5921d31234db",
+   "side": "b",
+   "language": "tr",
+   "utterance": "Zeynep gelmiş",
+   "raw_output": "{\"fact\": \"Zeynep gelmiş\"}"
+  },
+  {
+   "eval_pair_id": "ep_5b6eb99d96d7",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kehte hain Manoj bimar hai",
+   "raw_output": "{\"fact\": \"kehte hain Manoj bimar hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_5b6eb99d96d7",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Manoj bimar hai",
+   "raw_output": "{\"fact\": \"maine khud dekha Manoj bimar hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_5b9c9d293cbf",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Amit ne call kiya",
+   "raw_output": "{\"fact\": \"Amit ne call kiya\"}"
+  },
+  {
+   "eval_pair_id": "ep_5b9c9d293cbf",
+   "side": "b",
+   "language": "hi",
+   "utterance": "अमित ne call kiya",
+   "raw_output": "{\"fact\": \"अमित call किया\"}"
+  },
+  {
+   "eval_pair_id": "ep_5f77d5a62ff5",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri chachi Jaipur mein rehti hai",
+   "raw_output": "{\"fact\": \"meri chachi Jaipur mein rehti hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_5f77d5a62ff5",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri bua Jaipur mein rehti hai",
+   "raw_output": "{\"fact\": \"meri bua rehti hai Jaipur mein.\"}"
+  },
+  {
+   "eval_pair_id": "ep_6053e4cd187d",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Priya aa rahi hai",
+   "raw_output": "{\"fact\": \"Priya está llegando.\"}"
+  },
+  {
+   "eval_pair_id": "ep_6053e4cd187d",
+   "side": "b",
+   "language": "hi",
+   "utterance": "प्रिया aa rahi hai",
+   "raw_output": "{\"fact\": \"प्रिया aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_65b60f6ddd09",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kehte hain Amit bimar hai",
+   "raw_output": "{\"fact\": \"kehte hain Amit bimar hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_65b60f6ddd09",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Amit bimar hai",
+   "raw_output": "{\"fact\": \"maine khud dekha Amit bimar hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_67dafef31759",
+   "side": "a",
+   "language": "ko",
+   "utterance": "엄마가 전화했어",
+   "raw_output": "{\"fact\": \"엄마가 전화했어\"}"
+  },
+  {
+   "eval_pair_id": "ep_67dafef31759",
+   "side": "b",
+   "language": "ko",
+   "utterance": "엄마가 전화했어요",
+   "raw_output": "{\"fact\": \"엄마가 전화했어요\"}"
+  },
+  {
+   "eval_pair_id": "ep_6855ae817190",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Amit ek botal doodh laaya",
+   "raw_output": "{\"fact\": \"Amit gave one liter of milk.\"}"
+  },
+  {
+   "eval_pair_id": "ep_6855ae817190",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Amit ek gilaas doodh laaya",
+   "raw_output": "{\"fact\": \"Amit gave some strange milk.\"}"
+  },
+  {
+   "eval_pair_id": "ep_69a5d374429d",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Pooja ne call kiya",
+   "raw_output": "{\"fact\": \"Pooja ne call kiya\"}"
+  },
+  {
+   "eval_pair_id": "ep_69a5d374429d",
+   "side": "b",
+   "language": "hi",
+   "utterance": "पूजा ne call kiya",
+   "raw_output": "{\"fact\": \"पूजा ne call kiya\"}"
+  },
+  {
+   "eval_pair_id": "ep_6a74565869f8",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal Rohan Jaipur gaya tha",
+   "raw_output": "{\"fact\": \"Kal Rohan jaagaya tha.\"}"
+  },
+  {
+   "eval_pair_id": "ep_6a74565869f8",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal Rohan Jaipur jayega",
+   "raw_output": "{\"fact\": \"Kal Rohan jaigaya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_6bc3420a9b89",
+   "side": "a",
+   "language": "ko",
+   "utterance": "우리 강아지가 아파",
+   "raw_output": "{\"fact\": \"Our puppy is sick.\"}"
+  },
+  {
+   "eval_pair_id": "ep_6bc3420a9b89",
+   "side": "b",
+   "language": "ko",
+   "utterance": "우리 강아지가 아파요",
+   "raw_output": "{\"fact\": \"Our puppy is sick.\"}"
+  },
+  {
+   "eval_pair_id": "ep_6bdea1a6a1fc",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Manoj ne do jode kapde diye",
+   "raw_output": "{\"fact\": \"Manoj ne do jode kapde diye.\"}"
+  },
+  {
+   "eval_pair_id": "ep_6bdea1a6a1fc",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Manoj ne do tukde kapda diya",
+   "raw_output": "{\"fact\": \"Manoj ne tukde kapda diya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_6c0ed0ff2250",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Deepak ek gilaas paani piya",
+   "raw_output": "{\"fact\": \"Deepak is drinking strange water.\"}"
+  },
+  {
+   "eval_pair_id": "ep_6c0ed0ff2250",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Deepak ek botal paani piya",
+   "raw_output": "{\"fact\": \"Deepak piyada ek botal paani paippa.\"}"
+  },
+  {
+   "eval_pair_id": "ep_6c13772e6066",
+   "side": "a",
+   "language": "hi",
+   "utterance": "yeh kamra mera hai",
+   "raw_output": "{\"fact\": \"yeh kamra mera hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_6c13772e6066",
+   "side": "b",
+   "language": "hi",
+   "utterance": "woh kamra mera hai",
+   "raw_output": "{\"fact\": \"wah kamra mera hai.\"}"
+  },
+  {
+   "eval_pair_id": "ep_709d5cdb6db0",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Gupta uncle ne gaadi di",
+   "raw_output": "{\"fact\": \"Gupta uncle gave a car.\"}"
+  },
+  {
+   "eval_pair_id": "ep_709d5cdb6db0",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Gupta bhaiya ne gaadi di",
+   "raw_output": "{\"fact\": \"Gupta bhaiya ne gaadi di\"}"
+  },
+  {
+   "eval_pair_id": "ep_70d999ba4219",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Dada ji ne akhbaar padha",
+   "raw_output": "{\"fact\": \"Dada ji ne akhbaar padha\"}"
+  },
+  {
+   "eval_pair_id": "ep_70d999ba4219",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Dada ne akhbaar padha",
+   "raw_output": "{\"fact\": \"Dada ne akhbaar padha\"}"
+  },
+  {
+   "eval_pair_id": "ep_72feaa133e73",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri chachi Pune aa rahi hai",
+   "raw_output": "{\"fact\": \"meri chachi Pune aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_72feaa133e73",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri bua Pune aa rahi hai",
+   "raw_output": "{\"fact\": \"meri bua Pune aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_73a3634d8b13",
+   "side": "a",
+   "language": "de",
+   "utterance": "Lena, hast du meine E-Mail bekommen?",
+   "raw_output": "{\"fact\": \"Lena, hast du meine E-Mail bekommen?\"}"
+  },
+  {
+   "eval_pair_id": "ep_73a3634d8b13",
+   "side": "b",
+   "language": "de",
+   "utterance": "Lena, haben Sie meine E-Mail bekommen?",
+   "raw_output": "{\"fact\": \"Lena, haben Sie meine E-Mail bekommen?\"}"
+  },
+  {
+   "eval_pair_id": "ep_75e08b989d43",
+   "side": "a",
+   "language": "tr",
+   "utterance": "Ayşe geldi",
+   "raw_output": "{\"fact\": \"Ayşe geldi\"}"
+  },
+  {
+   "eval_pair_id": "ep_75e08b989d43",
+   "side": "b",
+   "language": "tr",
+   "utterance": "Ayşe gelmiş",
+   "raw_output": "{\"fact\": \"Ayşe gelmiş\"}"
+  },
+  {
+   "eval_pair_id": "ep_7bf6c57d211d",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal Suresh Jaipur gaya tha",
+   "raw_output": "{\"fact\": \"kal Suresh Jaipur gaya tha\"}"
+  },
+  {
+   "eval_pair_id": "ep_7bf6c57d211d",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal Suresh Jaipur jayega",
+   "raw_output": "{\"fact\": \"kal Suresh Jaipur jayega\"}"
+  },
+  {
+   "eval_pair_id": "ep_7d8ad7245d9e",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Papa, tumne mera result dekha?",
+   "raw_output": "{\"fact\": \"Papa, tumne mera result dekha?\"}"
+  },
+  {
+   "eval_pair_id": "ep_7d8ad7245d9e",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Papa, aapne mera result dekha?",
+   "raw_output": "{\"fact\": \"Papa, aapne mera result dekha?\"}"
+  },
+  {
+   "eval_pair_id": "ep_812f59530619",
+   "side": "a",
+   "language": "hi",
+   "utterance": "yeh scooter mera hai",
+   "raw_output": "{\"fact\": \"yeh scooter mera hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_812f59530619",
+   "side": "b",
+   "language": "hi",
+   "utterance": "woh scooter mera hai",
+   "raw_output": "{\"fact\": \"scooter mera hai.\"}"
+  },
+  {
+   "eval_pair_id": "ep_84819232ad18",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Arjun ne do jode kapde diye",
+   "raw_output": "{\"fact\": \"Arjun ne do jode kapde diye.\"}"
+  },
+  {
+   "eval_pair_id": "ep_84819232ad18",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Arjun ne do tukde kapda diya",
+   "raw_output": "{\"fact\": \"Arjun ne do tukde kapda diya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_8795db083217",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kehte hain Rohan bimar hai",
+   "raw_output": "{\"fact\": \"kehte hain Rohan bimar hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_8795db083217",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Rohan bimar hai",
+   "raw_output": "{\"fact\": \"Rohan jeena khud dekha bimar hai.\"}"
+  },
+  {
+   "eval_pair_id": "ep_8c6c0b9644f5",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri dadi Jaipur aa rahi hain",
+   "raw_output": "{\"fact\": \"meri dadi Jaipur aa rahi hain\"}"
+  },
+  {
+   "eval_pair_id": "ep_8c6c0b9644f5",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri nani Jaipur aa rahi hain",
+   "raw_output": "{\"fact\": \"meri nani Jaipur aa rahi hain.\"}"
+  },
+  {
+   "eval_pair_id": "ep_8f8da7087871",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Rohan ek gilaas paani piya",
+   "raw_output": "{\"fact\": \"Rohan is a crazy water drinker.\"}"
+  },
+  {
+   "eval_pair_id": "ep_8f8da7087871",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Rohan ek botal paani piya",
+   "raw_output": "{\"fact\": \"Rohan ek botal paani piya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_960140c196ca",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Rahul ek botal doodh laaya",
+   "raw_output": "{\"fact\": \"Rahul hatya doodh laaya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_960140c196ca",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Rahul ek gilaas doodh laaya",
+   "raw_output": "{\"fact\": \"Rahul gave some strange milk.\"}"
+  },
+  {
+   "eval_pair_id": "ep_96d38de77f25",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal Amit Jaipur gaya tha",
+   "raw_output": "{\"fact\": \"Kal Amit Jaipur gya tha.\"}"
+  },
+  {
+   "eval_pair_id": "ep_96d38de77f25",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal Amit Jaipur jayega",
+   "raw_output": "{\"fact\": \"Kal Amit Jaipur jaayega.\"}"
+  },
+  {
+   "eval_pair_id": "ep_99419a65be84",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal meri chachi ka phone aaya",
+   "raw_output": "{\"fact\": \"kal meri chachi ka phone aaya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_99419a65be84",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal meri bua ka phone aaya",
+   "raw_output": "{\"fact\": \"kal mera baa ka phone aaya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_9a20a61e47a0",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal Vikram Pune gaya tha",
+   "raw_output": "{\"fact\": \"Kal Vikram Pune gaya tha.\"}"
+  },
+  {
+   "eval_pair_id": "ep_9a20a61e47a0",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal Vikram Pune jayega",
+   "raw_output": "{\"fact\": \"Kal Vikram Pune jayega.\"}"
+  },
+  {
+   "eval_pair_id": "ep_9bfb015779a8",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal Deepak Jaipur gaya tha",
+   "raw_output": "{\"fact\": \"Kal Deepak Jaipur गया था\"}"
+  },
+  {
+   "eval_pair_id": "ep_9bfb015779a8",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal Deepak Jaipur jayega",
+   "raw_output": "{\"fact\": \"Kal Deepak jaipur jayega.\"}"
+  },
+  {
+   "eval_pair_id": "ep_9c610f806bcf",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal meri mami ka phone aaya",
+   "raw_output": "{\"fact\": \"kal mami ka phone aaya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_9c610f806bcf",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal meri mausi ka phone aaya",
+   "raw_output": "{\"fact\": \"kal meri mausi ka phone aaya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_9c7632eca229",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Deepak ek botal doodh laaya",
+   "raw_output": "{\"fact\": \"Deepak has bought a carton of milk.\"}"
+  },
+  {
+   "eval_pair_id": "ep_9c7632eca229",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Deepak ek gilaas doodh laaya",
+   "raw_output": "{\"fact\": \"Deepak gave milk that was strange.\"}"
+  },
+  {
+   "eval_pair_id": "ep_9d1eb3cccdad",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Pooja party mein aayi thi",
+   "raw_output": "{\"fact\": \"Pooja party mein aayi thi\"}"
+  },
+  {
+   "eval_pair_id": "ep_9d1eb3cccdad",
+   "side": "b",
+   "language": "hi",
+   "utterance": "पूजा party mein aayi thi",
+   "raw_output": "{\"fact\": \"पूजा party mein aayi thi\"}"
+  },
+  {
+   "eval_pair_id": "ep_9e34a48fdf20",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Arjun ne call kiya",
+   "raw_output": "{\"fact\": \"Arjun ne call kiya\"}"
+  },
+  {
+   "eval_pair_id": "ep_9e34a48fdf20",
+   "side": "b",
+   "language": "hi",
+   "utterance": "अर्जुन ne call kiya",
+   "raw_output": "{\"fact\": \"अर्जुन call किया\"}"
+  },
+  {
+   "eval_pair_id": "ep_9f14524c8dc0",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Vikram ek botal doodh laaya",
+   "raw_output": "{\"fact\": \"Vikram bought a carton of milk.\"}"
+  },
+  {
+   "eval_pair_id": "ep_9f14524c8dc0",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Vikram ek gilaas doodh laaya",
+   "raw_output": "{\"fact\": \"Vikram gave milk that was spoiled.\"}"
+  },
+  {
+   "eval_pair_id": "ep_9f2c1c628e45",
+   "side": "a",
+   "language": "de",
+   "utterance": "Chefin, kannst du den Bericht bis Freitag lesen?",
+   "raw_output": "{\"fact\": \"Chefin, kannst du den Bericht bis Freitag lesen?\"}"
+  },
+  {
+   "eval_pair_id": "ep_9f2c1c628e45",
+   "side": "b",
+   "language": "de",
+   "utterance": "Chefin, können Sie den Bericht bis Freitag lesen?",
+   "raw_output": "{\"fact\": \"Chefin, können Sie den Bericht bis Freitag lesen?\"}"
+  },
+  {
+   "eval_pair_id": "ep_a42199b212a5",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Amit ne do jode kapde diye",
+   "raw_output": "{\"fact\": \"Amit ne do jode kapde diye.\"}"
+  },
+  {
+   "eval_pair_id": "ep_a42199b212a5",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Amit ne do tukde kapda diya",
+   "raw_output": "{\"fact\": \"Amit ne do tukde kapda diya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_a58f03c637ea",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Sharma aunty ne ladoo bheje",
+   "raw_output": "{\"fact\": \"Sharma aunty ne ladoo bheje\"}"
+  },
+  {
+   "eval_pair_id": "ep_a58f03c637ea",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Sharma didi ne ladoo bheje",
+   "raw_output": "{\"fact\": \"Sharma didi ne ladoo bheje.\"}"
+  },
+  {
+   "eval_pair_id": "ep_a69a8ce6f999",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal Amit Pune gaya tha",
+   "raw_output": "{\"fact\": \"kal Amit Pune gaya tha\"}"
+  },
+  {
+   "eval_pair_id": "ep_a69a8ce6f999",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal Amit Pune jayega",
+   "raw_output": "{\"fact\": \"Kal Amit Pune jaega.\"}"
+  },
+  {
+   "eval_pair_id": "ep_a8bf32a6458d",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Deepak ne do jode kapde diye",
+   "raw_output": "{\"fact\": \"Deepak ne do jode kapde diye.\"}"
+  },
+  {
+   "eval_pair_id": "ep_a8bf32a6458d",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Deepak ne do tukde kapda diya",
+   "raw_output": "{\"fact\": \"Deepak ne do tukde kapda diya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_a9f9ed6b7edb",
+   "side": "a",
+   "language": "de",
+   "utterance": "Thomas, danke für deine Hilfe beim Umzug!",
+   "raw_output": "{\"fact\": \"Thomas, danke für deine Hilfe beim Umzug!\"}"
+  },
+  {
+   "eval_pair_id": "ep_a9f9ed6b7edb",
+   "side": "b",
+   "language": "de",
+   "utterance": "Thomas, danke für Ihre Hilfe beim Umzug!",
+   "raw_output": "{\"fact\": \"Thomas, danke für Ihre Hilfe beim Umzug!\"}"
+  },
+  {
+   "eval_pair_id": "ep_aa85d22d825a",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Rahul ne call kiya",
+   "raw_output": "{\"fact\": \"Rahul ne call kiya\"}"
+  },
+  {
+   "eval_pair_id": "ep_aa85d22d825a",
+   "side": "b",
+   "language": "hi",
+   "utterance": "राहुल ne call kiya",
+   "raw_output": "{\"fact\": \"राहुल को कॉल किया गया है.\"}"
+  },
+  {
+   "eval_pair_id": "ep_ab18c5912a52",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal meri chachi ka phone aaya",
+   "raw_output": "{\"fact\": \"kal meri chachi ka phone aaya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_ab18c5912a52",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal meri mausi ka phone aaya",
+   "raw_output": "{\"fact\": \"kal meri mausi ka phone aaya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_ac78fa72faa4",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Priya office se aa rahi hai",
+   "raw_output": "{\"fact\": \"Priya office se aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_ac78fa72faa4",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Priya college se aa rahi hai",
+   "raw_output": "{\"fact\": \"Priya se aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_ada5b17b288b",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Arjun ek botal doodh laaya",
+   "raw_output": "{\"fact\": \"Arjun dilo ek botal doodh.\"}"
+  },
+  {
+   "eval_pair_id": "ep_ada5b17b288b",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Arjun ek gilaas doodh laaya",
+   "raw_output": "{\"fact\": \"Arjun dheeley doodh laaya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_aef963da288c",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Amit ek gilaas paani piya",
+   "raw_output": "{\"fact\": \"Amit ek gilaas paani piya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_aef963da288c",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Amit ek botal paani piya",
+   "raw_output": "{\"fact\": \"Amit ek botal paani piya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_b0e51fe51b33",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Rahul aa raha hai",
+   "raw_output": "{\"fact\": \"Rahul está llegando.\"}"
+  },
+  {
+   "eval_pair_id": "ep_b0e51fe51b33",
+   "side": "b",
+   "language": "hi",
+   "utterance": "राहुल aa raha hai",
+   "raw_output": "{\"fact\": \"राहुल आ रहा है\"}"
+  },
+  {
+   "eval_pair_id": "ep_b1140e958fc9",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Singh uncle ne maths padhaya",
+   "raw_output": "{\"fact\": \"Singh uncle ne maths padhaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_b1140e958fc9",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Singh bhaiya ne maths padhaya",
+   "raw_output": "{\"fact\": \"Singh bhaiya ne maths padhaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_b34e3cdb5b61",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri bua Jaipur mein rehti hai",
+   "raw_output": "{\"fact\": \"meri bua rehti hai Jaipur mein.\"}"
+  },
+  {
+   "eval_pair_id": "ep_b34e3cdb5b61",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri mami Jaipur mein rehti hai",
+   "raw_output": "{\"fact\": \"meri mami rehti hai Jaipur mein.\"}"
+  },
+  {
+   "eval_pair_id": "ep_b3763e928f70",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Suresh ek botal doodh laaya",
+   "raw_output": "{\"fact\": \"Suresh bought a carton of milk.\"}"
+  },
+  {
+   "eval_pair_id": "ep_b3763e928f70",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Suresh ek gilaas doodh laaya",
+   "raw_output": "{\"fact\": \"Suresh gave milk that was spoiled.\"}"
+  },
+  {
+   "eval_pair_id": "ep_b4a3b7417939",
+   "side": "a",
+   "language": "hi",
+   "utterance": "suna hai Rahul Jaipur gaya",
+   "raw_output": "{\"fact\": \"suna hai Rahul Jaipur gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_b4a3b7417939",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Rahul Jaipur gaya",
+   "raw_output": "{\"fact\": \"Rahul Jaipur gaya maine khud dekha.\"}"
+  },
+  {
+   "eval_pair_id": "ep_b518a9d35e45",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal meri bua ka phone aaya",
+   "raw_output": "{\"fact\": \"kal meri bua ka phone aaya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_b518a9d35e45",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal meri mami ka phone aaya",
+   "raw_output": "{\"fact\": \"kal mami ka phone aaya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_b5ada2964bad",
+   "side": "a",
+   "language": "hi",
+   "utterance": "suna hai Rohan Jaipur gaya",
+   "raw_output": "{\"fact\": \"suna hai Rohan Jaipur gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_b5ada2964bad",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Rohan Jaipur gaya",
+   "raw_output": "{\"fact\": \"Rohan Jaipur gaya maine khud dekha.\"}"
+  },
+  {
+   "eval_pair_id": "ep_b63bca2205de",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal Vikram Jaipur gaya tha",
+   "raw_output": "{\"fact\": \"Kal Vikram Jaipur gaya tha.\"}"
+  },
+  {
+   "eval_pair_id": "ep_b63bca2205de",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal Vikram Jaipur jayega",
+   "raw_output": "{\"fact\": \"Kal Vikram Jaipur jayega.\"}"
+  },
+  {
+   "eval_pair_id": "ep_b75cb405aa5b",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kehte hain Rahul bimar hai",
+   "raw_output": "{\"fact\": \"kehte hain Rahul bimar hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_b75cb405aa5b",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Rahul bimar hai",
+   "raw_output": "{\"fact\": \"Rahul bimar hai.\"}"
+  },
+  {
+   "eval_pair_id": "ep_b78d5c30d8d4",
+   "side": "a",
+   "language": "hi",
+   "utterance": "suna hai Rahul Pune gaya",
+   "raw_output": "{\"fact\": \"suna hai Rahul Pune gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_b78d5c30d8d4",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Rahul Pune gaya",
+   "raw_output": "{\"fact\": \"Rahul Pune gaya maine khud dekha.\"}"
+  },
+  {
+   "eval_pair_id": "ep_b80ecea7d376",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri chachi Jaipur aa rahi hai",
+   "raw_output": "{\"fact\": \"meri chachi Jaipur aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_b80ecea7d376",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri bua Jaipur aa rahi hai",
+   "raw_output": "{\"fact\": \"meri bua Jaipur aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_bc44200a5503",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri chachi Pune mein rehti hai",
+   "raw_output": "{\"fact\": \"meri chachi Pune mein rehti hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_bc44200a5503",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri bua Pune mein rehti hai",
+   "raw_output": "{\"fact\": \"meri bua Pune mein rehti hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_bee33ef5e6c2",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Maa, tum kab ghar aaogi?",
+   "raw_output": "{\"fact\": \"Maa, tum kab ghar aaogi?\"}"
+  },
+  {
+   "eval_pair_id": "ep_bee33ef5e6c2",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Maa, aap kab ghar aayengi?",
+   "raw_output": "{\"fact\": \"Maa, aap kab ghar aayengi?\"}"
+  },
+  {
+   "eval_pair_id": "ep_bf215be8c3e5",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri dadi Pune aa rahi hain",
+   "raw_output": "{\"fact\": \"meri dadi Pune aa rahi hain\"}"
+  },
+  {
+   "eval_pair_id": "ep_bf215be8c3e5",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri nani Pune aa rahi hain",
+   "raw_output": "{\"fact\": \"meri nani Pune aa rahi hain.\"}"
+  },
+  {
+   "eval_pair_id": "ep_bf7b24ace524",
+   "side": "a",
+   "language": "ko",
+   "utterance": "딸이 결혼했어요",
+   "raw_output": "{\"fact\": \"딸이 결혼했어요\"}"
+  },
+  {
+   "eval_pair_id": "ep_bf7b24ace524",
+   "side": "b",
+   "language": "ko",
+   "utterance": "따님이 결혼하셨어요",
+   "raw_output": "{\"fact\": \"따님이 결혼하셨어요\"}"
+  },
+  {
+   "eval_pair_id": "ep_bfc96b098b9b",
+   "side": "a",
+   "language": "hi",
+   "utterance": "suna hai Suresh Pune gaya",
+   "raw_output": "{\"fact\": \"suna hai Suresh Pune gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_bfc96b098b9b",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Suresh Pune gaya",
+   "raw_output": "{\"fact\": \"maine khud dekha Suresh Pune gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_c11b6aecea2d",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri mami Jaipur mein rehti hai",
+   "raw_output": "{\"fact\": \"meri mami rehti hai Jaipur mein.\"}"
+  },
+  {
+   "eval_pair_id": "ep_c11b6aecea2d",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri mausi Jaipur mein rehti hai",
+   "raw_output": "{\"fact\": \"meri mausi Jaipur mein rehti hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_c1b3fc1e54cc",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Arjun aa raha hai",
+   "raw_output": "{\"fact\": \"Arjun is coming.\"}"
+  },
+  {
+   "eval_pair_id": "ep_c1b3fc1e54cc",
+   "side": "b",
+   "language": "hi",
+   "utterance": "अर्जुन aa raha hai",
+   "raw_output": "{\"fact\": \"अर्जुन aa raha hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_c3616764c273",
+   "side": "a",
+   "language": "hi",
+   "utterance": "suna hai Arjun Pune gaya",
+   "raw_output": "{\"fact\": \"suna hai Arjun Pune gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_c3616764c273",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Arjun Pune gaya",
+   "raw_output": "{\"fact\": \"Arjun Pune gaya maine khud dekha.\"}"
+  },
+  {
+   "eval_pair_id": "ep_c4c84ce6d01c",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri dadi Chennai aa rahi hain",
+   "raw_output": "{\"fact\": \"meri dadi Chennai aa rahi hain\"}"
+  },
+  {
+   "eval_pair_id": "ep_c4c84ce6d01c",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri nani Chennai aa rahi hain",
+   "raw_output": "{\"fact\": \"meri nani Chennai aa rahi hain.\"}"
+  },
+  {
+   "eval_pair_id": "ep_c7f55f8786fd",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Amit aa raha hai",
+   "raw_output": "{\"fact\": \"Amit is coming.\"}"
+  },
+  {
+   "eval_pair_id": "ep_c7f55f8786fd",
+   "side": "b",
+   "language": "hi",
+   "utterance": "अमित aa raha hai",
+   "raw_output": "{\"fact\": \"अमित आ रहा है\"}"
+  },
+  {
+   "eval_pair_id": "ep_c80e1154955a",
+   "side": "a",
+   "language": "tr",
+   "utterance": "Deniz geldi",
+   "raw_output": "{\"fact\": \"Deniz geldi\"}"
+  },
+  {
+   "eval_pair_id": "ep_c80e1154955a",
+   "side": "b",
+   "language": "tr",
+   "utterance": "Deniz gelmiş",
+   "raw_output": "{\"fact\": \"Deniz gelmiş.\"}"
+  },
+  {
+   "eval_pair_id": "ep_ca188c246e16",
+   "side": "a",
+   "language": "ko",
+   "utterance": "할머니가 오셨어",
+   "raw_output": "{\"fact\": \"할머니가 오셨어\"}"
+  },
+  {
+   "eval_pair_id": "ep_ca188c246e16",
+   "side": "b",
+   "language": "ko",
+   "utterance": "할머니가 오셨어요",
+   "raw_output": "{\"fact\": \"할머니가 오셨어요\"}"
+  },
+  {
+   "eval_pair_id": "ep_cb98899343d7",
+   "side": "a",
+   "language": "hi",
+   "utterance": "yeh phone mera hai",
+   "raw_output": "{\"fact\": \"yeh phone mera hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_cb98899343d7",
+   "side": "b",
+   "language": "hi",
+   "utterance": "woh phone mera hai",
+   "raw_output": "{\"fact\": \"phone mera hai.\"}"
+  },
+  {
+   "eval_pair_id": "ep_cb9dc7c87cb2",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal Rohan Pune gaya tha",
+   "raw_output": "{\"fact\": \"Kal Rohan Pune gaya tha.\"}"
+  },
+  {
+   "eval_pair_id": "ep_cb9dc7c87cb2",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal Rohan Pune jayega",
+   "raw_output": "{\"fact\": \"Kal Rohan Pune jaega.\"}"
+  },
+  {
+   "eval_pair_id": "ep_cbbb6572658e",
+   "side": "a",
+   "language": "tr",
+   "utterance": "Elif geldi",
+   "raw_output": "{\"fact\": \"Elif geldi\"}"
+  },
+  {
+   "eval_pair_id": "ep_cbbb6572658e",
+   "side": "b",
+   "language": "tr",
+   "utterance": "Elif gelmiş",
+   "raw_output": "{\"fact\": \"Elif gelmiş.\"}"
+  },
+  {
+   "eval_pair_id": "ep_cc021173cd27",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Suresh ek gilaas paani piya",
+   "raw_output": "{\"fact\": \"Suresh piyada ek gilaas paani piya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_cc021173cd27",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Suresh ek botal paani piya",
+   "raw_output": "{\"fact\": \"Suresh piyada ek botal paani.\"}"
+  },
+  {
+   "eval_pair_id": "ep_cd03454d11f7",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri dadi Lucknow aa rahi hain",
+   "raw_output": "{\"fact\": \"meri dadi Lucknow aa rahi hain\"}"
+  },
+  {
+   "eval_pair_id": "ep_cd03454d11f7",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri nani Lucknow aa rahi hain",
+   "raw_output": "{\"fact\": \"meri nani Lucknow aa rahi hain.\"}"
+  },
+  {
+   "eval_pair_id": "ep_ce448d070ff7",
+   "side": "a",
+   "language": "hi",
+   "utterance": "suna hai Vikram Pune gaya",
+   "raw_output": "{\"fact\": \"suna hai Vikram Pune gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_ce448d070ff7",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Vikram Pune gaya",
+   "raw_output": "{\"fact\": \"maine khud dekha Vikram Pune gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_d34d5f55f69c",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri chachi Jaipur mein rehti hai",
+   "raw_output": "{\"fact\": \"meri chachi Jaipur mein rehti hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_d34d5f55f69c",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri mausi Jaipur mein rehti hai",
+   "raw_output": "{\"fact\": \"meri mausi Jaipur mein rehti hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_d497b25e4ad7",
+   "side": "a",
+   "language": "tr",
+   "utterance": "Emre geldi",
+   "raw_output": "{\"fact\": \"Emre geldi\"}"
+  },
+  {
+   "eval_pair_id": "ep_d497b25e4ad7",
+   "side": "b",
+   "language": "tr",
+   "utterance": "Emre gelmiş",
+   "raw_output": "{\"fact\": \"Emre gelmiş.\"}"
+  },
+  {
+   "eval_pair_id": "ep_d59de80b9e34",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Rohan ne do jode kapde diye",
+   "raw_output": "{\"fact\": \"Rohan ne do jode kapde diye.\"}"
+  },
+  {
+   "eval_pair_id": "ep_d59de80b9e34",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Rohan ne do tukde kapda diya",
+   "raw_output": "{\"fact\": \"Rohan ne do tukde kapda diya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_d679f490926f",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kehte hain Suresh bimar hai",
+   "raw_output": "{\"fact\": \"kehte hain Suresh bimar hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_d679f490926f",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Suresh bimar hai",
+   "raw_output": "{\"fact\": \"maine khud dekha Suresh bimar hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_d9063c9c973c",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Priya ne call kiya",
+   "raw_output": "{\"fact\": \"Priya ne call kiya\"}"
+  },
+  {
+   "eval_pair_id": "ep_d9063c9c973c",
+   "side": "b",
+   "language": "hi",
+   "utterance": "प्रिया ne call kiya",
+   "raw_output": "{\"fact\": \"प्रिया ne call kiya\"}"
+  },
+  {
+   "eval_pair_id": "ep_da8dd0ce2593",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal Rahul Jaipur gaya tha",
+   "raw_output": "{\"fact\": \"Kal Rahul Jaipur gya tha.\"}"
+  },
+  {
+   "eval_pair_id": "ep_da8dd0ce2593",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal Rahul Jaipur jayega",
+   "raw_output": "{\"fact\": \"Kal Rahul Jaipur gaanega.\"}"
+  },
+  {
+   "eval_pair_id": "ep_dbbfaf1a28a7",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal Arjun Pune gaya tha",
+   "raw_output": "{\"fact\": \"Kal Arjun Pune gaan tha.\"}"
+  },
+  {
+   "eval_pair_id": "ep_dbbfaf1a28a7",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal Arjun Pune jayega",
+   "raw_output": "{\"fact\": \"Kal Arjun Pune gareeb hoga.\"}"
+  },
+  {
+   "eval_pair_id": "ep_dc2a3f8a86ae",
+   "side": "a",
+   "language": "tr",
+   "utterance": "Mehmet geldi",
+   "raw_output": "{\"fact\": \"Mehmet geldi\"}"
+  },
+  {
+   "eval_pair_id": "ep_dc2a3f8a86ae",
+   "side": "b",
+   "language": "tr",
+   "utterance": "Mehmet gelmiş",
+   "raw_output": "{\"fact\": \"Mehmet gelmiş\"}"
+  },
+  {
+   "eval_pair_id": "ep_e17fb44f0085",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kehte hain Vikram bimar hai",
+   "raw_output": "{\"fact\": \"kehte hain Vikram bimar hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_e17fb44f0085",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Vikram bimar hai",
+   "raw_output": "{\"fact\": \"maine khud dekha Vikram bimar hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_e5b9aecab376",
+   "side": "a",
+   "language": "hi",
+   "utterance": "aaj meri chachi ka phone aaya",
+   "raw_output": "{\"fact\": \"aaj meri chachi ka phone aaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_e5b9aecab376",
+   "side": "b",
+   "language": "hi",
+   "utterance": "aaj meri mausi ka phone aaya",
+   "raw_output": "{\"fact\": \"aaj meri mausi ka phone aaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_e5c5debef813",
+   "side": "a",
+   "language": "tr",
+   "utterance": "Ayşe gitti",
+   "raw_output": "{\"fact\": \"Ayşe gitti.\"}"
+  },
+  {
+   "eval_pair_id": "ep_e5c5debef813",
+   "side": "b",
+   "language": "tr",
+   "utterance": "Ayşe gitmiş",
+   "raw_output": "{\"fact\": \"Ayşe gitmiş\"}"
+  },
+  {
+   "eval_pair_id": "ep_e72c5912b0c1",
+   "side": "a",
+   "language": "ko",
+   "utterance": "딸이 전화했어요",
+   "raw_output": "{\"fact\": \"딸이 전화했어요\"}"
+  },
+  {
+   "eval_pair_id": "ep_e72c5912b0c1",
+   "side": "b",
+   "language": "ko",
+   "utterance": "따님이 전화하셨어요",
+   "raw_output": "{\"fact\": \"따님이 전화하셨어요\"}"
+  },
+  {
+   "eval_pair_id": "ep_e7427bb165f8",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Nani, tum dawai le lo",
+   "raw_output": "{\"fact\": \"Nani, tum dawai le lo\"}"
+  },
+  {
+   "eval_pair_id": "ep_e7427bb165f8",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Nani, aap dawai le lijiye",
+   "raw_output": "{\"fact\": \"Nani, aap dawai le lijiye\"}"
+  },
+  {
+   "eval_pair_id": "ep_e875ecac5fda",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Neha ne call kiya",
+   "raw_output": "{\"fact\": \"Neha ne call kiya\"}"
+  },
+  {
+   "eval_pair_id": "ep_e875ecac5fda",
+   "side": "b",
+   "language": "hi",
+   "utterance": "नेहा ne call kiya",
+   "raw_output": "{\"fact\": \"नेहा को कैलल किया गया\"}"
+  },
+  {
+   "eval_pair_id": "ep_ea0ad235ce8b",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Pooja aa rahi hai",
+   "raw_output": "{\"fact\": \"Pooja está aquí\"}"
+  },
+  {
+   "eval_pair_id": "ep_ea0ad235ce8b",
+   "side": "b",
+   "language": "hi",
+   "utterance": "पूजा aa rahi hai",
+   "raw_output": "{\"fact\": \"पूजा aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_ed2cf2d25225",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kehte hain Deepak bimar hai",
+   "raw_output": "{\"fact\": \"kehte hain Deepak bimar hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_ed2cf2d25225",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Deepak bimar hai",
+   "raw_output": "{\"fact\": \"maine khud dekha Deepak bimar hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_ed611855163d",
+   "side": "a",
+   "language": "hi",
+   "utterance": "kal Manoj Jaipur gaya tha",
+   "raw_output": "{\"fact\": \"kal Manoj Jaipur gaya tha\"}"
+  },
+  {
+   "eval_pair_id": "ep_ed611855163d",
+   "side": "b",
+   "language": "hi",
+   "utterance": "kal Manoj Jaipur jayega",
+   "raw_output": "{\"fact\": \"Kal Manoj Jaipur jaayega.\"}"
+  },
+  {
+   "eval_pair_id": "ep_ef28ba5a6b8a",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri bua Pune mein rehti hai",
+   "raw_output": "{\"fact\": \"meri bua Pune mein rehti hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_ef28ba5a6b8a",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri mami Pune mein rehti hai",
+   "raw_output": "{\"fact\": \"meri mami Pune mein rehti hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_f1610aa8afd5",
+   "side": "a",
+   "language": "ko",
+   "utterance": "아들이 대학에 합격했어요",
+   "raw_output": "{\"fact\": \"아들이 대학에 합격했어요\"}"
+  },
+  {
+   "eval_pair_id": "ep_f1610aa8afd5",
+   "side": "b",
+   "language": "ko",
+   "utterance": "아드님이 대학에 합격하셨어요",
+   "raw_output": "{\"fact\": \"아드님이 대학에 합격하셨어요\"}"
+  },
+  {
+   "eval_pair_id": "ep_f18ed1b80d55",
+   "side": "a",
+   "language": "ko",
+   "utterance": "아들이 왔어요",
+   "raw_output": "{\"fact\": \"아들이 왔어요\"}"
+  },
+  {
+   "eval_pair_id": "ep_f18ed1b80d55",
+   "side": "b",
+   "language": "ko",
+   "utterance": "아드님이 오셨어요",
+   "raw_output": "{\"fact\": \"아드님이 오셨어요\"}"
+  },
+  {
+   "eval_pair_id": "ep_f2cca856d56e",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Nani ji ne sweater buna",
+   "raw_output": "{\"fact\": \"Nani ji ne sweater buna.\"}"
+  },
+  {
+   "eval_pair_id": "ep_f2cca856d56e",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Nani ne sweater buna",
+   "raw_output": "{\"fact\": \"Nani ne sweater buna\"}"
+  },
+  {
+   "eval_pair_id": "ep_f353e3e87803",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri chachi Pune aa rahi hai",
+   "raw_output": "{\"fact\": \"meri chachi Pune aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_f353e3e87803",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri mausi Pune aa rahi hai",
+   "raw_output": "{\"fact\": \"meri mausi Pune aa rahi hai\"}"
+  },
+  {
+   "eval_pair_id": "ep_f53aaf74ca9c",
+   "side": "a",
+   "language": "hi",
+   "utterance": "suna hai Arjun Jaipur gaya",
+   "raw_output": "{\"fact\": \"suna hai Arjun Jaipur gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_f53aaf74ca9c",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Arjun Jaipur gaya",
+   "raw_output": "{\"fact\": \"maine khud dekha Arjun Jaipur gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_f540c0d35410",
+   "side": "a",
+   "language": "de",
+   "utterance": "Sabine, du hast die Präsentation super gemacht.",
+   "raw_output": "{\"fact\": \"Sabine, du hast die Präsentation super gemacht.\"}"
+  },
+  {
+   "eval_pair_id": "ep_f540c0d35410",
+   "side": "b",
+   "language": "de",
+   "utterance": "Sabine, Sie haben die Präsentation super gemacht.",
+   "raw_output": "{\"fact\": \"Sabine, Sie haben die Präsentation super gemacht.\"}"
+  },
+  {
+   "eval_pair_id": "ep_f5e38076b272",
+   "side": "a",
+   "language": "tr",
+   "utterance": "Ali gitti",
+   "raw_output": "{\"fact\": \"Ali gitti.\"}"
+  },
+  {
+   "eval_pair_id": "ep_f5e38076b272",
+   "side": "b",
+   "language": "tr",
+   "utterance": "Ali gitmiş",
+   "raw_output": "{\"fact\": \"Ali gitmiş\"}"
+  },
+  {
+   "eval_pair_id": "ep_f76fae2853f4",
+   "side": "a",
+   "language": "hi",
+   "utterance": "meri dadi ka phone kal aaya",
+   "raw_output": "{\"fact\": \"meri dadi ka phone kal aaya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_f76fae2853f4",
+   "side": "b",
+   "language": "hi",
+   "utterance": "meri nani ka phone kal aaya",
+   "raw_output": "{\"fact\": \"meri nani ka phone kal aaya.\"}"
+  },
+  {
+   "eval_pair_id": "ep_fa68962c6b9d",
+   "side": "a",
+   "language": "hi",
+   "utterance": "Dadi ji ne kahani sunayi",
+   "raw_output": "{\"fact\": \"Dadi ji kahani sunaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_fa68962c6b9d",
+   "side": "b",
+   "language": "hi",
+   "utterance": "Dadi ne kahani sunayi",
+   "raw_output": "{\"fact\": \"Dadi ne kahani sunayi\"}"
+  },
+  {
+   "eval_pair_id": "ep_fdc7090ed703",
+   "side": "a",
+   "language": "hi",
+   "utterance": "suna hai Deepak Pune gaya",
+   "raw_output": "{\"fact\": \"suna hai Deepak Pune gaya\"}"
+  },
+  {
+   "eval_pair_id": "ep_fdc7090ed703",
+   "side": "b",
+   "language": "hi",
+   "utterance": "maine khud dekha Deepak Pune gaya",
+   "raw_output": "{\"fact\": \"Deepak Pune gaya maine khud dekha.\"}"
+  }
+ ],
+ "load_seconds": 32.0,
+ "generate_seconds": 60.8,
+ "peak_gpu_memory_gb": [
+  6.5,
+  0.0
+ ]
+}

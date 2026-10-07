@@ -1,0 +1,89 @@
+{
+  "variants": [
+    {
+      "variant": "current_B_mem0_legacy",
+      "sides": 40,
+      "parsed_ok": 40,
+      "parse_failed": 0,
+      "sides_with_a_fact": 14,
+      "empty_fact_list": 26,
+      "sides_with_exactly_one_fact": 14,
+      "facts_total": 14,
+      "parsed_rate": 1.0,
+      "one_fact_rate": 0.35,
+      "language_label": {
+        "translated_to_english": 10,
+        "mixed": 4
+      },
+      "mean_source_token_retention": 0.199,
+      "verbatim_copy": 0,
+      "near_copy_ge_0.9": 0,
+      "devanagari_utterances_with_fact": 3,
+      "devanagari_kept_in_fact": 1,
+      "pairs_judged": 3,
+      "judge_parse_ok": 3,
+      "judge_decisions": {
+        "merge": 1,
+        "keep_both": 2
+      },
+      "gate_decisions_lexicon": {
+        "merge": 1,
+        "keep_both": 2
+      },
+      "first_loss_point": {
+        "no_detectable_difference": 3
+      },
+      "seconds": 14.0
+    },
+    {
+      "variant": "candidate_B_native",
+      "sides": 40,
+      "parsed_ok": 40,
+      "parse_failed": 0,
+      "sides_with_a_fact": 40,
+      "empty_fact_list": 0,
+      "sides_with_exactly_one_fact": 40,
+      "facts_total": 40,
+      "parsed_rate": 1.0,
+      "one_fact_rate": 1.0,
+      "language_label": {
+        "translated_to_english": 4,
+        "source_language": 34,
+        "mixed": 2
+      },
+      "mean_source_token_retention": 0.862,
+      "verbatim_copy": 26,
+      "near_copy_ge_0.9": 30,
+      "devanagari_utterances_with_fact": 3,
+      "devanagari_kept_in_fact": 3,
+      "pairs_judged": 20,
+      "judge_parse_ok": 20,
+      "judge_decisions": {
+        "keep_both": 9,
+        "merge": 11
+      },
+      "gate_decisions_lexicon": {
+        "keep_both": 9,
+        "merge": 11
+      },
+      "first_loss_point": {
+        "no_detectable_difference": 19,
+        "none": 1
+      },
+      "seconds": 10.8
+    }
+  ],
+  "prompts": {
+    "current": "e9c4726fffc75febe5e5090b0d38305c76079165d54a9ee38e265c02877ad469",
+    "candidate": "6ca296ec04dc04c02bb7911618359f6ea82aaab25c92edec74d3bcfe635716af",
+    "judge": "3855ef65f50e9a0f017710e5c0d0cb5a63d210a7547fa0e0e336d4c77a45c5ff",
+    "v4": "3b4e1de73ac89d5142d0e0cfba52a18e03307f87ac69b2646fb1c9abbabdf00a"
+  },
+  "peak_gpu_memory_gb": 6.95,
+  "nvidia_smi_L": "GPU 0: Tesla T4 (UUID: GPU-a7d84ce4-3e9f-3598-03c7-5dad3ec0ec74)\nGPU 1: Tesla T4 (UUID: GPU-5059ee71-fbaa-c391-bcd9-47803f831b3d)",
+  "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+  "current_B_matches_smoke_raw_outputs": {
+    "matching": 40,
+    "of": 40
+  }
+}

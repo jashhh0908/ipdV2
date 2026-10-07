@@ -1,5 +1,7 @@
 # DK-Mem: Language-Induced False Consolidation in LLM Agent Memory
 
+> **Revision note (2026-10-08).** Config B was redefined from "Mem0 default prompt" to our own frozen native-language prompt (`native_b_v1`) after the smoke test showed the legacy Mem0 prompt extracts only a fraction of the sentences and translates what it extracts, and after checking that Mem0's default pipeline differs across versions. Affected text: Sec 4 (L2, L3), Sec 6.2 (row B and the paragraph below it), Sec 6.3 (the Mem0 baseline row), Sec 9 item 1 and Sec 10. The pre-freeze evidence is in `validation/native_b_prefreeze/REPORT.md`.
+
 **Working title:** *Where the Distinction Dies: Language-Induced False Consolidation in LLM Agent Memory*
 
 **Target:** ≤6-page paper, small/mid-tier IEEE workshop
@@ -59,8 +61,8 @@ The distinction can be lost at four points. The paper measures each one separate
 | # | Stage | How the distinction is lost |
 |---|---|---|
 | L1 | **Extraction: forced English** | The deployment or research prompt tells the extractor to write facts in English. *Chachi* becomes "aunt" before anything is stored. |
-| L2 | **Extraction: language drift** | The prompt tells the model to keep the user's language (Mem0's default does this), but small models drift to English anyway. Code-mixed Hinglish makes "the user's language" ambiguous to begin with. |
-| L3 | **Merge judge collapse** | Facts are stored with *chachi* and *mausi* intact, but the LLM that chooses ADD / UPDATE / DELETE treats both as "aunt" and calls the second an update. |
+| L2 | **Extraction: language drift** | The prompt tells the model to keep the user's language, but small models drift to English anyway (and, as the Config B checks showed, some rewrite the text in another script instead). Code-mixed Hinglish makes "the user's language" ambiguous to begin with. |
+| L3 | **Merge judge collapse** | Facts are stored with *chachi* and *mausi* intact, but the LLM that chooses ADD / UPDATE / DELETE (the update step of Mem0 1.x; Mem0 2.x has none) treats both as "aunt" and calls the second an update. |
 | L4 | **Embedding collapse** | Merge candidates are chosen by vector similarity, and the multilingual embedder places fine-grained same-category terms close enough to pass the merge threshold. |
 
 L1 and L2 destroy the distinction **before storage**. L3 and L4 destroy it **at decision time**, even when it is stored. The stage analysis in Section 6 isolates these by varying extraction, storage, and merge mechanism independently.
@@ -158,11 +160,11 @@ Four pipeline configurations isolate the loss points from Section 4:
 | Config | Extraction | Storage | Merge decision | Isolates |
 |---|---|---|---|---|
 | **A** | English-forced prompt | English gloss | LLM judge | L1 |
-| **B** | Mem0 default prompt (record facts in the user's language) | Whatever the extractor emits | LLM judge | L2 |
+| **B** | Native-language prompt (our own, frozen as `native_b_v1`: record one fact in the user's language and script, do not translate) | Whatever the extractor emits | LLM judge | L2 |
 | **C** | None (verbatim) | Surface text | LLM judge | L3 |
 | **D** | None (verbatim) | Surface text | Embedding threshold (bge-m3) | L4 |
 
-Each configuration is run with and without the DK-Mem gate, across Qwen2.5-1.5B / 3B / 7B. In Config B, we record **what language the extractor actually wrote**, which directly measures drift.
+Each configuration is run with and without the DK-Mem gate, across Qwen2.5-1.5B / 3B / 7B. In Config B, we record **what the extractor actually wrote**, as three separate quantities: **language drift** (not the source language), **script drift** (same language, different script) and **corruption** (garbled, invented or changed content). Config B is a controlled pipeline condition, not the Mem0 baseline: Mem0's prompts and pipeline changed across releases (0.1.x: one fact-extraction prompt; 1.x: a user-memory prompt plus an LLM ADD/UPDATE/DELETE step; 2.x: a single additive extraction with no LLM update step), so a real Mem0 run is a separate, version-pinned baseline below.
 
 **Week-1 pilot.** 30 hand-made pairs across all four configurations, before full probe construction. This is the go/no-go check for H1 and H2.
 
@@ -171,7 +173,7 @@ Each configuration is run with and without the DK-Mem gate, across Qwen2.5-1.5B 
 | Baseline | Why it is included |
 |---|---|
 | **Mem0, English-forced extraction** | Standard extract-and-consolidate pipeline under L1 conditions |
-| **Mem0, default native-language prompt** | The realistic default; tests whether keeping the user's language is enough |
+| **Mem0, version-pinned, default prompt** | The deployed system as it is; the pinned version must be stated, and it must be confirmed to perform merges (Mem0 ≥ 2.0 has no LLM merge step). Distinct from Config B. |
 | **A-Mem** | Linked-note consolidation with a different merge logic |
 | **Store-surface-only** | Verbatim storage with the host merge judge (Config C); answers "just don't normalize" |
 | **Embedding-threshold merge** | Similarity-only merging (Config D); represents threshold-based merge policies |
@@ -248,7 +250,7 @@ Stated as defensible paper claims. Claims 1 and 2 are conditional on the week-1 
 
 The paper does **not** claim any of the following:
 
-1. "Memory systems normalize multilingual input to English before storing it." Mem0's default prompt and Hindsight both keep the user's language. Where the distinction is lost is measured, not assumed.
+1. "Memory systems normalize multilingual input to English before storing it." Mem0's 0.1.x and 1.x extraction prompts and Hindsight keep the user's language (current Mem0 2.x does not instruct it by default). Where the distinction is lost is measured, not assumed.
 2. "Merge gating is a new memory primitive" or "`compatible()` is a new primitive." It is attribute agreement and a cannot-link constraint.
 3. "Write-time gating" as a contribution. MOSAIC, Verification-Gated Persona State Transitions, and A-MAC already gate writes.
 4. "Deterministic rules beating LLM judgment" as a new finding.
@@ -285,7 +287,7 @@ The paper does **not** claim any of the following:
 
 **Added**
 
-- Config B: Mem0 run with its **default native-language prompt**, with the extractor's output language logged
+- Config B: a **native-language extraction prompt** (our own, `native_b_v1`), with language drift, script drift and corruption logged separately; the real Mem0 run is a separate baseline
 - Config C: **verbatim surface storage** with the host merge judge
 - Config D: **embedding-threshold merging** (bge-m3)
 - **Raise-τ** and **prompt-informed merge judge** baselines

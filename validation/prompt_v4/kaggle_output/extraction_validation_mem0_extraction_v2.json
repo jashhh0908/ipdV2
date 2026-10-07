@@ -1,0 +1,668 @@
+{
+  "summary": {
+    "prompt_id": "mem0_extraction_v2",
+    "prompt_sha256": "59ebe2b8be62d8bc3b9ac28cb6d5139150f27b399b582325795cdc31dbf02f45",
+    "items": 20,
+    "successful": 20,
+    "failed": 0,
+    "failure_categories": {},
+    "cache": {
+      "pass1_hits": 0,
+      "pass1_prompts_generated": 20,
+      "pass2_hits": 20,
+      "pass2_prompts_generated": 0,
+      "entries_on_disk_verified": 20
+    },
+    "timing_seconds": {
+      "pass1": 23.8,
+      "pass2": 0.0
+    },
+    "peak_gpu_memory_gb": 7.88
+  },
+  "items": [
+    {
+      "pair_id": "probe_001",
+      "side": "a",
+      "lang": "hi",
+      "distinction_class": "kinship",
+      "utterance": "Meri chachi Mumbai mein rehti hai.",
+      "expected_distinction": {
+        "kinship": "chachi"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"My grandmother lives in Mumbai\", \"distinction\": {\"kinship\": \"chachi\"}, \"surface\": \"Meri chachi Mumbai mein rehti hai.\"}",
+      "gloss": "My grandmother lives in Mumbai",
+      "distinction": {
+        "kinship": "chachi"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "hi": 1.0,
+        "en": 0.0,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": true
+    },
+    {
+      "pair_id": "probe_001",
+      "side": "b",
+      "lang": "hi",
+      "distinction_class": "kinship",
+      "utterance": "Meri mausi Mumbai mein rehti hai.",
+      "expected_distinction": {
+        "kinship": "mausi"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"user's sister lives in Mumbai\", \"distinction\": {\"kinship\": \"mausi\"}, \"surface\": \"Meri mausi Mumbai mein rehti hai.\"}",
+      "gloss": "user's sister lives in Mumbai",
+      "distinction": {
+        "kinship": "mausi"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "hi": 1.0,
+        "en": 0.0,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": true
+    },
+    {
+      "pair_id": "probe_002",
+      "side": "a",
+      "lang": "hi",
+      "distinction_class": "kinship",
+      "utterance": "Meri chachi Mumbai mein rehti hai.",
+      "expected_distinction": {
+        "kinship": "chachi"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"My grandmother lives in Mumbai\", \"distinction\": {\"kinship\": \"chachi\"}, \"surface\": \"Meri chachi Mumbai mein rehti hai.\"}",
+      "gloss": "My grandmother lives in Mumbai",
+      "distinction": {
+        "kinship": "chachi"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "hi": 1.0,
+        "en": 0.0,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": true
+    },
+    {
+      "pair_id": "probe_002",
+      "side": "b",
+      "lang": "hi",
+      "distinction_class": "kinship",
+      "utterance": "Meri chachi Pune mein shift ho gayi hai.",
+      "expected_distinction": {
+        "kinship": "chachi"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"My grandmother is working in Pune\", \"distinction\": {\"kinship\": \"chachi\"}, \"surface\": \"Meri chachi Pune mein shift ho gayi hai.\"}",
+      "gloss": "My grandmother is working in Pune",
+      "distinction": {
+        "kinship": "chachi"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "hi": 1.0,
+        "en": 0.0,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": true
+    },
+    {
+      "pair_id": "probe_003",
+      "side": "a",
+      "lang": "hi",
+      "distinction_class": "register",
+      "utterance": "Tum kal office aaoge.",
+      "expected_distinction": {
+        "register": "tum"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"addressee will come to the office tomorrow\", \"distinction\": {\"register\": \"tum\"}, \"surface\": \"Tum kal office aaoge.\"}",
+      "gloss": "addressee will come to the office tomorrow",
+      "distinction": {
+        "register": "tum"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "hi": 1.0,
+        "en": 0.0,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": true
+    },
+    {
+      "pair_id": "probe_003",
+      "side": "b",
+      "lang": "hi",
+      "distinction_class": "register",
+      "utterance": "Aap kal office aaoge.",
+      "expected_distinction": {
+        "register": "aap"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"addressee will come to the office tomorrow\", \"distinction\": {\"register\": \"aap\"}, \"surface\": \"Aap kal office aaoge.\"}",
+      "gloss": "addressee will come to the office tomorrow",
+      "distinction": {
+        "register": "aap"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "hi": 1.0,
+        "en": 0.0,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": true
+    },
+    {
+      "pair_id": "probe_004",
+      "side": "a",
+      "lang": "hi-en",
+      "distinction_class": "kinship",
+      "utterance": "Meri chachi Mumbai mein rehti hai.",
+      "expected_distinction": {
+        "kinship": "chachi"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"My grandmother lives in Mumbai\", \"distinction\": {\"kinship\": \"chachi\"}, \"surface\": \"Meri chachi Mumbai mein rehti hai.\"}",
+      "gloss": "My grandmother lives in Mumbai",
+      "distinction": {
+        "kinship": "chachi"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "hi": 1.0,
+        "en": 0.0,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": true
+    },
+    {
+      "pair_id": "probe_004",
+      "side": "b",
+      "lang": "hi-en",
+      "distinction_class": "kinship",
+      "utterance": "Meri aunty Mumbai mein rehti hai.",
+      "expected_distinction": {},
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"user's aunt lives in Mumbai\", \"distinction\": {\"kinship\": \"aunty\"}, \"surface\": \"Meri aunty Mumbai mein rehti hai.\"}",
+      "gloss": "user's aunt lives in Mumbai",
+      "distinction": {
+        "kinship": "aunty"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "hi": 0.83,
+        "en": 0.17,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": false
+    },
+    {
+      "pair_id": "probe_005",
+      "side": "a",
+      "lang": "hi-en",
+      "distinction_class": "name_variant",
+      "utterance": "Priya ne mera call uthaya.",
+      "expected_distinction": {
+        "name_variant": "Priya-latin"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"Priya answered the user's call\", \"distinction\": {\"name_variant\": \"Priya-devanagari\"}, \"surface\": \"Priya ne mera call uthaya.\"}",
+      "gloss": "Priya answered the user's call",
+      "distinction": {
+        "name_variant": "Priya-devanagari"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "hi": 0.8,
+        "en": 0.2,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": false
+    },
+    {
+      "pair_id": "probe_005",
+      "side": "b",
+      "lang": "hi-en",
+      "distinction_class": "name_variant",
+      "utterance": "प्रिया ने मेरा call उठाया.",
+      "expected_distinction": {
+        "name_variant": "Priya-devanagari"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"Priya called the user\", \"distinction\": {\"kinship\": \"call\"}, \"surface\": \"प्रिया ने मेरा call उठाया.\"}",
+      "gloss": "Priya called the user",
+      "distinction": {
+        "kinship": "call"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "hi": 0.8,
+        "en": 0.2,
+        "script_mix": 0.2
+      },
+      "distinction_matches_expected": false
+    },
+    {
+      "pair_id": "probe_006",
+      "side": "a",
+      "lang": "tr",
+      "distinction_class": "evidentiality",
+      "utterance": "Ali Ankara'ya gitmiş.",
+      "expected_distinction": {
+        "evidentiality": "reported/hearsay"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"Ali went to Ankara\", \"distinction\": {\"evidentiality\": \"reported/hearsay\", \"name_variant\": \"Ali-latin\"}, \"surface\": \"Ali Ankara'ya gitmiş.\"}",
+      "gloss": "Ali went to Ankara",
+      "distinction": {
+        "evidentiality": "reported/hearsay",
+        "name_variant": "Ali-latin"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "tr": 1.0,
+        "en": 0.0,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": false
+    },
+    {
+      "pair_id": "probe_006",
+      "side": "b",
+      "lang": "tr",
+      "distinction_class": "evidentiality",
+      "utterance": "Ali Ankara'ya gitti.",
+      "expected_distinction": {
+        "evidentiality": "direct/confirmed"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"Ali went to Ankara\", \"distinction\": {\"name_variant\": \"Ali-latin\"}, \"surface\": \"Ali Ankara'ya gitti.\"}",
+      "gloss": "Ali went to Ankara",
+      "distinction": {
+        "name_variant": "Ali-latin"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "tr": 1.0,
+        "en": 0.0,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": false
+    },
+    {
+      "pair_id": "probe_007",
+      "side": "a",
+      "lang": "ja",
+      "distinction_class": "classifier",
+      "utterance": "水を三杯飲みました。",
+      "expected_distinction": {
+        "classifier": "cup"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"user drank three cups of water\", \"distinction\": {\"classifier\": \"cup\"}, \"surface\": \"水を三杯飲みました。\"}",
+      "gloss": "user drank three cups of water",
+      "distinction": {
+        "classifier": "cup"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "ja": 1.0,
+        "en": 0.0,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": true
+    },
+    {
+      "pair_id": "probe_007",
+      "side": "b",
+      "lang": "ja",
+      "distinction_class": "classifier",
+      "utterance": "水を三本飲みました。",
+      "expected_distinction": {
+        "classifier": "long-object"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"user drank three bottles of water\", \"distinction\": {\"classifier\": \"volume\", \"politeness\": \"formal\"}, \"surface\": \"水を三本飲みました。\"}",
+      "gloss": "user drank three bottles of water",
+      "distinction": {
+        "classifier": "volume",
+        "politeness": "formal"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "ja": 1.0,
+        "en": 0.0,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": false
+    },
+    {
+      "pair_id": "probe_008",
+      "side": "a",
+      "lang": "ko",
+      "distinction_class": "politeness",
+      "utterance": "선생님께 이메일을 보냈어.",
+      "expected_distinction": {
+        "politeness": "informal"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"teacher sent an email\", \"distinction\": {\"kinship\": \"선생님\"}, \"surface\": \"선생님께 이메일을 보냈어.\"}",
+      "gloss": "teacher sent an email",
+      "distinction": {
+        "kinship": "선생님"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "ko": 1.0,
+        "en": 0.0,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": false
+    },
+    {
+      "pair_id": "probe_008",
+      "side": "b",
+      "lang": "ko",
+      "distinction_class": "politeness",
+      "utterance": "선생님께 이메일을 보냈습니다.",
+      "expected_distinction": {
+        "politeness": "formal"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"teacher sent an email to the teacher\", \"distinction\": {\"kinship\": \"선생님\"}, \"surface\": \"선생님께 이메일을 보냈습니다.\"}",
+      "gloss": "teacher sent an email to the teacher",
+      "distinction": {
+        "kinship": "선생님"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "ko": 1.0,
+        "en": 0.0,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": false
+    },
+    {
+      "pair_id": "probe_009",
+      "side": "a",
+      "lang": "hi",
+      "distinction_class": "temporal_deixis",
+      "utterance": "मैं कल मुंबई गया था।",
+      "expected_distinction": {
+        "temporal_deixis": "yesterday"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"user went to Mumbai yesterday\", \"distinction\": {\"temporal_deixis\": \"yesterday\"}, \"surface\": \"मैं कल मुंबई गया था।\"}",
+      "gloss": "user went to Mumbai yesterday",
+      "distinction": {
+        "temporal_deixis": "yesterday"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "hi": 1.0,
+        "en": 0.0,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": true
+    },
+    {
+      "pair_id": "probe_009",
+      "side": "b",
+      "lang": "hi",
+      "distinction_class": "temporal_deixis",
+      "utterance": "मैं कल मुंबई जाऊँगा।",
+      "expected_distinction": {
+        "temporal_deixis": "tomorrow"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"user will go to Mumbai tomorrow\", \"distinction\": {\"evidentiality\": \"direct/confirmed\", \"name_variant\": \"मैं-hindi\"}, \"surface\": \"मैं कल मुंबई जाऊँगा।\"}",
+      "gloss": "user will go to Mumbai tomorrow",
+      "distinction": {
+        "evidentiality": "direct/confirmed",
+        "name_variant": "मैं-hindi"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "hi": 1.0,
+        "en": 0.0,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": false
+    },
+    {
+      "pair_id": "probe_010",
+      "side": "a",
+      "lang": "de",
+      "distinction_class": "control_kinship",
+      "utterance": "Mein Bruder lebt in Berlin.",
+      "expected_distinction": {
+        "kinship": "brother"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"user's brother lives in Berlin\", \"distinction\": {\"kinship\": \"Bruder\"}, \"surface\": \"Mein Bruder lebt in Berlin.\"}",
+      "gloss": "user's brother lives in Berlin",
+      "distinction": {
+        "kinship": "Bruder"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "de": 1.0,
+        "en": 0.0,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": false
+    },
+    {
+      "pair_id": "probe_010",
+      "side": "b",
+      "lang": "de",
+      "distinction_class": "control_kinship",
+      "utterance": "Meine Schwester studiert in Hamburg.",
+      "expected_distinction": {
+        "kinship": "sister"
+      },
+      "pass1_cache": "miss",
+      "pass2_cache": "hit",
+      "reloaded_from_disk": true,
+      "success": true,
+      "strict_validation": true,
+      "error": null,
+      "failure_category": null,
+      "raw_output": "{\"gloss\": \"user's sister studies in Hamburg\", \"distinction\": {\"register\": \"du\"}, \"surface\": \"Meine Schwester studiert in Hamburg.\"}",
+      "gloss": "user's sister studies in Hamburg",
+      "distinction": {
+        "register": "du"
+      },
+      "surface_exact_match": true,
+      "lang_profile": {
+        "de": 1.0,
+        "en": 0.0,
+        "script_mix": 0.0
+      },
+      "distinction_matches_expected": false
+    }
+  ],
+  "run_info": {
+    "backbone": "Qwen/Qwen2.5-3B-Instruct",
+    "model_config": {
+      "model_id": "Qwen/Qwen2.5-3B-Instruct",
+      "revision": null,
+      "device": "cuda:0",
+      "dtype": "float16",
+      "use_chat_template": true
+    },
+    "resolved_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+    "generation_params": {
+      "max_new_tokens": 256,
+      "do_sample": false,
+      "temperature": 1.0,
+      "top_p": 1.0,
+      "top_k": 0,
+      "repetition_penalty": 1.0,
+      "seed": 0,
+      "batch_size": 8
+    },
+    "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+    "device_name": "Tesla T4",
+    "torch_version": "2.11.0+cu128",
+    "transformers_version": "5.16.1"
+  },
+  "backend_info": {
+    "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+    "dtype": "float16"
+  },
+  "params": {
+    "max_new_tokens": 256,
+    "do_sample": false,
+    "temperature": 1.0,
+    "top_p": 1.0,
+    "top_k": 0,
+    "repetition_penalty": 1.0,
+    "seed": 0,
+    "batch_size": 8
+  },
+  "prompt_id": "mem0_extraction_v2",
+  "prompt_sha256": "59ebe2b8be62d8bc3b9ac28cb6d5139150f27b399b582325795cdc31dbf02f45",
+  "unit_tests": "OK",
+  "file_sha256": {
+    "dkmem/__init__.py": "b76cf641a7a1f28473aa2242b6de5b0e4e0ca69e39bcfa50f566fc2262aec5cf",
+    "dkmem/backends/__init__.py": "5636e769d42009317b0d4e3385729a98c29ecdc250a4e4ea2fddd74beffc181e",
+    "dkmem/backends/llm.py": "078452212ec5dd4bdd8a649aeae6034e7f3a08d5895aaa758b14fbd5d178aeb5",
+    "dkmem/memory/__init__.py": "5d9e99361f72fc89d73acb8fc18d5a29c21c776444246d527a46ce127174173d",
+    "dkmem/memory/schema.py": "6015d0dc1690cb030afb4733723beb15e9d640282880046cf07d6a99c3b06a2a",
+    "dkmem/memory/scope.py": "acbb70b56210827b36aa1f91494e88d777343cff81072c1f229b1d2161549e9c",
+    "dkmem/memory/prompts.py": "bdf82ed044567f7a2fc79b248ea39d6263fd613533f4e3d848b6b14f720823f1",
+    "dkmem/memory/extract.py": "c327b781f68090766dc9dad9fabf86bbeb13222219db0df48173ce72d1bf1c7f",
+    "dkmem/memory/cache.py": "77f7ae8584422f321ed99aaa39f77fd698472c0ff0909f8e492bd8b9a170cff2",
+    "tests/test_schema.py": "def4a55810ba58579c64f760078abdf70360276dcda6bf0bad6b9aaa50aecb59",
+    "tests/test_llm.py": "87f836a12de7a31c9691f6cc167e28a158a9e5a5f81a42287f2a7cd274c2a719",
+    "tests/test_fixtures.py": "5ebc395d69c3cd625e70f5d986f705d6f444956cd1172841a709779b98165c67",
+    "tests/test_extract.py": "b362cd4f4638c57f3f273bd5537071fcaeb5e0dac50e4ada649b824515de3bcc",
+    "tests/test_cache.py": "485b1a04c313cac73603784b3274f6060188cd7e15590dbb473a3ab4cbb346e9",
+    "tests/test_prompts.py": "57ccaa8bd2ac33d6dac403088b83ae96cc4cf43d9bf72cae5608e829ab4f44f0",
+    "tests/fixtures/synthetic_fixtures.py": "4c33c43e3cf9cf0c9713ca9d400ad389f73f68f7c0a54993e0483c153a906f96",
+    "tests/fixtures/probe_items.jsonl": "98d90ee5802bf0a3773d4b3c67f61d13eb1c8fad7285c6168d86b9872ad06771",
+    "tests/fixtures/extractions.jsonl": "0145fec0247884577aca78a686016c14f8dc316360ef1648804892322f355da0",
+    "tests/fixtures/merge_events.jsonl": "f124a39e327b4384e09df7e831e6bfa5867c522839a68eacca540a93d92be152"
+  }
+}

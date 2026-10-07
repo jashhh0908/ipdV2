@@ -286,7 +286,7 @@ class TestPairwiseEvalRecord(unittest.TestCase):
 
     def test_bad_strategy_rejected(self):
         with self.assertRaises(Tier1InputError):
-            self.base(strategy="mem0")
+            self.base(strategy="a-mem")
 
     def test_bad_decision_rejected(self):
         with self.assertRaises(Tier1InputError):
@@ -311,6 +311,17 @@ class TestPairwiseEvalRecord(unittest.TestCase):
             self.base(threshold=-0.01)
         with self.assertRaises(Tier1InputError):
             self.base(threshold=1.01)
+
+    def test_threshold_may_be_null_for_a_host_without_a_cutoff(self):
+        # an LLM merge judge decides; there is no similarity cutoff to report
+        r = self.base(threshold=None, compatibility=None, strategy="mem0")
+        self.assertIsNone(r.threshold)
+        self.assertIsNone(json.loads(r.to_json())["threshold"])
+        for bad in ("0.85", True, 1.5, -0.1):
+            with self.assertRaises(Tier1InputError):
+                self.base(threshold=bad)
+        with self.assertRaises(Tier1InputError):
+            self.base(similarity_score=None)  # the score itself is never optional
 
     def test_similarity_score_and_threshold_boundaries_allowed(self):
         self.base(similarity_score=0.0, threshold=0.0)
@@ -388,7 +399,7 @@ class TestWriteRunManifest(unittest.TestCase):
     def test_rejects_out_of_scope_strategy(self):
         with tempfile.TemporaryDirectory() as tmp:
             with self.assertRaises(Tier1InputError):
-                write_run_manifest(Path(tmp) / "m.json", run_id="r", strategy="mem0",
+                write_run_manifest(Path(tmp) / "m.json", run_id="r", strategy="a-mem",
                                    seed=0, backbone=None)
 
     def test_rejects_malformed_created_at(self):

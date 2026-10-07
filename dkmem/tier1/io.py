@@ -88,9 +88,20 @@ __all__ = [
 TIER1_INPUT_SHA256 = "eab5dcb23375eb2e744c72a98cb31c25da0171b2ba3297a0843574ed9a34cd07"
 TIER1_INPUT_RECORD_COUNT = 173
 
-# The strategies this package implements. The full contract list (the
-# ``strategy`` enum in both JSON schemas) is ``dkmem.config.STRATEGIES``.
-TIER1_STRATEGIES = ("dk-mem-lexicon", "dk-mem-lexicon-llm")
+# The strategies this package emits. The full contract list (the ``strategy``
+# enum in both JSON schemas) is ``dkmem.config.STRATEGIES``. The first two come
+# from the stand-alone Tier 1 runner (``dkmem.tier1.runner``); the last three
+# are the DK-Mem-off labels of the stage-attribution harness
+# (``dkmem.pipeline``): Configs A/B -> "mem0", C -> "store-surface-only",
+# D -> "embedding-threshold" (``pipeline_config`` in the manifest tells A from
+# B). They name the host *role* of Sec 6.3, not an installed third-party system.
+TIER1_STRATEGIES = (
+    "dk-mem-lexicon",
+    "dk-mem-lexicon-llm",
+    "mem0",
+    "store-surface-only",
+    "embedding-threshold",
+)
 
 PAIRWISE_DECISIONS = ("merge", "no_merge", "supersede", "underdetermined_link")
 
@@ -326,7 +337,9 @@ class PairwiseEvalRecord:
 
     ``similarity_score`` must be the raw, pre-gating gloss similarity
     (never clipped, rounded, or replaced by a post-gating value);
-    ``threshold`` is the tau actually used; ``compatibility`` is one of
+    ``threshold`` is the tau actually used, or ``None`` when the host's merge
+    decision uses no similarity cutoff (an LLM merge judge, Configs A-C of
+    ``dkmem.pipeline``; the score is then informational); ``compatibility`` is one of
     ``dkmem.memory.gate.COMPATIBILITY`` for a gated strategy, ``None`` for
     one without gating.
     """
@@ -338,7 +351,7 @@ class PairwiseEvalRecord:
     entry_b: MemoryEntry
     decision: str
     similarity_score: float
-    threshold: float
+    threshold: float | None
     compatibility: str | None
     predicted_entity_id: str | None = None
     superseded_entry_id: str | None = None
@@ -355,8 +368,10 @@ class PairwiseEvalRecord:
         # pairwise_eval.schema.json: threshold/similarity_score in [0, 1].
         for name in ("similarity_score", "threshold"):
             value = getattr(self, name)
+            if name == "threshold" and value is None:
+                continue
             if not isinstance(value, (int, float)) or isinstance(value, bool):
-                raise Tier1InputError(f"{name} must be a number")
+                raise Tier1InputError(f"{name} must be a number" + (" or None" if name == "threshold" else ""))
             if not (0 <= value <= 1):
                 raise Tier1InputError(f"{name} must be in [0, 1], got {value!r}")
         if self.compatibility is not None and self.compatibility not in COMPATIBILITY:

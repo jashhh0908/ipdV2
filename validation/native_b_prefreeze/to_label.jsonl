@@ -1,0 +1,552 @@
+{"id": 0, "utterance": "Ali geldi", "fact": "Ali has arrived.", "language": "tr"}
+{"id": 1, "utterance": "Ali gelmiş", "fact": "Ali has arrived.", "language": "tr"}
+{"id": 2, "utterance": "Ali gitmiş", "fact": "Ali has gone.", "language": "tr"}
+{"id": 3, "utterance": "Ali gitti", "fact": "Ali went.", "language": "tr"}
+{"id": 4, "utterance": "Amit aa raha hai", "fact": "Amit is coming.", "language": "hi"}
+{"id": 5, "utterance": "Amit ek botal doodh laaya", "fact": "Amit bought dal.", "language": "hi"}
+{"id": 6, "utterance": "Amit ek botal doodh laaya", "fact": "Amit gave one liter of milk.", "language": "hi"}
+{"id": 7, "utterance": "Amit ek botal paani piya", "fact": "Amit has a water bottle.", "language": "hi"}
+{"id": 8, "utterance": "Amit ek gilaas doodh laaya", "fact": "Amit gave some strange milk.", "language": "hi"}
+{"id": 9, "utterance": "Amit ek gilaas doodh laaya", "fact": "Amit is eating dal.", "language": "hi"}
+{"id": 10, "utterance": "Amit ek gilaas paani piya", "fact": "Amit is very thirsty.", "language": "hi"}
+{"id": 11, "utterance": "Amit ne call kiya", "fact": "Amit received a call.", "language": "hi"}
+{"id": 12, "utterance": "Amit ne do jode kapde diye", "fact": "Amit is playing cricket.", "language": "hi"}
+{"id": 13, "utterance": "Amit ne do tukde kapda diya", "fact": "Amit gave some cloth to someone.", "language": "hi"}
+{"id": 14, "utterance": "Anjali aa rahi hai", "fact": "Anjali is coming.", "language": "hi"}
+{"id": 15, "utterance": "Anjali aa rahi hai", "fact": "Anjali is present.", "language": "hi"}
+{"id": 16, "utterance": "Anjali aa rahi hai", "fact": "अंजाली आ रही है", "language": "hi"}
+{"id": 17, "utterance": "Anjali ne call kiya", "fact": "Anjali called someone.", "language": "hi"}
+{"id": 18, "utterance": "Anjali ne call kiya", "fact": "अंजाली ने कॉल किया", "language": "hi"}
+{"id": 19, "utterance": "Anjali party mein aayi thi", "fact": "Anjali party was there.", "language": "hi"}
+{"id": 20, "utterance": "Anjali party mein aayi thi", "fact": "अंजाली पार्टी में आई थी", "language": "hi"}
+{"id": 21, "utterance": "Arjun aa raha hai", "fact": "Arjun is coming.", "language": "hi"}
+{"id": 22, "utterance": "Arjun aa raha hai", "fact": "अर्जुन आ रहा है", "language": "hi"}
+{"id": 23, "utterance": "Arjun ek botal doodh laaya", "fact": "Arjun dilo ek botal doodh.", "language": "hi"}
+{"id": 24, "utterance": "Arjun ek botal doodh laaya", "fact": "Arjun is drinking dal.", "language": "hi"}
+{"id": 25, "utterance": "Arjun ek botal doodh laaya", "fact": "अर्जुन एक बोतल दूध लाया", "language": "hi"}
+{"id": 26, "utterance": "Arjun ek botal paani piya", "fact": "Arjun is thirsty.", "language": "hi"}
+{"id": 27, "utterance": "Arjun ek botal paani piya", "fact": "Arjun traga wata wata piya", "language": "hi"}
+{"id": 28, "utterance": "Arjun ek gilaas doodh laaya", "fact": "Arjun dheeley doodh laaya.", "language": "hi"}
+{"id": 29, "utterance": "Arjun ek gilaas doodh laaya", "fact": "Arjun is seeking a curry", "language": "hi"}
+{"id": 30, "utterance": "Arjun ek gilaas paani piya", "fact": "Arjun is very thirsty.", "language": "hi"}
+{"id": 31, "utterance": "Arjun ne call kiya", "fact": "Arjun called someone.", "language": "hi"}
+{"id": 32, "utterance": "Arjun ne call kiya", "fact": "अर्जुन ने फोन किया", "language": "hi"}
+{"id": 33, "utterance": "Arjun ne do jode kapde diye", "fact": "Arjun played cricket in the jungle.", "language": "hi"}
+{"id": 34, "utterance": "Arjun ne do jode kapde diye", "fact": "अर्जुन ने दो जोडे कपड़े दिए", "language": "hi"}
+{"id": 35, "utterance": "Arjun ne do tukde kapda diya", "fact": "Arjun gave himself a haircut.", "language": "hi"}
+{"id": 36, "utterance": "Arjun ne do tukde kapda diya", "fact": "अर्जुन ने दो टुकड़े कपड़ा दिए", "language": "hi"}
+{"id": 37, "utterance": "Ayşe geldi", "fact": "Ayşe arrived.", "language": "tr"}
+{"id": 38, "utterance": "Ayşe gelmiş", "fact": "Ayşe has arrived.", "language": "tr"}
+{"id": 39, "utterance": "Ayşe gitmiş", "fact": "Ayşe has gone.", "language": "tr"}
+{"id": 40, "utterance": "Ayşe gitti", "fact": "Ayşe went.", "language": "tr"}
+{"id": 41, "utterance": "Can geldi", "fact": "Geldi is Turkish for 'it is true'.", "language": "tr"}
+{"id": 42, "utterance": "Can geldi", "fact": "Utterance: Can geldi", "language": "tr"}
+{"id": 43, "utterance": "Can gelmiş", "fact": "gelmiş", "language": "tr"}
+{"id": 44, "utterance": "Chefin, kannst du den Bericht bis Freitag lesen?", "fact": "Can the boss read the report by Friday?", "language": "de"}
+{"id": 45, "utterance": "Chefin, können Sie den Bericht bis Freitag lesen?", "fact": "Can the person read the report until Friday?", "language": "de"}
+{"id": 46, "utterance": "Dada ji ne akhbaar padha", "fact": "Dada received the news.", "language": "hi"}
+{"id": 47, "utterance": "Dada ji ne akhbaar padha", "fact": "दादा जी ने अखबार पड�ha", "language": "hi"}
+{"id": 48, "utterance": "Dada ne akhbaar padha", "fact": "Dada has returned.", "language": "hi"}
+{"id": 49, "utterance": "Dada ne akhbaar padha", "fact": "دا دا نې پاڼه پاڼه کړی", "language": "hi"}
+{"id": 50, "utterance": "Dadi ji ne kahani sunayi", "fact": "Dadi ji is reading a story.", "language": "hi"}
+{"id": 51, "utterance": "Dadi ji ne kahani sunayi", "fact": "Dadi ji kahani sunaya", "language": "hi"}
+{"id": 52, "utterance": "Dadi ji ne kahani sunayi", "fact": "दादी जी ने कहानी सुनाई", "language": "hi"}
+{"id": 53, "utterance": "Dadi ji ne pooja karwayi", "fact": "Dadi ji is performing a puja.", "language": "hi"}
+{"id": 54, "utterance": "Dadi ji ne pooja karwayi", "fact": "दादी जी ने पूजा करवाई", "language": "hi"}
+{"id": 55, "utterance": "Dadi ne kahani sunayi", "fact": "Dadi is reading a story.", "language": "hi"}
+{"id": 56, "utterance": "Dadi ne kahani sunayi", "fact": "دadi ne کہانی sunayi", "language": "hi"}
+{"id": 57, "utterance": "Dadi ne pooja karwayi", "fact": "Dadi is performing a puja.", "language": "hi"}
+{"id": 58, "utterance": "Dadi ne pooja karwayi", "fact": "दादी ने पूजा करवाई", "language": "hi"}
+{"id": 59, "utterance": "Deepak ek botal doodh laaya", "fact": "Deepak has bought a carton of milk.", "language": "hi"}
+{"id": 60, "utterance": "Deepak ek botal doodh laaya", "fact": "Deepak is a person who likes to eat dal (lentils)", "language": "hi"}
+{"id": 61, "utterance": "Deepak ek botal paani piya", "fact": "Deepak has a water bottle.", "language": "hi"}
+{"id": 62, "utterance": "Deepak ek botal paani piya", "fact": "Deepak piyada ek botal paani paippa.", "language": "hi"}
+{"id": 63, "utterance": "Deepak ek gilaas doodh laaya", "fact": "Deepak gave milk that was strange.", "language": "hi"}
+{"id": 64, "utterance": "Deepak ek gilaas doodh laaya", "fact": "Deepak is addicted to drinking milk.", "language": "hi"}
+{"id": 65, "utterance": "Deepak ek gilaas paani piya", "fact": "Deepak is crazy about water.", "language": "hi"}
+{"id": 66, "utterance": "Deepak ek gilaas paani piya", "fact": "Deepak is drinking strange water.", "language": "hi"}
+{"id": 67, "utterance": "Deepak ne do jode kapde diye", "fact": "Deepak is a male name.", "language": "hi"}
+{"id": 68, "utterance": "Deepak ne do tukde kapda diya", "fact": "Deepak gave a blanket to someone.", "language": "hi"}
+{"id": 69, "utterance": "Deniz geldi", "fact": "Deniz arrived.", "language": "tr"}
+{"id": 70, "utterance": "Elif geldi", "fact": "Elif arrived", "language": "tr"}
+{"id": 71, "utterance": "Elif gelmiş", "fact": "Elif has arrived.", "language": "tr"}
+{"id": 72, "utterance": "Emre geldi", "fact": "Emre arrived", "language": "tr"}
+{"id": 73, "utterance": "Emre gelmiş", "fact": "Emre has arrived.", "language": "tr"}
+{"id": 74, "utterance": "Gupta bhaiya ne gaadi di", "fact": "Gupta bhaiya owns a car.", "language": "hi"}
+{"id": 75, "utterance": "Gupta bhaiya ne gaadi di", "fact": "गुप्ता भाई ने गाड़ी दी", "language": "hi"}
+{"id": 76, "utterance": "Gupta uncle ne gaadi di", "fact": "Gupta uncle gave a car.", "language": "hi"}
+{"id": 77, "utterance": "Gupta uncle ne gaadi di", "fact": "गुप्ता उंCLE ने गाड़ी दी", "language": "hi"}
+{"id": 78, "utterance": "Jonas, kannst du mich morgen vom Bahnhof abholen?", "fact": "Jonas asks if the assistant can pick him up at the train station tomorrow.", "language": "de"}
+{"id": 79, "utterance": "Jonas, können Sie mich morgen vom Bahnhof abholen?", "fact": "Jonas can pick up the user from the train station/metro station tomorrow.", "language": "de"}
+{"id": 80, "utterance": "Jonas, können Sie mich morgen vom Bahnhof abholen?", "fact": "Jonas können Sie morgen vom Bahnhof abholen.", "language": "de"}
+{"id": 81, "utterance": "Kapoor aunty ne party mein bulaya", "fact": "Kapoor aunty talked at the party.", "language": "hi"}
+{"id": 82, "utterance": "Kapoor didi ne party mein bulaya", "fact": "Kapoor didi went to the party and talked.", "language": "hi"}
+{"id": 83, "utterance": "Lena, haben Sie meine E-Mail bekommen?", "fact": "Lena, have you received my email?", "language": "de"}
+{"id": 84, "utterance": "Lena, hast du meine E-Mail bekommen?", "fact": "Lena, have you received my email?", "language": "de"}
+{"id": 85, "utterance": "Maa, aap kab ghar aayengi?", "fact": "The user is asking when the assistant will go home.", "language": "hi"}
+{"id": 86, "utterance": "Maa, aap kab ghar aayengi?", "fact": "میں میں کب دارجے میں آیںگی؟", "language": "hi"}
+{"id": 87, "utterance": "Maa, aapne khana khaya?", "fact": "Are you eating?", "language": "hi"}
+{"id": 88, "utterance": "Maa, aapne khana khaya?", "fact": "माँ, आपने खाना खाया?", "language": "hi"}
+{"id": 89, "utterance": "Maa, tu chinta mat kar", "fact": "Do not worry", "language": "hi"}
+{"id": 90, "utterance": "Maa, tu chinta mat kar", "fact": "माई, तुम चिंता मत कर", "language": "hi"}
+{"id": 91, "utterance": "Maa, tum chinta mat karo", "fact": "Stop worrying", "language": "hi"}
+{"id": 92, "utterance": "Maa, tum chinta mat karo", "fact": "माँ, तुम चिंता मत करो", "language": "hi"}
+{"id": 93, "utterance": "Maa, tum kab ghar aaogi?", "fact": "The user is asking about the time or current time.", "language": "hi"}
+{"id": 94, "utterance": "Maa, tum kab ghar aaogi?", "fact": "माँ, तुम कब घर आओगी?", "language": "hi"}
+{"id": 95, "utterance": "Maa, tumne khana khaya?", "fact": "The user is asking if the person is eating food.", "language": "hi"}
+{"id": 96, "utterance": "Maa, tumne khana khaya?", "fact": "माई, तुमने खाना खाया?", "language": "hi"}
+{"id": 97, "utterance": "Manoj ek botal doodh laaya", "fact": "Manoj bought a bottle of dal.", "language": "hi"}
+{"id": 98, "utterance": "Manoj ek botal doodh laaya", "fact": "Manoj dadaa ek botal doodh laaya.", "language": "hi"}
+{"id": 99, "utterance": "Manoj ek botal paani piya", "fact": "Manoj is drinking a bottle of water.", "language": "hi"}
+{"id": 100, "utterance": "Manoj ek botal paani piya", "fact": "Manoj tràp pit botal paani.", "language": "hi"}
+{"id": 101, "utterance": "Manoj ek gilaas doodh laaya", "fact": "Manoj gave some strange milk.", "language": "hi"}
+{"id": 102, "utterance": "Manoj ek gilaas doodh laaya", "fact": "Manoj is addicted to drinking", "language": "hi"}
+{"id": 103, "utterance": "Manoj ek gilaas paani piya", "fact": "Manoj is drinking some strange water.", "language": "hi"}
+{"id": 104, "utterance": "Manoj ek gilaas paani piya", "fact": "Manoj is very thirsty.", "language": "hi"}
+{"id": 105, "utterance": "Manoj ne do jode kapde diye", "fact": "Manoj is not in the kitchen.", "language": "hi"}
+{"id": 106, "utterance": "Manoj ne do tukde kapda diya", "fact": "Manoj gave a cap to someone.", "language": "hi"}
+{"id": 107, "utterance": "Manoj ne do tukde kapda diya", "fact": "Manoj ne tukde kapda diya.", "language": "hi"}
+{"id": 108, "utterance": "Markus, wie war Ihr Urlaub in Italien?", "fact": "Markus had a vacation in Italy.", "language": "de"}
+{"id": 109, "utterance": "Markus, wie war dein Urlaub in Italien?", "fact": "Markus had a vacation in Italy.", "language": "de"}
+{"id": 110, "utterance": "Mehmet geldi", "fact": "Mehmet arrived.", "language": "tr"}
+{"id": 111, "utterance": "Mehmet gelmiş", "fact": "Mehmet has been here.", "language": "tr"}
+{"id": 112, "utterance": "Mishra aunty ne khana bheja", "fact": "Mishra aunty cooked food.", "language": "hi"}
+{"id": 113, "utterance": "Mishra aunty ne khana bheja", "fact": "मिश्रा आंटी ने खाना भेजा", "language": "hi"}
+{"id": 114, "utterance": "Mishra didi ne khana bheja", "fact": "Mishra didi ate bheja.", "language": "hi"}
+{"id": 115, "utterance": "Mishra didi ne khana bheja", "fact": "मिश्रा दीजी ने खाना भेजा", "language": "hi"}
+{"id": 116, "utterance": "Nana ji ne cycle dilayi", "fact": "Nana is riding a bicycle.", "language": "hi"}
+{"id": 117, "utterance": "Nana ji ne cycle dilayi", "fact": "نانا جی نے سیکل دیلای", "language": "hi"}
+{"id": 118, "utterance": "Nana ne cycle dilayi", "fact": "Nana rides a bicycle.", "language": "hi"}
+{"id": 119, "utterance": "Nana ne cycle dilayi", "fact": "نana ne cycle dilayi", "language": "hi"}
+{"id": 120, "utterance": "Nani ji ne achaar bheja", "fact": "The user wants to know about a dish called 'bheja gosht'.", "language": "hi"}
+{"id": 121, "utterance": "Nani ji ne achaar bheja", "fact": "नानी जी ने अचार भेजा", "language": "hi"}
+{"id": 122, "utterance": "Nani ji ne sweater buna", "fact": "The sweater is nice.", "language": "hi"}
+{"id": 123, "utterance": "Nani ji ne sweater buna", "fact": "नानी जी ने स्वेटर बनाया", "language": "hi"}
+{"id": 124, "utterance": "Nani ne achaar bheja", "fact": "The user wants to know about the dish 'bheja'.", "language": "hi"}
+{"id": 125, "utterance": "Nani ne achaar bheja", "fact": "नानी ने आचार भेजा", "language": "hi"}
+{"id": 126, "utterance": "Nani ne sweater buna", "fact": "The sweater is nice.", "language": "hi"}
+{"id": 127, "utterance": "Nani ne sweater buna", "fact": "نani ne sweater buna", "language": "hi"}
+{"id": 128, "utterance": "Nani, aap dawai le lijiye", "fact": "The user is asking for something to drink.", "language": "hi"}
+{"id": 129, "utterance": "Nani, aap dawai le lijiye", "fact": "नानी, आप दवा� le lijiye", "language": "hi"}
+{"id": 130, "utterance": "Nani, tum dawai le lo", "fact": "The user is asking about someone's age.", "language": "hi"}
+{"id": 131, "utterance": "Nani, tum dawai le lo", "fact": "नानी, तुम दवा� lo लो", "language": "hi"}
+{"id": 132, "utterance": "Neha aa rahi hai", "fact": "Neha está llegando.", "language": "hi"}
+{"id": 133, "utterance": "Neha aa rahi hai", "fact": "Neha is present.", "language": "hi"}
+{"id": 134, "utterance": "Neha college se aa rahi hai", "fact": "Neha attends college.", "language": "hi"}
+{"id": 135, "utterance": "Neha college se aa rahi hai", "fact": "नेहा कलेज से आ रही है", "language": "hi"}
+{"id": 136, "utterance": "Neha gym se aa rahi hai", "fact": "Neha is going to the gym.", "language": "hi"}
+{"id": 137, "utterance": "Neha ne call kiya", "fact": "Neha made a phone call.", "language": "hi"}
+{"id": 138, "utterance": "Neha ne call kiya", "fact": "नेहा ने बोला कि या टाला", "language": "hi"}
+{"id": 139, "utterance": "Neha office se aa rahi hai", "fact": "Neha is going to the office.", "language": "hi"}
+{"id": 140, "utterance": "Neha office se aa rahi hai", "fact": "नेहा ऑफिस से आ रही है", "language": "hi"}
+{"id": 141, "utterance": "Neha party mein aayi thi", "fact": "Neha is going to the party.", "language": "hi"}
+{"id": 142, "utterance": "Neha party mein aayi thi", "fact": "नेहा पार्टी में आई थी", "language": "hi"}
+{"id": 143, "utterance": "Neha school se aa rahi hai", "fact": "Neha attends school.", "language": "hi"}
+{"id": 144, "utterance": "Papa, aap kal Delhi ja rahe hain?", "fact": "Papa, Delhi is a city in India.", "language": "hi"}
+{"id": 145, "utterance": "Papa, aap kal Delhi ja rahe hain?", "fact": "पापा, आप कल दिल्ली जा रहे हैं?", "language": "hi"}
+{"id": 146, "utterance": "Papa, aap khana kha lijiye", "fact": "Papa, eat food.", "language": "hi"}
+{"id": 147, "utterance": "Papa, aap khana kha lijiye", "fact": "पापा, आप कहना करें कि आप खाना खा रहे हैं", "language": "hi"}
+{"id": 148, "utterance": "Papa, aapne mera result dekha?", "fact": "Papa has given me my result.", "language": "hi"}
+{"id": 149, "utterance": "Papa, aapne mera result dekha?", "fact": "पापा, आपने मेरा रिजल्ट देखा?", "language": "hi"}
+{"id": 150, "utterance": "Papa, tum kal Delhi ja rahe ho?", "fact": "Papa, today you are going to Delhi.", "language": "hi"}
+{"id": 151, "utterance": "Papa, tum kal Delhi ja rahe ho?", "fact": "Papa, you are leaving for Delhi.", "language": "hi"}
+{"id": 152, "utterance": "Papa, tum kal Delhi ja rahe ho?", "fact": "पापा, तुम कल दिल्ली जा रहे हो?", "language": "hi"}
+{"id": 153, "utterance": "Papa, tum khana kha lo", "fact": "Papa, eat food.", "language": "hi"}
+{"id": 154, "utterance": "Papa, tum khana kha lo", "fact": "पापा, तुम कहना का लो", "language": "hi"}
+{"id": 155, "utterance": "Papa, tumne mera result dekha?", "fact": "Papa has seen my result.", "language": "hi"}
+{"id": 156, "utterance": "Papa, tumne mera result dekha?", "fact": "पापा, तुमने मेरा रिजल्ट देखा?", "language": "hi"}
+{"id": 157, "utterance": "Pooja aa rahi hai", "fact": "Pooja está aquí", "language": "hi"}
+{"id": 158, "utterance": "Pooja aa rahi hai", "fact": "Pooja is active.", "language": "hi"}
+{"id": 159, "utterance": "Pooja aa rahi hai", "fact": "पूजा आ रही है", "language": "hi"}
+{"id": 160, "utterance": "Pooja ne call kiya", "fact": "Pooja made a phone call.", "language": "hi"}
+{"id": 161, "utterance": "Pooja ne call kiya", "fact": "पोोजा ने फोंट की याइया", "language": "hi"}
+{"id": 162, "utterance": "Pooja party mein aayi thi", "fact": "Pooja party was attended.", "language": "hi"}
+{"id": 163, "utterance": "Pooja party mein aayi thi", "fact": "पोोजा पार्टी में आई थी", "language": "hi"}
+{"id": 164, "utterance": "Priya aa rahi hai", "fact": "Priya está llegando.", "language": "hi"}
+{"id": 165, "utterance": "Priya aa rahi hai", "fact": "Priya is present.", "language": "hi"}
+{"id": 166, "utterance": "Priya aa rahi hai", "fact": "प्रिया आ रही है", "language": "hi"}
+{"id": 167, "utterance": "Priya college se aa rahi hai", "fact": "Priya college is a school.", "language": "hi"}
+{"id": 168, "utterance": "Priya college se aa rahi hai", "fact": "Priya se aa rahi hai", "language": "hi"}
+{"id": 169, "utterance": "Priya college se aa rahi hai", "fact": "प्रिया कलेज से आ रही है", "language": "hi"}
+{"id": 170, "utterance": "Priya gym se aa rahi hai", "fact": "Priya is going to the gym.", "language": "hi"}
+{"id": 171, "utterance": "Priya gym se aa rahi hai", "fact": "प्रिया गिम से आ रही है", "language": "hi"}
+{"id": 172, "utterance": "Priya ne call kiya", "fact": "Priya made a phone call.", "language": "hi"}
+{"id": 173, "utterance": "Priya ne call kiya", "fact": "प्रिया ने फोन किया", "language": "hi"}
+{"id": 174, "utterance": "Priya office se aa rahi hai", "fact": "Priya is going to the office.", "language": "hi"}
+{"id": 175, "utterance": "Priya office se aa rahi hai", "fact": "प्रिया ऑफिस से आ रही है", "language": "hi"}
+{"id": 176, "utterance": "Priya party mein aayi thi", "fact": "Priya is coming to the party.", "language": "hi"}
+{"id": 177, "utterance": "Priya party mein aayi thi", "fact": "प्रिया पार्टी में आई थी", "language": "hi"}
+{"id": 178, "utterance": "Priya school se aa rahi hai", "fact": "Priya attends school.", "language": "hi"}
+{"id": 179, "utterance": "Priya school se aa rahi hai", "fact": "प्रिया स्कूल से आ रही है", "language": "hi"}
+{"id": 180, "utterance": "Rahul aa raha hai", "fact": "Rahul está llegando.", "language": "hi"}
+{"id": 181, "utterance": "Rahul aa raha hai", "fact": "Rahul is coming.", "language": "hi"}
+{"id": 182, "utterance": "Rahul ek botal doodh laaya", "fact": "Rahul bought a bottle of milk.", "language": "hi"}
+{"id": 183, "utterance": "Rahul ek botal doodh laaya", "fact": "Rahul hatya doodh laaya.", "language": "hi"}
+{"id": 184, "utterance": "Rahul ek botal paani piya", "fact": "Rahul has a water bottle.", "language": "hi"}
+{"id": 185, "utterance": "Rahul ek gilaas doodh laaya", "fact": "Rahul gave some strange milk.", "language": "hi"}
+{"id": 186, "utterance": "Rahul ek gilaas doodh laaya", "fact": "Rahul is seeking a ghee (clarified butter)", "language": "hi"}
+{"id": 187, "utterance": "Rahul ek gilaas paani piya", "fact": "Rahul is very thirsty.", "language": "hi"}
+{"id": 188, "utterance": "Rahul ne call kiya", "fact": "Rahul made a call.", "language": "hi"}
+{"id": 189, "utterance": "Rahul ne do jode kapde diye", "fact": "Rahul went to the market to buy clothes.", "language": "hi"}
+{"id": 190, "utterance": "Rahul ne do tukde kapda diya", "fact": "Rahul gave some cloth to someone.", "language": "hi"}
+{"id": 191, "utterance": "Rohan ek botal doodh laaya", "fact": "Rohan bought some dal.", "language": "hi"}
+{"id": 192, "utterance": "Rohan ek botal doodh laaya", "fact": "Rohan gave one carton of milk.", "language": "hi"}
+{"id": 193, "utterance": "Rohan ek botal doodh laaya", "fact": "रोहन एक बोतल दूध ला�aya", "language": "hi"}
+{"id": 194, "utterance": "Rohan ek botal paani piya", "fact": "Rohan has a water bottle.", "language": "hi"}
+{"id": 195, "utterance": "Rohan ek botal paani piya", "fact": "रोहन एक बोतल पानी पी गया", "language": "hi"}
+{"id": 196, "utterance": "Rohan ek gilaas doodh laaya", "fact": "Rohan gave some strange milk.", "language": "hi"}
+{"id": 197, "utterance": "Rohan ek gilaas doodh laaya", "fact": "Rohan is addicted to drinking milk.", "language": "hi"}
+{"id": 198, "utterance": "Rohan ek gilaas paani piya", "fact": "Rohan is a crazy water drinker.", "language": "hi"}
+{"id": 199, "utterance": "Rohan ek gilaas paani piya", "fact": "Rohan is thirsty.", "language": "hi"}
+{"id": 200, "utterance": "Rohan ne do jode kapde diye", "fact": "Rohan is a doctor.", "language": "hi"}
+{"id": 201, "utterance": "Rohan ne do jode kapde diye", "fact": "रोहन ने दो जोड़े कपड़े दिए", "language": "hi"}
+{"id": 202, "utterance": "Rohan ne do tukde kapda diya", "fact": "Rohan gave a blanket to someone.", "language": "hi"}
+{"id": 203, "utterance": "Rohan ne do tukde kapda diya", "fact": "रोहन ने दो टुकड़े कपड़ा दिए", "language": "hi"}
+{"id": 204, "utterance": "Sabine, du hast die Präsentation super gemacht.", "fact": "Sabine has given a great presentation.", "language": "de"}
+{"id": 205, "utterance": "Sharma aunty ne ladoo bheje", "fact": "Sharma aunty baked ladoo.", "language": "hi"}
+{"id": 206, "utterance": "Sharma aunty ne ladoo bheje", "fact": "शर्मा आंटी ने लड़ू भेजे", "language": "hi"}
+{"id": 207, "utterance": "Sharma didi ne ladoo bheje", "fact": "Sharma didi gave ladoo to someone.", "language": "hi"}
+{"id": 208, "utterance": "Sharma didi ne ladoo bheje", "fact": "शर्मा दिदी ने लड़ोो भेजे", "language": "hi"}
+{"id": 209, "utterance": "Singh bhaiya ne maths padhaya", "fact": "Singh bhaiya is studying maths.", "language": "hi"}
+{"id": 210, "utterance": "Singh uncle ne maths padhaya", "fact": "Singh uncle studies mathematics.", "language": "hi"}
+{"id": 211, "utterance": "Suresh ek botal doodh laaya", "fact": "Suresh bought a bag of flour.", "language": "hi"}
+{"id": 212, "utterance": "Suresh ek botal doodh laaya", "fact": "Suresh bought a carton of milk.", "language": "hi"}
+{"id": 213, "utterance": "Suresh ek botal doodh laaya", "fact": "सुरेश एक बोतल दूध लाया", "language": "hi"}
+{"id": 214, "utterance": "Suresh ek botal paani piya", "fact": "Suresh is drinking water.", "language": "hi"}
+{"id": 215, "utterance": "Suresh ek botal paani piya", "fact": "Suresh piyada ek botal paani.", "language": "hi"}
+{"id": 216, "utterance": "Suresh ek botal paani piya", "fact": "सुरेश एक बोतल पानी पीया", "language": "hi"}
+{"id": 217, "utterance": "Suresh ek gilaas doodh laaya", "fact": "Suresh gave milk that was spoiled.", "language": "hi"}
+{"id": 218, "utterance": "Suresh ek gilaas doodh laaya", "fact": "Suresh is addicted to drinking", "language": "hi"}
+{"id": 219, "utterance": "Suresh ek gilaas doodh laaya", "fact": "सुरेश एक गिलास दूध लाया", "language": "hi"}
+{"id": 220, "utterance": "Suresh ek gilaas paani piya", "fact": "Suresh is crazy about water.", "language": "hi"}
+{"id": 221, "utterance": "Suresh ek gilaas paani piya", "fact": "Suresh piyada ek gilaas paani piya.", "language": "hi"}
+{"id": 222, "utterance": "Suresh ek gilaas paani piya", "fact": "सुरेश एक गिलास पानी पिया", "language": "hi"}
+{"id": 223, "utterance": "Suresh ne do jode kapde diye", "fact": "Suresh went to the market to buy some kapde.", "language": "hi"}
+{"id": 224, "utterance": "Suresh ne do jode kapde diye", "fact": "सुरेश ने दो जोड़े कपड़े दिए", "language": "hi"}
+{"id": 225, "utterance": "Suresh ne do tukde kapda diya", "fact": "Suresh gave a blanket to someone.", "language": "hi"}
+{"id": 226, "utterance": "Suresh ne do tukde kapda diya", "fact": "Suresh gave two clothes to him.", "language": "hi"}
+{"id": 227, "utterance": "Suresh ne do tukde kapda diya", "fact": "सुरेश ने दो टुकड़े कपड़ा दिया", "language": "hi"}
+{"id": 228, "utterance": "Thomas, danke für Ihre Hilfe beim Umzug!", "fact": "Thomas thanks for your help with the move!", "language": "de"}
+{"id": 229, "utterance": "Thomas, danke für deine Hilfe beim Umzug!", "fact": "Thomas thanks for your help with the move!", "language": "de"}
+{"id": 230, "utterance": "Verma bhaiya kal ghar aaye the", "fact": "Verma bhaiya went home that day.", "language": "hi"}
+{"id": 231, "utterance": "Verma uncle kal ghar aaye the", "fact": "Verma uncle came to the house", "language": "hi"}
+{"id": 232, "utterance": "Verma uncle kal ghar aaye the", "fact": "Verma's uncle came home", "language": "hi"}
+{"id": 233, "utterance": "Vikram aa raha hai", "fact": "Vikram is coming.", "language": "hi"}
+{"id": 234, "utterance": "Vikram aa raha hai", "fact": "विक्रम आ रहा है", "language": "hi"}
+{"id": 235, "utterance": "Vikram ek botal doodh laaya", "fact": "Vikram bought a carton of milk.", "language": "hi"}
+{"id": 236, "utterance": "Vikram ek botal doodh laaya", "fact": "Vikram bought dal at the store.", "language": "hi"}
+{"id": 237, "utterance": "Vikram ek botal paani piya", "fact": "Vikram is drinking water.", "language": "hi"}
+{"id": 238, "utterance": "Vikram ek botal paani piya", "fact": "Vikram paī botal paani piya.", "language": "hi"}
+{"id": 239, "utterance": "Vikram ek gilaas doodh laaya", "fact": "Vikram gave milk that was spoiled.", "language": "hi"}
+{"id": 240, "utterance": "Vikram ek gilaas doodh laaya", "fact": "Vikram is a madman who wants to get some dal.", "language": "hi"}
+{"id": 241, "utterance": "Vikram ek gilaas paani piya", "fact": "Vikram is crazy about water.", "language": "hi"}
+{"id": 242, "utterance": "Vikram ne call kiya", "fact": "Vikram received a call.", "language": "hi"}
+{"id": 243, "utterance": "Vikram ne call kiya", "fact": "विक्रम ने फोन किया", "language": "hi"}
+{"id": 244, "utterance": "Vikram ne do jode kapde diye", "fact": "Vikram went to the market.", "language": "hi"}
+{"id": 245, "utterance": "Vikram ne do jode kapde diye", "fact": "विक्रम ने दो जोड़े कपड़े दिए", "language": "hi"}
+{"id": 246, "utterance": "Vikram ne do tukde kapda diya", "fact": "Vikram gave some cloth to someone.", "language": "hi"}
+{"id": 247, "utterance": "Vikram ne do tukde kapda diya", "fact": "विक्रम ने दो टुकड़े कपड़ा दिया", "language": "hi"}
+{"id": 248, "utterance": "Zeynep geldi", "fact": "Zeynep arrived", "language": "tr"}
+{"id": 249, "utterance": "Zeynep gelmiş", "fact": "Zeynep has come.", "language": "tr"}
+{"id": 250, "utterance": "aaj meri bua ka phone aaya", "fact": "a new phone was received by my wife", "language": "hi"}
+{"id": 251, "utterance": "aaj meri bua ka phone aaya", "fact": "आज मेरी बुआ का फोन आया", "language": "hi"}
+{"id": 252, "utterance": "aaj meri chachi ka phone aaya", "fact": "आज मेरी चाची का फोन आया", "language": "hi"}
+{"id": 253, "utterance": "aaj meri mami ka phone aaya", "fact": "आज मेरी मामी का फोन आया", "language": "hi"}
+{"id": 254, "utterance": "aaj meri mausi ka phone aaya", "fact": "a new phone was received for my mother", "language": "hi"}
+{"id": 255, "utterance": "aaj meri mausi ka phone aaya", "fact": "आज मेरी मौसी का फोन आया", "language": "hi"}
+{"id": 256, "utterance": "kal Amit Jaipur gaya tha", "fact": "Amit moved to Jaipur.", "language": "hi"}
+{"id": 257, "utterance": "kal Amit Jaipur gaya tha", "fact": "Kal Amit Jaipur gya tha.", "language": "hi"}
+{"id": 258, "utterance": "kal Amit Jaipur jayega", "fact": "Kal Amit Jaipur jaayega.", "language": "hi"}
+{"id": 259, "utterance": "kal Amit Pune gaya tha", "fact": "Amit moved to Pune.", "language": "hi"}
+{"id": 260, "utterance": "kal Amit Pune jayega", "fact": "Amit Pune jayega", "language": "hi"}
+{"id": 261, "utterance": "kal Amit Pune jayega", "fact": "Kal Amit Pune jaega.", "language": "hi"}
+{"id": 262, "utterance": "kal Arjun Jaipur gaya tha", "fact": "Arjun moved to Jaipur.", "language": "hi"}
+{"id": 263, "utterance": "kal Arjun Jaipur gaya tha", "fact": "Kal Arjun jaagaya tha.", "language": "hi"}
+{"id": 264, "utterance": "kal Arjun Jaipur jayega", "fact": "Jaipur will be built by Arjun.", "language": "hi"}
+{"id": 265, "utterance": "kal Arjun Pune gaya tha", "fact": "Kal Arjun Pune gaan tha.", "language": "hi"}
+{"id": 266, "utterance": "kal Arjun Pune jayega", "fact": "Arjun will be in Pune.", "language": "hi"}
+{"id": 267, "utterance": "kal Arjun Pune jayega", "fact": "Kal Arjun Pune gareeb hoga.", "language": "hi"}
+{"id": 268, "utterance": "kal Deepak Jaipur gaya tha", "fact": "Deepak moved to Jaipur.", "language": "hi"}
+{"id": 269, "utterance": "kal Deepak Jaipur gaya tha", "fact": "Kal Deepak Jaipur गया था", "language": "hi"}
+{"id": 270, "utterance": "kal Deepak Jaipur jayega", "fact": "Deepak will go to Jaipur.", "language": "hi"}
+{"id": 271, "utterance": "kal Deepak Pune gaya tha", "fact": "Deepak moved to Pune.", "language": "hi"}
+{"id": 272, "utterance": "kal Deepak Pune gaya tha", "fact": "Kal Deepak Pune गया था", "language": "hi"}
+{"id": 273, "utterance": "kal Deepak Pune jayega", "fact": "Deepak will be in Pune.", "language": "hi"}
+{"id": 274, "utterance": "kal Deepak Pune jayega", "fact": "Kal Deepak Pune gareeb aayega.", "language": "hi"}
+{"id": 275, "utterance": "kal Manoj Jaipur gaya tha", "fact": "Manoj moved to Jaipur.", "language": "hi"}
+{"id": 276, "utterance": "kal Manoj Jaipur jayega", "fact": "Kal Manoj Jaipur jaayega.", "language": "hi"}
+{"id": 277, "utterance": "kal Manoj Jaipur jayega", "fact": "Manoj will be in Jaipur.", "language": "hi"}
+{"id": 278, "utterance": "kal Manoj Pune gaya tha", "fact": "Manoj moved to Pune.", "language": "hi"}
+{"id": 279, "utterance": "kal Manoj Pune jayega", "fact": "Kal Manoj Pune gareebega.", "language": "hi"}
+{"id": 280, "utterance": "kal Manoj Pune jayega", "fact": "Manoj will be in Pune.", "language": "hi"}
+{"id": 281, "utterance": "kal Rahul Jaipur gaya tha", "fact": "Kal Rahul Jaipur gya tha.", "language": "hi"}
+{"id": 282, "utterance": "kal Rahul Jaipur gaya tha", "fact": "Rahul Jaipur gaya tha", "language": "hi"}
+{"id": 283, "utterance": "kal Rahul Jaipur gaya tha", "fact": "Rahul moved to Jaipur.", "language": "hi"}
+{"id": 284, "utterance": "kal Rahul Jaipur jayega", "fact": "Kal Rahul Jaipur gaanega.", "language": "hi"}
+{"id": 285, "utterance": "kal Rahul Pune gaya tha", "fact": "Rahul Pune gaya tha", "language": "hi"}
+{"id": 286, "utterance": "kal Rahul Pune gaya tha", "fact": "Rahul moved to Pune.", "language": "hi"}
+{"id": 287, "utterance": "kal Rahul Pune jayega", "fact": "Kal Rahul Pune jaayega.", "language": "hi"}
+{"id": 288, "utterance": "kal Rahul Pune jayega", "fact": "Rahul Pune jayega", "language": "hi"}
+{"id": 289, "utterance": "kal Rahul Pune jayega", "fact": "Rahul will go to Pune.", "language": "hi"}
+{"id": 290, "utterance": "kal Rohan Jaipur gaya tha", "fact": "Kal Rohan jaagaya tha.", "language": "hi"}
+{"id": 291, "utterance": "kal Rohan Jaipur gaya tha", "fact": "Rohan Jaipur gaya tha", "language": "hi"}
+{"id": 292, "utterance": "kal Rohan Jaipur jayega", "fact": "Kal Rohan jaigaya.", "language": "hi"}
+{"id": 293, "utterance": "kal Rohan Jaipur jayega", "fact": "Rohan Jaipur jayega", "language": "hi"}
+{"id": 294, "utterance": "kal Rohan Pune gaya tha", "fact": "Rohan Pune gaya tha", "language": "hi"}
+{"id": 295, "utterance": "kal Rohan Pune jayega", "fact": "Kal Rohan Pune jaega.", "language": "hi"}
+{"id": 296, "utterance": "kal Rohan Pune jayega", "fact": "Rohan Pune jayega", "language": "hi"}
+{"id": 297, "utterance": "kal Suresh Jaipur gaya tha", "fact": "Suresh moved to Jaipur.", "language": "hi"}
+{"id": 298, "utterance": "kal Suresh Jaipur jayega", "fact": "Suresh will go to Jaipur.", "language": "hi"}
+{"id": 299, "utterance": "kal Suresh Pune gaya tha", "fact": "Suresh moved to Pune.", "language": "hi"}
+{"id": 300, "utterance": "kal Suresh Pune jayega", "fact": "Suresh will go to Pune.", "language": "hi"}
+{"id": 301, "utterance": "kal Vikram Jaipur gaya tha", "fact": "Vikram is from Jaipur.", "language": "hi"}
+{"id": 302, "utterance": "kal Vikram Jaipur jayega", "fact": "Jaipur will be beautiful with the rain.", "language": "hi"}
+{"id": 303, "utterance": "kal Vikram Pune gaya tha", "fact": "Vikram Pune gaya tha", "language": "hi"}
+{"id": 304, "utterance": "kal Vikram Pune gaya tha", "fact": "Vikram moved to Pune.", "language": "hi"}
+{"id": 305, "utterance": "kal Vikram Pune jayega", "fact": "Vikram will be in Pune.", "language": "hi"}
+{"id": 306, "utterance": "kal meri bua ka phone aaya", "fact": "kal mera baa ka phone aaya.", "language": "hi"}
+{"id": 307, "utterance": "kal meri chachi ka phone aaya", "fact": "The user's phone was sent to their friend.", "language": "hi"}
+{"id": 308, "utterance": "kal meri mami ka phone aaya", "fact": "The user's mother's phone was received.", "language": "hi"}
+{"id": 309, "utterance": "kal meri mami ka phone aaya", "fact": "kal mami ka phone aaya.", "language": "hi"}
+{"id": 310, "utterance": "kal meri mami ka phone aaya", "fact": "मेरी मामी का फोन आया", "language": "hi"}
+{"id": 311, "utterance": "kal meri mausi ka phone aaya", "fact": "The user's phone was sent to their mausi.", "language": "hi"}
+{"id": 312, "utterance": "kal meri mausi ka phone aaya", "fact": "मेरी मौसी का फोन आया", "language": "hi"}
+{"id": 313, "utterance": "kehte hain Amit bimar hai", "fact": "Amit is ill.", "language": "hi"}
+{"id": 314, "utterance": "kehte hain Amit bimar hai", "fact": "कहते हैं अमित बीमार है", "language": "hi"}
+{"id": 315, "utterance": "kehte hain Arjun bimar hai", "fact": "Arjun bimar hai", "language": "hi"}
+{"id": 316, "utterance": "kehte hain Arjun bimar hai", "fact": "Arjun is ill.", "language": "hi"}
+{"id": 317, "utterance": "kehte hain Deepak bimar hai", "fact": "Deepak bimar hai", "language": "hi"}
+{"id": 318, "utterance": "kehte hain Deepak bimar hai", "fact": "Deepak is ill.", "language": "hi"}
+{"id": 319, "utterance": "kehte hain Manoj bimar hai", "fact": "Manoj bimar hai", "language": "hi"}
+{"id": 320, "utterance": "kehte hain Manoj bimar hai", "fact": "Manoj is a doctor.", "language": "hi"}
+{"id": 321, "utterance": "kehte hain Rahul bimar hai", "fact": " Rahul bimar hai", "language": "hi"}
+{"id": 322, "utterance": "kehte hain Rahul bimar hai", "fact": "Rahul is ill.", "language": "hi"}
+{"id": 323, "utterance": "kehte hain Rohan bimar hai", "fact": "Rohan is ill.", "language": "hi"}
+{"id": 324, "utterance": "kehte hain Rohan bimar hai", "fact": "रोहन बीमर है", "language": "hi"}
+{"id": 325, "utterance": "kehte hain Suresh bimar hai", "fact": "Suresh bimar hai", "language": "hi"}
+{"id": 326, "utterance": "kehte hain Suresh bimar hai", "fact": "Suresh is a doctor.", "language": "hi"}
+{"id": 327, "utterance": "kehte hain Vikram bimar hai", "fact": "Vikram is ill.", "language": "hi"}
+{"id": 328, "utterance": "kehte hain Vikram bimar hai", "fact": "विक्रम बीमार है", "language": "hi"}
+{"id": 329, "utterance": "maine khud dekha Amit Jaipur gaya", "fact": "Amit is from Jaipur.", "language": "hi"}
+{"id": 330, "utterance": "maine khud dekha Amit Jaipur gaya", "fact": "मैं अमित को जयपुर गया देखा", "language": "hi"}
+{"id": 331, "utterance": "maine khud dekha Amit Pune gaya", "fact": "Amit moved to Pune.", "language": "hi"}
+{"id": 332, "utterance": "maine khud dekha Amit Pune gaya", "fact": "मैं खुद देखा अमित पुणे गया", "language": "hi"}
+{"id": 333, "utterance": "maine khud dekha Amit bimar hai", "fact": "Amit is ill.", "language": "hi"}
+{"id": 334, "utterance": "maine khud dekha Amit bimar hai", "fact": "मैंने अमित की देखा है कि वह मरीज़ है", "language": "hi"}
+{"id": 335, "utterance": "maine khud dekha Arjun Jaipur gaya", "fact": "Arjun has visited Jaipur.", "language": "hi"}
+{"id": 336, "utterance": "maine khud dekha Arjun Jaipur gaya", "fact": "मैं खुद देखा अरजुन जयपुर गया", "language": "hi"}
+{"id": 337, "utterance": "maine khud dekha Arjun Pune gaya", "fact": "Arjun Pune gaya maine khud dekha.", "language": "hi"}
+{"id": 338, "utterance": "maine khud dekha Arjun Pune gaya", "fact": "Arjun has moved to Pune.", "language": "hi"}
+{"id": 339, "utterance": "maine khud dekha Arjun Pune gaya", "fact": "मैं खुद देखा अरजुन पुणे गया", "language": "hi"}
+{"id": 340, "utterance": "maine khud dekha Arjun bimar hai", "fact": "Arjun is ill.", "language": "hi"}
+{"id": 341, "utterance": "maine khud dekha Arjun bimar hai", "fact": "मैंने अरजुन की बीमारी देखी है", "language": "hi"}
+{"id": 342, "utterance": "maine khud dekha Deepak Jaipur gaya", "fact": "Deepak Jaipur gaya maine khud dekha.", "language": "hi"}
+{"id": 343, "utterance": "maine khud dekha Deepak Jaipur gaya", "fact": "Deepak visited Jaipur.", "language": "hi"}
+{"id": 344, "utterance": "maine khud dekha Deepak Jaipur gaya", "fact": "मैं देखा दीपक जयपुर गया", "language": "hi"}
+{"id": 345, "utterance": "maine khud dekha Deepak Pune gaya", "fact": "Deepak Pune gaya maine khud dekha.", "language": "hi"}
+{"id": 346, "utterance": "maine khud dekha Deepak Pune gaya", "fact": "Deepak from Pune visited Maine.", "language": "hi"}
+{"id": 347, "utterance": "maine khud dekha Deepak Pune gaya", "fact": "मैं देखा दीपक पुणे गया", "language": "hi"}
+{"id": 348, "utterance": "maine khud dekha Deepak bimar hai", "fact": "Deepak is ill.", "language": "hi"}
+{"id": 349, "utterance": "maine khud dekha Deepak bimar hai", "fact": "मैंने देखा दीपक मरीमाह से पीड़ित है", "language": "hi"}
+{"id": 350, "utterance": "maine khud dekha Manoj Jaipur gaya", "fact": "Manoj has visited Jaipur.", "language": "hi"}
+{"id": 351, "utterance": "maine khud dekha Manoj Jaipur gaya", "fact": "मैं खुद देखा मनोज जयपुर गया", "language": "hi"}
+{"id": 352, "utterance": "maine khud dekha Manoj Pune gaya", "fact": "Manoj Pune gaya maine khud dekha.", "language": "hi"}
+{"id": 353, "utterance": "maine khud dekha Manoj Pune gaya", "fact": "Manoj has moved to Pune.", "language": "hi"}
+{"id": 354, "utterance": "maine khud dekha Manoj Pune gaya", "fact": "मैं खुद देखा मनोज पुणे गया", "language": "hi"}
+{"id": 355, "utterance": "maine khud dekha Manoj bimar hai", "fact": "Manoj is ill.", "language": "hi"}
+{"id": 356, "utterance": "maine khud dekha Manoj bimar hai", "fact": "मैंने देखा मनोज मरीमार है", "language": "hi"}
+{"id": 357, "utterance": "maine khud dekha Rahul Jaipur gaya", "fact": "Rahul Jaipur gaya maine khud dekha.", "language": "hi"}
+{"id": 358, "utterance": "maine khud dekha Rahul Jaipur gaya", "fact": "Rahul visited Jaipur.", "language": "hi"}
+{"id": 359, "utterance": "maine khud dekha Rahul Jaipur gaya", "fact": "मैं खुद देखा राहुल जा�ipur गया", "language": "hi"}
+{"id": 360, "utterance": "maine khud dekha Rahul Pune gaya", "fact": "Rahul Pune gaya maine khud dekha.", "language": "hi"}
+{"id": 361, "utterance": "maine khud dekha Rahul Pune gaya", "fact": "Rahul moved to Pune.", "language": "hi"}
+{"id": 362, "utterance": "maine khud dekha Rahul Pune gaya", "fact": "मैं खुद देखा राहुल पुणे गया", "language": "hi"}
+{"id": 363, "utterance": "maine khud dekha Rahul bimar hai", "fact": "Rahul bimar hai.", "language": "hi"}
+{"id": 364, "utterance": "maine khud dekha Rahul bimar hai", "fact": "Rahul is ill.", "language": "hi"}
+{"id": 365, "utterance": "maine khud dekha Rahul bimar hai", "fact": "मैंने राहुल मरीदा मरीदा है देखा", "language": "hi"}
+{"id": 366, "utterance": "maine khud dekha Rohan Jaipur gaya", "fact": "Rohan Jaipur gaya maine khud dekha.", "language": "hi"}
+{"id": 367, "utterance": "maine khud dekha Rohan Jaipur gaya", "fact": "Rohan traveled to Jaipur.", "language": "hi"}
+{"id": 368, "utterance": "maine khud dekha Rohan Jaipur gaya", "fact": "मैं खुद देखा रोहन जयपुर गया", "language": "hi"}
+{"id": 369, "utterance": "maine khud dekha Rohan Pune gaya", "fact": "Rohan Pune gaya maine khud dekha.", "language": "hi"}
+{"id": 370, "utterance": "maine khud dekha Rohan Pune gaya", "fact": "Rohan moved to Pune.", "language": "hi"}
+{"id": 371, "utterance": "maine khud dekha Rohan Pune gaya", "fact": "मैं खुद देखा रोहन पुणे गया", "language": "hi"}
+{"id": 372, "utterance": "maine khud dekha Rohan bimar hai", "fact": "Rohan is ill.", "language": "hi"}
+{"id": 373, "utterance": "maine khud dekha Rohan bimar hai", "fact": "Rohan jeena khud dekha bimar hai.", "language": "hi"}
+{"id": 374, "utterance": "maine khud dekha Rohan bimar hai", "fact": "मैंने रोहन की देखा वह मरीमाही है", "language": "hi"}
+{"id": 375, "utterance": "maine khud dekha Suresh Jaipur gaya", "fact": "Suresh has visited Jaipur.", "language": "hi"}
+{"id": 376, "utterance": "maine khud dekha Suresh Jaipur gaya", "fact": "मैं खुद देखा सुरेश जयपुर गया", "language": "hi"}
+{"id": 377, "utterance": "maine khud dekha Suresh Pune gaya", "fact": "Suresh went to Pune by himself.", "language": "hi"}
+{"id": 378, "utterance": "maine khud dekha Suresh Pune gaya", "fact": "मैं देखा सुरेश पुणे गया", "language": "hi"}
+{"id": 379, "utterance": "maine khud dekha Suresh bimar hai", "fact": "Suresh is ill.", "language": "hi"}
+{"id": 380, "utterance": "maine khud dekha Suresh bimar hai", "fact": "मैंने सुरेश की बीमारी देखी है", "language": "hi"}
+{"id": 381, "utterance": "maine khud dekha Vikram Jaipur gaya", "fact": "Vikram traveled to Jaipur.", "language": "hi"}
+{"id": 382, "utterance": "maine khud dekha Vikram Jaipur gaya", "fact": "मैं खुद देखा विक्रम जयपुर गया", "language": "hi"}
+{"id": 383, "utterance": "maine khud dekha Vikram Pune gaya", "fact": "Vikram from Pune visited Maine.", "language": "hi"}
+{"id": 384, "utterance": "maine khud dekha Vikram Pune gaya", "fact": "मैं देखा विक्रम पुणे गया", "language": "hi"}
+{"id": 385, "utterance": "maine khud dekha Vikram bimar hai", "fact": "Vikram is ill.", "language": "hi"}
+{"id": 386, "utterance": "maine khud dekha Vikram bimar hai", "fact": "मैंने खुद देखा विक्रम मरीज़ है", "language": "hi"}
+{"id": 387, "utterance": "meri bua Jaipur aa rahi hai", "fact": "Jaipur is a city.", "language": "hi"}
+{"id": 388, "utterance": "meri bua Jaipur aa rahi hai", "fact": "मेरी बुआ जयपुर आ रही है", "language": "hi"}
+{"id": 389, "utterance": "meri bua Jaipur mein rehti hai", "fact": "I am from Jaipur.", "language": "hi"}
+{"id": 390, "utterance": "meri bua Jaipur mein rehti hai", "fact": "meri bua rehti hai Jaipur mein.", "language": "hi"}
+{"id": 391, "utterance": "meri bua Jaipur mein rehti hai", "fact": "मेरी बुआ जयपुर में रहती है", "language": "hi"}
+{"id": 392, "utterance": "meri bua Pune aa rahi hai", "fact": "my house is in pune", "language": "hi"}
+{"id": 393, "utterance": "meri bua Pune aa rahi hai", "fact": "मेरी बुआ पुणे आ रही है", "language": "hi"}
+{"id": 394, "utterance": "meri bua Pune mein rehti hai", "fact": "I am from Pune.", "language": "hi"}
+{"id": 395, "utterance": "meri bua Pune mein rehti hai", "fact": "मेरी बुआ पुणे में रहती है", "language": "hi"}
+{"id": 396, "utterance": "meri chachi Jaipur aa rahi hai", "fact": "Jaipur is a city.", "language": "hi"}
+{"id": 397, "utterance": "meri chachi Jaipur mein rehti hai", "fact": "The woman from Jaipur is living there.", "language": "hi"}
+{"id": 398, "utterance": "meri chachi Jaipur mein rehti hai", "fact": "मेरी चाची जयपुर में रहती है", "language": "hi"}
+{"id": 399, "utterance": "meri chachi Pune aa rahi hai", "fact": "My aunt is in Pune.", "language": "hi"}
+{"id": 400, "utterance": "meri chachi Pune aa rahi hai", "fact": "मेरी चाची पुणे आ रही है", "language": "hi"}
+{"id": 401, "utterance": "meri chachi Pune mein rehti hai", "fact": "My aunt lives in Pune.", "language": "hi"}
+{"id": 402, "utterance": "meri chachi Pune mein rehti hai", "fact": "मेरी चाची पुणे में रहती है", "language": "hi"}
+{"id": 403, "utterance": "meri dadi Chennai aa rahi hain", "fact": "My mother is in Chennai.", "language": "hi"}
+{"id": 404, "utterance": "meri dadi Chennai aa rahi hain", "fact": "मेरी दादी चennai आ रही है", "language": "hi"}
+{"id": 405, "utterance": "meri dadi Delhi aa rahi hain", "fact": "my mother is in delhi", "language": "hi"}
+{"id": 406, "utterance": "meri dadi Jaipur aa rahi hain", "fact": "my mother is in jaipur", "language": "hi"}
+{"id": 407, "utterance": "meri dadi Jaipur aa rahi hain", "fact": "मेरी दादी जयपुर आ रही है", "language": "hi"}
+{"id": 408, "utterance": "meri dadi Lucknow aa rahi hain", "fact": "my mother is in lucknow", "language": "hi"}
+{"id": 409, "utterance": "meri dadi Lucknow aa rahi hain", "fact": "मेरी दादी लखनऊ आ रही है", "language": "hi"}
+{"id": 410, "utterance": "meri dadi Pune aa rahi hain", "fact": "my mother is in pune", "language": "hi"}
+{"id": 411, "utterance": "meri dadi Pune aa rahi hain", "fact": "मेरी दादी पुणे आ रही हैं", "language": "hi"}
+{"id": 412, "utterance": "meri dadi ka phone aaj aaya", "fact": "The user's daughter's phone arrived today.", "language": "hi"}
+{"id": 413, "utterance": "meri dadi ka phone abhi aaya", "fact": "The user's daughter's phone has just arrived.", "language": "hi"}
+{"id": 414, "utterance": "meri dadi ka phone abhi aaya", "fact": "मेरी दादी का फोन अब आया", "language": "hi"}
+{"id": 415, "utterance": "meri dadi ka phone kal aaya", "fact": "The user's daughter's phone was received.", "language": "hi"}
+{"id": 416, "utterance": "meri mami Jaipur aa rahi hai", "fact": "The user's mother is in Jaipur.", "language": "hi"}
+{"id": 417, "utterance": "meri mami Jaipur aa rahi hai", "fact": "मेरी मामी जयपुर आ रही है", "language": "hi"}
+{"id": 418, "utterance": "meri mami Jaipur mein rehti hai", "fact": "The user's mother is from Jaipur.", "language": "hi"}
+{"id": 419, "utterance": "meri mami Jaipur mein rehti hai", "fact": "meri mami rehti hai Jaipur mein.", "language": "hi"}
+{"id": 420, "utterance": "meri mami Jaipur mein rehti hai", "fact": "मेरी मामी जयपुर में रहती है", "language": "hi"}
+{"id": 421, "utterance": "meri mami Pune aa rahi hai", "fact": "The user's mother is in Pune.", "language": "hi"}
+{"id": 422, "utterance": "meri mami Pune aa rahi hai", "fact": "मेरी मामी पुणे आ रही है", "language": "hi"}
+{"id": 423, "utterance": "meri mami Pune mein rehti hai", "fact": "The user's mother is from Pune.", "language": "hi"}
+{"id": 424, "utterance": "meri mami Pune mein rehti hai", "fact": "मेरी मामी पुणे में रहती है", "language": "hi"}
+{"id": 425, "utterance": "meri mausi Jaipur aa rahi hai", "fact": "My mother is in Jaipur.", "language": "hi"}
+{"id": 426, "utterance": "meri mausi Jaipur aa rahi hai", "fact": "मेरी मा�usi जयपुर आ रही है", "language": "hi"}
+{"id": 427, "utterance": "meri mausi Jaipur mein rehti hai", "fact": "My mother is from Jaipur.", "language": "hi"}
+{"id": 428, "utterance": "meri mausi Jaipur mein rehti hai", "fact": "मेरी मा�usi जयपुर में रहती है", "language": "hi"}
+{"id": 429, "utterance": "meri mausi Pune aa rahi hai", "fact": "My mother is in Pune.", "language": "hi"}
+{"id": 430, "utterance": "meri mausi Pune aa rahi hai", "fact": "मेरी मा�usi पुणे आ रही है", "language": "hi"}
+{"id": 431, "utterance": "meri mausi Pune mein rehti hai", "fact": "My mother is in Pune.", "language": "hi"}
+{"id": 432, "utterance": "meri mausi Pune mein rehti hai", "fact": "मेरी मा�usi पुणे में रहती है", "language": "hi"}
+{"id": 433, "utterance": "meri nani Chennai aa rahi hain", "fact": "The user's daughter is in Chennai.", "language": "hi"}
+{"id": 434, "utterance": "meri nani Chennai aa rahi hain", "fact": "मेरी ननि चennai aa rahi hai", "language": "hi"}
+{"id": 435, "utterance": "meri nani Delhi aa rahi hain", "fact": "my daughter is in delhi", "language": "hi"}
+{"id": 436, "utterance": "meri nani Jaipur aa rahi hain", "fact": "My daughter is in Jaipur.", "language": "hi"}
+{"id": 437, "utterance": "meri nani Jaipur aa rahi hain", "fact": "मेरी ननि जयपुर आ रही है", "language": "hi"}
+{"id": 438, "utterance": "meri nani Lucknow aa rahi hain", "fact": "My daughter is in Lucknow.", "language": "hi"}
+{"id": 439, "utterance": "meri nani Lucknow aa rahi hain", "fact": "मेरी ननी लखनऊ आ रही हैं", "language": "hi"}
+{"id": 440, "utterance": "meri nani Pune aa rahi hain", "fact": "मेरी ननि पुणे आ रही हैं", "language": "hi"}
+{"id": 441, "utterance": "meri nani ka phone aaj aaya", "fact": "The user's daughter's phone arrived today.", "language": "hi"}
+{"id": 442, "utterance": "meri nani ka phone aaj aaya", "fact": "मेरी ननि का फोन आज आया", "language": "hi"}
+{"id": 443, "utterance": "meri nani ka phone abhi aaya", "fact": "The user's daughter's phone arrived recently.", "language": "hi"}
+{"id": 444, "utterance": "meri nani ka phone abhi aaya", "fact": "मेरी ननी का फोन अब आया", "language": "hi"}
+{"id": 445, "utterance": "meri nani ka phone kal aaya", "fact": "The user's daughter's phone rang.", "language": "hi"}
+{"id": 446, "utterance": "meri nani ka phone kal aaya", "fact": "मेरी ननी का फोन कल आया", "language": "hi"}
+{"id": 447, "utterance": "suna hai Amit Jaipur gaya", "fact": "Amit Jaipur gaya", "language": "hi"}
+{"id": 448, "utterance": "suna hai Amit Jaipur gaya", "fact": "Amit was born in Jaipur.", "language": "hi"}
+{"id": 449, "utterance": "suna hai Amit Pune gaya", "fact": "Amit Pune gaya", "language": "hi"}
+{"id": 450, "utterance": "suna hai Amit Pune gaya", "fact": "Amit moved to Pune.", "language": "hi"}
+{"id": 451, "utterance": "suna hai Arjun Jaipur gaya", "fact": "Arjun has moved to Jaipur.", "language": "hi"}
+{"id": 452, "utterance": "suna hai Deepak Jaipur gaya", "fact": "Deepak Jaipur gaya", "language": "hi"}
+{"id": 453, "utterance": "suna hai Deepak Jaipur gaya", "fact": "Deepak has moved to Jaipur.", "language": "hi"}
+{"id": 454, "utterance": "suna hai Deepak Pune gaya", "fact": "Deepak Pune gaya", "language": "hi"}
+{"id": 455, "utterance": "suna hai Deepak Pune gaya", "fact": "Deepak has moved to Pune.", "language": "hi"}
+{"id": 456, "utterance": "suna hai Manoj Jaipur gaya", "fact": "Manoj Jaipur gaya", "language": "hi"}
+{"id": 457, "utterance": "suna hai Manoj Jaipur gaya", "fact": "Manoj has gone to Jaipur.", "language": "hi"}
+{"id": 458, "utterance": "suna hai Manoj Pune gaya", "fact": "Manoj Pune gaya", "language": "hi"}
+{"id": 459, "utterance": "suna hai Manoj Pune gaya", "fact": "Manoj moved to Pune.", "language": "hi"}
+{"id": 460, "utterance": "suna hai Rahul Jaipur gaya", "fact": "Rahul Jaipur gaya", "language": "hi"}
+{"id": 461, "utterance": "suna hai Rahul Jaipur gaya", "fact": "Rahul has moved to Jaipur.", "language": "hi"}
+{"id": 462, "utterance": "suna hai Rahul Pune gaya", "fact": "Rahul Pune gaya", "language": "hi"}
+{"id": 463, "utterance": "suna hai Rahul Pune gaya", "fact": "Rahul moved to Pune.", "language": "hi"}
+{"id": 464, "utterance": "suna hai Rohan Jaipur gaya", "fact": "Rohan Jaipur gaya", "language": "hi"}
+{"id": 465, "utterance": "suna hai Rohan Jaipur gaya", "fact": "Rohan has gone to Jaipur.", "language": "hi"}
+{"id": 466, "utterance": "suna hai Rohan Pune gaya", "fact": "Rohan has moved to Pune.", "language": "hi"}
+{"id": 467, "utterance": "suna hai Suresh Jaipur gaya", "fact": "Suresh Jaipur gaya", "language": "hi"}
+{"id": 468, "utterance": "suna hai Suresh Jaipur gaya", "fact": "Suresh has moved to Jaipur.", "language": "hi"}
+{"id": 469, "utterance": "suna hai Suresh Pune gaya", "fact": "Suresh Pune gaya", "language": "hi"}
+{"id": 470, "utterance": "suna hai Suresh Pune gaya", "fact": "Suresh moved to Pune.", "language": "hi"}
+{"id": 471, "utterance": "suna hai Vikram Jaipur gaya", "fact": "Vikram Jaipur is a city in Rajasthan, India.", "language": "hi"}
+{"id": 472, "utterance": "woh bag mera hai", "fact": "I have a bag.", "language": "hi"}
+{"id": 473, "utterance": "woh bag mera hai", "fact": "bag mera hai", "language": "hi"}
+{"id": 474, "utterance": "woh ghar mera hai", "fact": "I live in my house.", "language": "hi"}
+{"id": 475, "utterance": "woh ghar mera hai", "fact": "ghar mera hai", "language": "hi"}
+{"id": 476, "utterance": "woh kamra mera hai", "fact": "wah kamra mera hai.", "language": "hi"}
+{"id": 477, "utterance": "woh kamra mera hai", "fact": "वो कमरा मेरा है", "language": "hi"}
+{"id": 478, "utterance": "woh laptop mera hai", "fact": "laptop mera hai", "language": "hi"}
+{"id": 479, "utterance": "woh laptop mera hai", "fact": "my laptop is mine", "language": "hi"}
+{"id": 480, "utterance": "woh phone mera hai", "fact": "My phone is mine.", "language": "hi"}
+{"id": 481, "utterance": "woh phone mera hai", "fact": "phone mera hai.", "language": "hi"}
+{"id": 482, "utterance": "woh scooter mera hai", "fact": "The user owns a scooter.", "language": "hi"}
+{"id": 483, "utterance": "woh scooter mera hai", "fact": "scooter mera hai", "language": "hi"}
+{"id": 484, "utterance": "woh scooter mera hai", "fact": "scooter mera hai.", "language": "hi"}
+{"id": 485, "utterance": "yeh bag mera hai", "fact": "I have a bag.", "language": "hi"}
+{"id": 486, "utterance": "yeh bag mera hai", "fact": "bag mera hai.", "language": "hi"}
+{"id": 487, "utterance": "yeh ghar mera hai", "fact": "This house is my house.", "language": "hi"}
+{"id": 488, "utterance": "yeh ghar mera hai", "fact": "ghar mera hai", "language": "hi"}
+{"id": 489, "utterance": "yeh kamra mera hai", "fact": "I have a lot of money.", "language": "hi"}
+{"id": 490, "utterance": "yeh kamra mera hai", "fact": "यह कमरा मेरा है", "language": "hi"}
+{"id": 491, "utterance": "yeh laptop mera hai", "fact": "This laptop is mine.", "language": "hi"}
+{"id": 492, "utterance": "yeh phone mera hai", "fact": "my phone is here", "language": "hi"}
+{"id": 493, "utterance": "yeh scooter mera hai", "fact": "The user owns a scooter.", "language": "hi"}
+{"id": 494, "utterance": "अंजलि aa rahi hai", "fact": "Aangi is happy.", "language": "hi"}
+{"id": 495, "utterance": "अंजलि ne call kiya", "fact": "Anjali was called.", "language": "hi"}
+{"id": 496, "utterance": "अंजलि ne call kiya", "fact": "अंजलि को फोन किया गया", "language": "hi"}
+{"id": 497, "utterance": "अंजलि party mein aayi thi", "fact": "Aajli party mein aayi thi", "language": "hi"}
+{"id": 498, "utterance": "अमित aa raha hai", "fact": "Amit is doing something.", "language": "hi"}
+{"id": 499, "utterance": "अमित aa raha hai", "fact": "अमित आ रहा है", "language": "hi"}
+{"id": 500, "utterance": "अमित ne call kiya", "fact": "Amit called someone.", "language": "hi"}
+{"id": 501, "utterance": "अमित ne call kiya", "fact": "अमित call किया", "language": "hi"}
+{"id": 502, "utterance": "अर्जुन aa raha hai", "fact": "Arjun is doing something.", "language": "hi"}
+{"id": 503, "utterance": "अर्जुन ne call kiya", "fact": "Arjun called someone.", "language": "hi"}
+{"id": 504, "utterance": "अर्जुन ne call kiya", "fact": "अर्जुन call किया", "language": "hi"}
+{"id": 505, "utterance": "नेहा aa rahi hai", "fact": "Neha is doing well.", "language": "hi"}
+{"id": 506, "utterance": "नेहा ne call kiya", "fact": "Neha called someone.", "language": "hi"}
+{"id": 507, "utterance": "नेहा ne call kiya", "fact": "नेहा को कैलल किया गया", "language": "hi"}
+{"id": 508, "utterance": "नेहा party mein aayi thi", "fact": "Neha party went there.", "language": "hi"}
+{"id": 509, "utterance": "पूजा aa rahi hai", "fact": "Pooja is happening.", "language": "hi"}
+{"id": 510, "utterance": "पूजा ne call kiya", "fact": "Pooja called someone.", "language": "hi"}
+{"id": 511, "utterance": "पूजा party mein aayi thi", "fact": "The party was attended by the goddess.", "language": "hi"}
+{"id": 512, "utterance": "प्रिया aa rahi hai", "fact": "Priya is happy.", "language": "hi"}
+{"id": 513, "utterance": "प्रिया ne call kiya", "fact": "Please call Priya.", "language": "hi"}
+{"id": 514, "utterance": "प्रिया party mein aayi thi", "fact": "Priya was there at the party.", "language": "hi"}
+{"id": 515, "utterance": "राहुल aa raha hai", "fact": "Rahul is doing something.", "language": "hi"}
+{"id": 516, "utterance": "राहुल aa raha hai", "fact": "राहुल आ रहा है", "language": "hi"}
+{"id": 517, "utterance": "राहुल ne call kiya", "fact": "Rahul made a phone call.", "language": "hi"}
+{"id": 518, "utterance": "राहुल ne call kiya", "fact": "राहुल को कॉल किया गया है.", "language": "hi"}
+{"id": 519, "utterance": "विक्रम aa raha hai", "fact": "विक्रम आ रहा है", "language": "hi"}
+{"id": 520, "utterance": "विक्रम ne call kiya", "fact": "Vikram called someone.", "language": "hi"}
+{"id": 521, "utterance": "विक्रम ne call kiya", "fact": "विक्रम ने कलिया यहाँ नहीं किया", "language": "hi"}
+{"id": 522, "utterance": "내 동생이 시험에 합격했어", "fact": "Your younger brother passed the exam.", "language": "ko"}
+{"id": 523, "utterance": "내 동생이 시험에 합격했어", "fact": "동생이 시험에 합격했다.", "language": "ko"}
+{"id": 524, "utterance": "따님이 결혼하셨어요", "fact": "Ms. Daegu got married.", "language": "ko"}
+{"id": 525, "utterance": "따님이 서울로 이사하셨어요", "fact": "사람이 서울로 이사갔어요", "language": "ko"}
+{"id": 526, "utterance": "따님이 전화하셨어요", "fact": "Someone called Mrs. Park.", "language": "ko"}
+{"id": 527, "utterance": "딸이 결혼했어요", "fact": "The daughter got married.", "language": "ko"}
+{"id": 528, "utterance": "딸이 서울로 이사했어요", "fact": "The daughter moved to Seoul.", "language": "ko"}
+{"id": 529, "utterance": "딸이 전화했어요", "fact": "The daughter called.", "language": "ko"}
+{"id": 530, "utterance": "부인이 병원에 가셨어요", "fact": "The woman went to the hospital.", "language": "ko"}
+{"id": 531, "utterance": "아내가 병원에 갔어요", "fact": "The wife went to the hospital.", "language": "ko"}
+{"id": 532, "utterance": "아내가 병원에 갔어요", "fact": "妻去了医院。", "language": "ko"}
+{"id": 533, "utterance": "아드님이 대학에 합격하셨어요", "fact": "아드님이 대학에 합격하셨습니다.", "language": "ko"}
+{"id": 534, "utterance": "아드님이 오셨어요", "fact": "Ad has come.", "language": "ko"}
+{"id": 535, "utterance": "아들이 대학에 합격했어요", "fact": "The son has been accepted into university.", "language": "ko"}
+{"id": 536, "utterance": "아들이 왔어요", "fact": "The son has come.", "language": "ko"}
+{"id": 537, "utterance": "아빠가 새 차를 샀어", "fact": "The father bought a new car.", "language": "ko"}
+{"id": 538, "utterance": "아빠가 새 차를 샀어", "fact": "אבא买了新车。", "language": "ko"}
+{"id": 539, "utterance": "아빠가 새 차를 샀어요", "fact": "The father bought a new car.", "language": "ko"}
+{"id": 540, "utterance": "엄마가 전화했어", "fact": "Mother made a phone call.", "language": "ko"}
+{"id": 541, "utterance": "엄마가 전화했어요", "fact": "The mother made a phone call.", "language": "ko"}
+{"id": 542, "utterance": "우리 강아지가 아파", "fact": "Our puppy is sick.", "language": "ko"}
+{"id": 543, "utterance": "우리 강아지가 아파", "fact": "우리 강아지는 아파", "language": "ko"}
+{"id": 544, "utterance": "우리 강아지가 아파요", "fact": "Our dog is sick.", "language": "ko"}
+{"id": 545, "utterance": "우리 강아지가 아파요", "fact": "Our puppy is sick.", "language": "ko"}
+{"id": 546, "utterance": "우리 형이 결혼했어", "fact": "Our brother got married.", "language": "ko"}
+{"id": 547, "utterance": "우리 형이 결혼했어", "fact": "나의 형이 결혼했어", "language": "ko"}
+{"id": 548, "utterance": "우리 형이 결혼했어요", "fact": "Our brother got married.", "language": "ko"}
+{"id": 549, "utterance": "제 동생이 시험에 합격했어요", "fact": "Your younger brother passed the exam.", "language": "ko"}
+{"id": 550, "utterance": "할머니가 오셨어", "fact": " grandmother came", "language": "ko"}
+{"id": 551, "utterance": "할머니가 오셨어요", "fact": " grandmother came", "language": "ko"}

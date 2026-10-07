@@ -1,0 +1,360 @@
+{
+  "configs": [
+    {
+      "config": "A",
+      "group_id": "A-qwen-qwen2.5-3b-instruct-s0-ac4dda08",
+      "trace_rows": 20,
+      "status": {
+        "ok": 20
+      },
+      "host_extraction_sides": {
+        "ok": 40
+      },
+      "v4_extraction_sides": {
+        "ok": 40
+      },
+      "unique_sides_in_trace": 40,
+      "judge_calls": 20,
+      "judge_parse_ok": 20,
+      "judge_decisions": {
+        "keep_both": 9,
+        "merge": 11
+      },
+      "judge_errors": [],
+      "trace_problems": [],
+      "modes": {
+        "off": {
+          "rows": 20,
+          "schema_valid": true,
+          "rows_match_trace": true,
+          "decisions": {
+            "no_merge": 9,
+            "merge": 11
+          },
+          "compat": {
+            "None": 20
+          },
+          "strategy": "mem0",
+          "manifest_run_id_matches_rows": true
+        },
+        "lexicon": {
+          "rows": 20,
+          "schema_valid": true,
+          "rows_match_trace": true,
+          "decisions": {
+            "no_merge": 9,
+            "merge": 11
+          },
+          "compat": {
+            "compatible": 19,
+            "incompatible": 1
+          },
+          "strategy": "dk-mem-lexicon",
+          "manifest_run_id_matches_rows": true
+        },
+        "lexicon+llm": {
+          "rows": 20,
+          "schema_valid": true,
+          "rows_match_trace": true,
+          "decisions": {
+            "no_merge": 9,
+            "merge": 11
+          },
+          "compat": {
+            "compatible": 18,
+            "underdetermined": 1,
+            "incompatible": 1
+          },
+          "strategy": "dk-mem-lexicon-llm",
+          "manifest_run_id_matches_rows": true
+        }
+      },
+      "gate_vetoes": {
+        "lexicon": 0,
+        "lexicon+llm": 0
+      },
+      "host_proposed": {
+        "keep_both": 9,
+        "merge": 11
+      },
+      "first_loss_point": {
+        "no_detectable_difference": 19,
+        "storage": 1
+      },
+      "lexicon_compatibility": {
+        "compatible": 19,
+        "incompatible": 1
+      },
+      "similarity_range": [
+        0.5454545454545454,
+        1.0
+      ],
+      "run_config_has": {
+        "seed": true,
+        "backbone": true,
+        "model_run_info": true,
+        "prompts": true,
+        "lexicon": true,
+        "input": true,
+        "fingerprint": true,
+        "git": true
+      },
+      "input_hash": "26b758ea53edf4f7b0ca63bfb607ecf2ee9a5b0aa98e5b633f07a478afe4a4e4"
+    },
+    {
+      "config": "B",
+      "group_id": "B-qwen-qwen2.5-3b-instruct-s0-95dd76fa",
+      "trace_rows": 20,
+      "status": {
+        "no_entries": 17,
+        "ok": 3
+      },
+      "host_extraction_sides": {
+        "ok": 14,
+        "no_entries": 26
+      },
+      "v4_extraction_sides": {
+        "ok": 40
+      },
+      "unique_sides_in_trace": 40,
+      "judge_calls": 3,
+      "judge_parse_ok": 3,
+      "judge_decisions": {
+        "merge": 1,
+        "keep_both": 2
+      },
+      "judge_errors": [],
+      "B_labels": {
+        "mixed": 1,
+        "translated_to_english": 5
+      },
+      "B_fence_stripped": 0,
+      "B_facts_per_side": {
+        "1": 14,
+        "0": 26
+      },
+      "B_native_failures": [],
+      "B_examples": [
+        {
+          "utt": "Neha party mein aayi thi",
+          "stored": "Neha was at a party",
+          "label": "mixed",
+          "retention": 0.25
+        },
+        {
+          "utt": "Neha office se aa rahi hai",
+          "stored": "Neha is at the office",
+          "label": "translated_to_english",
+          "retention": 0.2
+        },
+        {
+          "utt": "Neha school se aa rahi hai",
+          "stored": "Neha is at school",
+          "label": "translated_to_english",
+          "retention": 0.2
+        }
+      ],
+      "trace_problems": [],
+      "modes": {
+        "off": {
+          "rows": 3,
+          "schema_valid": true,
+          "rows_match_trace": true,
+          "decisions": {
+            "merge": 1,
+            "no_merge": 2
+          },
+          "compat": {
+            "None": 3
+          },
+          "strategy": "mem0",
+          "manifest_run_id_matches_rows": true
+        },
+        "lexicon": {
+          "rows": 3,
+          "schema_valid": true,
+          "rows_match_trace": true,
+          "decisions": {
+            "merge": 1,
+            "no_merge": 2
+          },
+          "compat": {
+            "compatible": 3
+          },
+          "strategy": "dk-mem-lexicon",
+          "manifest_run_id_matches_rows": true
+        },
+        "lexicon+llm": {
+          "rows": 3,
+          "schema_valid": true,
+          "rows_match_trace": true,
+          "decisions": {
+            "merge": 1,
+            "no_merge": 2
+          },
+          "compat": {
+            "compatible": 3
+          },
+          "strategy": "dk-mem-lexicon-llm",
+          "manifest_run_id_matches_rows": true
+        }
+      },
+      "gate_vetoes": {
+        "lexicon": 0,
+        "lexicon+llm": 0
+      },
+      "host_proposed": {
+        "merge": 1,
+        "keep_both": 2
+      },
+      "first_loss_point": {
+        "no_detectable_difference": 3
+      },
+      "lexicon_compatibility": {
+        "compatible": 3
+      },
+      "similarity_range": [
+        0.6666666666666666,
+        1.0
+      ],
+      "run_config_has": {
+        "seed": true,
+        "backbone": true,
+        "model_run_info": true,
+        "prompts": true,
+        "lexicon": true,
+        "input": true,
+        "fingerprint": true,
+        "git": true
+      },
+      "input_hash": "26b758ea53edf4f7b0ca63bfb607ecf2ee9a5b0aa98e5b633f07a478afe4a4e4"
+    },
+    {
+      "config": "C",
+      "group_id": "C-qwen-qwen2.5-3b-instruct-s0-3c4a3617",
+      "trace_rows": 20,
+      "status": {
+        "ok": 20
+      },
+      "host_extraction_sides": {
+        "ok": 40
+      },
+      "v4_extraction_sides": {
+        "ok": 40
+      },
+      "unique_sides_in_trace": 40,
+      "judge_calls": 20,
+      "judge_parse_ok": 20,
+      "judge_decisions": {
+        "merge": 15,
+        "keep_both": 5
+      },
+      "judge_errors": [],
+      "trace_problems": [],
+      "modes": {
+        "off": {
+          "rows": 20,
+          "schema_valid": true,
+          "rows_match_trace": true,
+          "decisions": {
+            "merge": 15,
+            "no_merge": 5
+          },
+          "compat": {
+            "None": 20
+          },
+          "strategy": "store-surface-only",
+          "manifest_run_id_matches_rows": true
+        },
+        "lexicon": {
+          "rows": 20,
+          "schema_valid": true,
+          "rows_match_trace": true,
+          "decisions": {
+            "merge": 15,
+            "no_merge": 5
+          },
+          "compat": {
+            "compatible": 19,
+            "incompatible": 1
+          },
+          "strategy": "dk-mem-lexicon",
+          "manifest_run_id_matches_rows": true
+        },
+        "lexicon+llm": {
+          "rows": 20,
+          "schema_valid": true,
+          "rows_match_trace": true,
+          "decisions": {
+            "merge": 14,
+            "no_merge": 5,
+            "underdetermined_link": 1
+          },
+          "compat": {
+            "compatible": 18,
+            "underdetermined": 1,
+            "incompatible": 1
+          },
+          "strategy": "dk-mem-lexicon-llm",
+          "manifest_run_id_matches_rows": true
+        }
+      },
+      "gate_vetoes": {
+        "lexicon": 0,
+        "lexicon+llm": 1
+      },
+      "host_proposed": {
+        "merge": 15,
+        "keep_both": 5
+      },
+      "first_loss_point": {
+        "no_detectable_difference": 19,
+        "none": 1
+      },
+      "lexicon_compatibility": {
+        "compatible": 19,
+        "incompatible": 1
+      },
+      "similarity_range": [
+        0.6551724137931034,
+        0.9473684210526315
+      ],
+      "run_config_has": {
+        "seed": true,
+        "backbone": true,
+        "model_run_info": true,
+        "prompts": true,
+        "lexicon": true,
+        "input": true,
+        "fingerprint": true,
+        "git": true
+      },
+      "input_hash": "26b758ea53edf4f7b0ca63bfb607ecf2ee9a5b0aa98e5b633f07a478afe4a4e4"
+    }
+  ],
+  "determinism": {
+    "fingerprint_equal": true,
+    "group_id_equal": true,
+    "trace_equal": true,
+    "pairwise_rows_equal": {
+      "off": true,
+      "lexicon": true,
+      "lexicon+llm": true
+    }
+  },
+  "stats": {
+    "A": {
+      "prompts_generated": 60,
+      "seconds": 37.2
+    },
+    "B": {
+      "prompts_generated": 83,
+      "seconds": 46.4
+    },
+    "C": {
+      "prompts_generated": 60,
+      "seconds": 40.4
+    }
+  },
+  "peak_gpu_memory_gb": 7.48
+}

@@ -1,0 +1,2110 @@
+{
+  "outputs": {
+    "current_B_mem0_legacy": {
+      "sides": [
+        {
+          "eval_pair_id": "ep_00d9e3e8e1dc",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Rohan ek botal doodh laaya",
+          "raw_output": "{\"facts\" : [\"Rohan bought a carton of milk\"]}",
+          "facts": [
+            "Rohan bought a carton of milk"
+          ],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.2,
+              "label": "translated_to_english"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_00d9e3e8e1dc",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Rohan ek gilaas doodh laaya",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_012cefccce85",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Dadi ji ne pooja karwayi",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_012cefccce85",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Dadi ne pooja karwayi",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_05a8f3624b3d",
+          "side": "a",
+          "language": "hi",
+          "utterance": "kal Suresh Pune gaya tha",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_05a8f3624b3d",
+          "side": "b",
+          "language": "hi",
+          "utterance": "kal Suresh Pune jayega",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_062e1bbcaef7",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Vikram ek gilaas paani piya",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_062e1bbcaef7",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Vikram ek botal paani piya",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_07b2f8bfd19d",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Neha party mein aayi thi",
+          "raw_output": "{\"facts\" : [\"Neha was at a party\"]}",
+          "facts": [
+            "Neha was at a party"
+          ],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.25,
+              "label": "mixed"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_07b2f8bfd19d",
+          "side": "b",
+          "language": "hi",
+          "utterance": "नेहा party mein aayi thi",
+          "raw_output": "{\"facts\" : [\"Neha was at a party\"]}",
+          "facts": [
+            "Neha was at a party"
+          ],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "DEVANAGARI": 0.1111,
+                "LATIN": 0.8889
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.0,
+              "label": "translated_to_english"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0bb42af13886",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Neha office se aa rahi hai",
+          "raw_output": "{\"facts\" : [\"Neha is at the office\"]}",
+          "facts": [
+            "Neha is at the office"
+          ],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.2,
+              "label": "translated_to_english"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0bb42af13886",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Neha college se aa rahi hai",
+          "raw_output": "{\"facts\" : [\"Neha is at college\"]}",
+          "facts": [
+            "Neha is at college"
+          ],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.2,
+              "label": "translated_to_english"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0bc69265f85a",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Vikram ne do jode kapde diye",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_0bc69265f85a",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Vikram ne do tukde kapda diya",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_0c1aff41679e",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Manoj ek botal doodh laaya",
+          "raw_output": "{\"facts\" : [\"Manoj bought milk\"]}",
+          "facts": [
+            "Manoj bought milk"
+          ],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.2,
+              "label": "translated_to_english"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0c1aff41679e",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Manoj ek gilaas doodh laaya",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_0c7a822043a3",
+          "side": "a",
+          "language": "hi",
+          "utterance": "kal Manoj Pune gaya tha",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_0c7a822043a3",
+          "side": "b",
+          "language": "hi",
+          "utterance": "kal Manoj Pune jayega",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_0d3583ba4a2c",
+          "side": "a",
+          "language": "hi",
+          "utterance": "kehte hain Arjun bimar hai",
+          "raw_output": "{\"facts\" : [\"Arjun is sick\"]}",
+          "facts": [
+            "Arjun is sick"
+          ],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.2,
+              "label": "translated_to_english"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0d3583ba4a2c",
+          "side": "b",
+          "language": "hi",
+          "utterance": "maine khud dekha Arjun bimar hai",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_0e9a64760b25",
+          "side": "a",
+          "language": "de",
+          "utterance": "Markus, wie war dein Urlaub in Italien?",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_0e9a64760b25",
+          "side": "b",
+          "language": "de",
+          "utterance": "Markus, wie war Ihr Urlaub in Italien?",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_0ea4b6f891d5",
+          "side": "a",
+          "language": "hi",
+          "utterance": "yeh laptop mera hai",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_0ea4b6f891d5",
+          "side": "b",
+          "language": "hi",
+          "utterance": "woh laptop mera hai",
+          "raw_output": "{\"facts\" : [\"Laptop is mine\"]}",
+          "facts": [
+            "Laptop is mine"
+          ],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.0,
+              "label": "translated_to_english"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_10e9171f181e",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Suresh ne do jode kapde diye",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_10e9171f181e",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Suresh ne do tukde kapda diya",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_132f435dc64d",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Verma uncle kal ghar aaye the",
+          "raw_output": "{\"facts\" : [\"Verma uncle is coming to the house\"]}",
+          "facts": [
+            "Verma uncle is coming to the house"
+          ],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.4,
+              "label": "mixed"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_132f435dc64d",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Verma bhaiya kal ghar aaye the",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_15313d2b8e23",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Anjali aa rahi hai",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_15313d2b8e23",
+          "side": "b",
+          "language": "hi",
+          "utterance": "अंजलि aa rahi hai",
+          "raw_output": "{\"facts\" : [\"अंजलि is awake\"]}",
+          "facts": [
+            "अंजलि is awake"
+          ],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "DEVANAGARI": 0.25,
+                "LATIN": 0.75
+              },
+              "stored_scripts": {
+                "DEVANAGARI": 0.3,
+                "LATIN": 0.7
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.4,
+              "label": "mixed"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_16911db6d82e",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Nani ji ne achaar bheja",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_16911db6d82e",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Nani ne achaar bheja",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_181080352535",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Neha school se aa rahi hai",
+          "raw_output": "{\"facts\" : [\"Neha is at school\"]}",
+          "facts": [
+            "Neha is at school"
+          ],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.2,
+              "label": "translated_to_english"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_181080352535",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Neha gym se aa rahi hai",
+          "raw_output": "{\"facts\" : [\"Neha is at the gym\"]}",
+          "facts": [
+            "Neha is at the gym"
+          ],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.2,
+              "label": "translated_to_english"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_18da7b28b7ac",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Neha aa rahi hai",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_18da7b28b7ac",
+          "side": "b",
+          "language": "hi",
+          "utterance": "नेहा aa rahi hai",
+          "raw_output": "{\"facts\" : [\"Neha is coming\"]}",
+          "facts": [
+            "Neha is coming"
+          ],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "DEVANAGARI": 0.1818,
+                "LATIN": 0.8182
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.0,
+              "label": "translated_to_english"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_1e1799ead1db",
+          "side": "a",
+          "language": "hi",
+          "utterance": "meri mami Jaipur aa rahi hai",
+          "raw_output": "{\"facts\" : [\"Mami is in Jaipur\"]}",
+          "facts": [
+            "Mami is in Jaipur"
+          ],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.3333,
+              "label": "mixed"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_1e1799ead1db",
+          "side": "b",
+          "language": "hi",
+          "utterance": "meri mausi Jaipur aa rahi hai",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_1f4bfa2a61e5",
+          "side": "a",
+          "language": "tr",
+          "utterance": "Ali geldi",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        },
+        {
+          "eval_pair_id": "ep_1f4bfa2a61e5",
+          "side": "b",
+          "language": "tr",
+          "utterance": "Ali gelmiş",
+          "raw_output": "{\"facts\" : []}",
+          "facts": [],
+          "error": null,
+          "fence_stripped": false,
+          "language_reports": []
+        }
+      ],
+      "pairs": [
+        {
+          "eval_pair_id": "ep_07b2f8bfd19d",
+          "entry_a": "Neha was at a party",
+          "entry_b": "Neha was at a party",
+          "judge_raw": "{\"decision\": \"merge\", \"reason\": \"Both entries refer to the same event with the same subject.\"}",
+          "judge_decision": "merge",
+          "judge_reason": "Both entries refer to the same event with the same subject.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "merge",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        },
+        {
+          "eval_pair_id": "ep_0bb42af13886",
+          "entry_a": "Neha is at the office",
+          "entry_b": "Neha is at college",
+          "judge_raw": "{\"decision\": \"keep_both\", \"reason\": \"They are about different individuals.\"}",
+          "judge_decision": "keep_both",
+          "judge_reason": "They are about different individuals.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "keep_both",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        },
+        {
+          "eval_pair_id": "ep_181080352535",
+          "entry_a": "Neha is at school",
+          "entry_b": "Neha is at the gym",
+          "judge_raw": "{\"decision\": \"keep_both\", \"reason\": \"They are about different people.\"}",
+          "judge_decision": "keep_both",
+          "judge_reason": "They are about different people.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "keep_both",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        }
+      ],
+      "seconds": 14.0
+    },
+    "candidate_B_native": {
+      "sides": [
+        {
+          "eval_pair_id": "ep_00d9e3e8e1dc",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Rohan ek botal doodh laaya",
+          "raw_output": "{\"fact\": \"Rohan gave one carton of milk.\"}",
+          "facts": [
+            "Rohan gave one carton of milk."
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.2,
+              "label": "translated_to_english"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_00d9e3e8e1dc",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Rohan ek gilaas doodh laaya",
+          "raw_output": "{\"fact\": \"Rohan gave some strange milk.\"}",
+          "facts": [
+            "Rohan gave some strange milk."
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.2,
+              "label": "translated_to_english"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_012cefccce85",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Dadi ji ne pooja karwayi",
+          "raw_output": "{\"fact\": \"Dadi ji ne pooja karwayi\"}",
+          "facts": [
+            "Dadi ji ne pooja karwayi"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_012cefccce85",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Dadi ne pooja karwayi",
+          "raw_output": "{\"fact\": \"Dadi ne pooja karwayi\"}",
+          "facts": [
+            "Dadi ne pooja karwayi"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_05a8f3624b3d",
+          "side": "a",
+          "language": "hi",
+          "utterance": "kal Suresh Pune gaya tha",
+          "raw_output": "{\"fact\": \"kal Suresh Pune gaya tha\"}",
+          "facts": [
+            "kal Suresh Pune gaya tha"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_05a8f3624b3d",
+          "side": "b",
+          "language": "hi",
+          "utterance": "kal Suresh Pune jayega",
+          "raw_output": "{\"fact\": \"kal Suresh Pune jayega\"}",
+          "facts": [
+            "kal Suresh Pune jayega"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_062e1bbcaef7",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Vikram ek gilaas paani piya",
+          "raw_output": "{\"fact\": \"Vikram ek gilaas paani piya.\"}",
+          "facts": [
+            "Vikram ek gilaas paani piya."
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_062e1bbcaef7",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Vikram ek botal paani piya",
+          "raw_output": "{\"fact\": \"Vikram paī botal paani piya.\"}",
+          "facts": [
+            "Vikram paī botal paani piya."
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.8,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_07b2f8bfd19d",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Neha party mein aayi thi",
+          "raw_output": "{\"fact\": \"Neha party mein aayi thi\"}",
+          "facts": [
+            "Neha party mein aayi thi"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_07b2f8bfd19d",
+          "side": "b",
+          "language": "hi",
+          "utterance": "नेहा party mein aayi thi",
+          "raw_output": "{\"fact\": \"नेहा party mein aayi thi\"}",
+          "facts": [
+            "नेहा party mein aayi thi"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "DEVANAGARI": 0.1111,
+                "LATIN": 0.8889
+              },
+              "stored_scripts": {
+                "DEVANAGARI": 0.1111,
+                "LATIN": 0.8889
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0bb42af13886",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Neha office se aa rahi hai",
+          "raw_output": "{\"fact\": \"Neha office se aa rahi hai\"}",
+          "facts": [
+            "Neha office se aa rahi hai"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0bb42af13886",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Neha college se aa rahi hai",
+          "raw_output": "{\"fact\": \"Neha college se aa rahi hai\"}",
+          "facts": [
+            "Neha college se aa rahi hai"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0bc69265f85a",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Vikram ne do jode kapde diye",
+          "raw_output": "{\"fact\": \"Vikram ne do jode kapde diye.\"}",
+          "facts": [
+            "Vikram ne do jode kapde diye."
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0bc69265f85a",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Vikram ne do tukde kapda diya",
+          "raw_output": "{\"fact\": \"Vikram ne do tukde kapda diya.\"}",
+          "facts": [
+            "Vikram ne do tukde kapda diya."
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0c1aff41679e",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Manoj ek botal doodh laaya",
+          "raw_output": "{\"fact\": \"Manoj dadaa ek botal doodh laaya.\"}",
+          "facts": [
+            "Manoj dadaa ek botal doodh laaya."
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0c1aff41679e",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Manoj ek gilaas doodh laaya",
+          "raw_output": "{\"fact\": \"Manoj gave some strange milk.\"}",
+          "facts": [
+            "Manoj gave some strange milk."
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.2,
+              "label": "translated_to_english"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0c7a822043a3",
+          "side": "a",
+          "language": "hi",
+          "utterance": "kal Manoj Pune gaya tha",
+          "raw_output": "{\"fact\": \"kal Manoj Pune gaya tha\"}",
+          "facts": [
+            "kal Manoj Pune gaya tha"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0c7a822043a3",
+          "side": "b",
+          "language": "hi",
+          "utterance": "kal Manoj Pune jayega",
+          "raw_output": "{\"fact\": \"Kal Manoj Pune gareebega.\"}",
+          "facts": [
+            "Kal Manoj Pune gareebega."
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.75,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0d3583ba4a2c",
+          "side": "a",
+          "language": "hi",
+          "utterance": "kehte hain Arjun bimar hai",
+          "raw_output": "{\"fact\": \"kehte hain Arjun bimar hai\"}",
+          "facts": [
+            "kehte hain Arjun bimar hai"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0d3583ba4a2c",
+          "side": "b",
+          "language": "hi",
+          "utterance": "maine khud dekha Arjun bimar hai",
+          "raw_output": "{\"fact\": \"maine khud dekha Arjun bimar hai\"}",
+          "facts": [
+            "maine khud dekha Arjun bimar hai"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0e9a64760b25",
+          "side": "a",
+          "language": "de",
+          "utterance": "Markus, wie war dein Urlaub in Italien?",
+          "raw_output": "{\"fact\": \"Markus, wie war dein Urlaub in Italien?\"}",
+          "facts": [
+            "Markus, wie war dein Urlaub in Italien?"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0e9a64760b25",
+          "side": "b",
+          "language": "de",
+          "utterance": "Markus, wie war Ihr Urlaub in Italien?",
+          "raw_output": "{\"fact\": \"Markus, wie war Ihr Urlaub in Italien?\"}",
+          "facts": [
+            "Markus, wie war Ihr Urlaub in Italien?"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0ea4b6f891d5",
+          "side": "a",
+          "language": "hi",
+          "utterance": "yeh laptop mera hai",
+          "raw_output": "{\"fact\": \"yeh laptop mera hai\"}",
+          "facts": [
+            "yeh laptop mera hai"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_0ea4b6f891d5",
+          "side": "b",
+          "language": "hi",
+          "utterance": "woh laptop mera hai",
+          "raw_output": "{\"fact\": \"laptop mera hai\"}",
+          "facts": [
+            "laptop mera hai"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.6667,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_10e9171f181e",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Suresh ne do jode kapde diye",
+          "raw_output": "{\"fact\": \"Suresh ne do jode kapde diye.\"}",
+          "facts": [
+            "Suresh ne do jode kapde diye."
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_10e9171f181e",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Suresh ne do tukde kapda diya",
+          "raw_output": "{\"fact\": \"Suresh gave two clothes to him.\"}",
+          "facts": [
+            "Suresh gave two clothes to him."
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.1667,
+              "label": "translated_to_english"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_132f435dc64d",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Verma uncle kal ghar aaye the",
+          "raw_output": "{\"fact\": \"Verma uncle kal ghar aaye the\"}",
+          "facts": [
+            "Verma uncle kal ghar aaye the"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_132f435dc64d",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Verma bhaiya kal ghar aaye the",
+          "raw_output": "{\"fact\": \"Verma bhaiya kal ghar aaye the\"}",
+          "facts": [
+            "Verma bhaiya kal ghar aaye the"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_15313d2b8e23",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Anjali aa rahi hai",
+          "raw_output": "{\"fact\": \"Anjali is coming.\"}",
+          "facts": [
+            "Anjali is coming."
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.25,
+              "label": "mixed"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_15313d2b8e23",
+          "side": "b",
+          "language": "hi",
+          "utterance": "अंजलि aa rahi hai",
+          "raw_output": "{\"fact\": \"अंजलि aa rahi hai\"}",
+          "facts": [
+            "अंजलि aa rahi hai"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "DEVANAGARI": 0.25,
+                "LATIN": 0.75
+              },
+              "stored_scripts": {
+                "DEVANAGARI": 0.25,
+                "LATIN": 0.75
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_16911db6d82e",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Nani ji ne achaar bheja",
+          "raw_output": "{\"fact\": \"Nani ji ne achaar bheja\"}",
+          "facts": [
+            "Nani ji ne achaar bheja"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_16911db6d82e",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Nani ne achaar bheja",
+          "raw_output": "{\"fact\": \"Nani ne achaar bheja\"}",
+          "facts": [
+            "Nani ne achaar bheja"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_181080352535",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Neha school se aa rahi hai",
+          "raw_output": "{\"fact\": \"Neha school se aa rahi hai\"}",
+          "facts": [
+            "Neha school se aa rahi hai"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_181080352535",
+          "side": "b",
+          "language": "hi",
+          "utterance": "Neha gym se aa rahi hai",
+          "raw_output": "{\"fact\": \"Neha gym se aa rahi hai\"}",
+          "facts": [
+            "Neha gym se aa rahi hai"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_18da7b28b7ac",
+          "side": "a",
+          "language": "hi",
+          "utterance": "Neha aa rahi hai",
+          "raw_output": "{\"fact\": \"Neha está llegando.\"}",
+          "facts": [
+            "Neha está llegando."
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 0.25,
+              "label": "mixed"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_18da7b28b7ac",
+          "side": "b",
+          "language": "hi",
+          "utterance": "नेहा aa rahi hai",
+          "raw_output": "{\"fact\": \"नेहा aa rahi hai\"}",
+          "facts": [
+            "नेहा aa rahi hai"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "DEVANAGARI": 0.1818,
+                "LATIN": 0.8182
+              },
+              "stored_scripts": {
+                "DEVANAGARI": 0.1818,
+                "LATIN": 0.8182
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_1e1799ead1db",
+          "side": "a",
+          "language": "hi",
+          "utterance": "meri mami Jaipur aa rahi hai",
+          "raw_output": "{\"fact\": \"meri mami Jaipur aa rahi hai\"}",
+          "facts": [
+            "meri mami Jaipur aa rahi hai"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_1e1799ead1db",
+          "side": "b",
+          "language": "hi",
+          "utterance": "meri mausi Jaipur aa rahi hai",
+          "raw_output": "{\"fact\": \"meri mausi Jaipur aa rahi hai\"}",
+          "facts": [
+            "meri mausi Jaipur aa rahi hai"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_1f4bfa2a61e5",
+          "side": "a",
+          "language": "tr",
+          "utterance": "Ali geldi",
+          "raw_output": "{\"fact\": \"Ali geldi\"}",
+          "facts": [
+            "Ali geldi"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        },
+        {
+          "eval_pair_id": "ep_1f4bfa2a61e5",
+          "side": "b",
+          "language": "tr",
+          "utterance": "Ali gelmiş",
+          "raw_output": "{\"fact\": \"Ali gelmiş\"}",
+          "facts": [
+            "Ali gelmiş"
+          ],
+          "error": null,
+          "language_reports": [
+            {
+              "source_scripts": {
+                "LATIN": 1.0
+              },
+              "stored_scripts": {
+                "LATIN": 1.0
+              },
+              "source_script_share": null,
+              "source_token_retention": 1.0,
+              "label": "source_language"
+            }
+          ]
+        }
+      ],
+      "pairs": [
+        {
+          "eval_pair_id": "ep_00d9e3e8e1dc",
+          "entry_a": "Rohan gave one carton of milk.",
+          "entry_b": "Rohan gave some strange milk.",
+          "judge_raw": "{\"decision\": \"keep_both\", \"reason\": \"They are about the same person but with different details.\"}",
+          "judge_decision": "keep_both",
+          "judge_reason": "They are about the same person but with different details.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "keep_both",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        },
+        {
+          "eval_pair_id": "ep_012cefccce85",
+          "entry_a": "Dadi ji ne pooja karwayi",
+          "entry_b": "Dadi ne pooja karwayi",
+          "judge_raw": "{\"decision\": \"merge\", \"reason\": \"Both state the same action by Dadi ji.\"}",
+          "judge_decision": "merge",
+          "judge_reason": "Both state the same action by Dadi ji.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "merge",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {
+            "kinship": "dadi"
+          },
+          "lexicon_b": {
+            "kinship": "dadi"
+          }
+        },
+        {
+          "eval_pair_id": "ep_05a8f3624b3d",
+          "entry_a": "kal Suresh Pune gaya tha",
+          "entry_b": "kal Suresh Pune jayega",
+          "judge_raw": "{\"decision\": \"merge\", \"reason\": \"Both statements refer to Suresh going to Pune.\"}",
+          "judge_decision": "merge",
+          "judge_reason": "Both statements refer to Suresh going to Pune.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "merge",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        },
+        {
+          "eval_pair_id": "ep_062e1bbcaef7",
+          "entry_a": "Vikram ek gilaas paani piya.",
+          "entry_b": "Vikram paī botal paani piya.",
+          "judge_raw": "{\"decision\": \"keep_both\", \"reason\": \"The sentences are in different languages.\"}",
+          "judge_decision": "keep_both",
+          "judge_reason": "The sentences are in different languages.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "keep_both",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        },
+        {
+          "eval_pair_id": "ep_07b2f8bfd19d",
+          "entry_a": "Neha party mein aayi thi",
+          "entry_b": "नेहा party mein aayi thi",
+          "judge_raw": "{\"decision\": \"merge\", \"reason\": \"Both entries state the same fact about the same person attending a party.\"}",
+          "judge_decision": "merge",
+          "judge_reason": "Both entries state the same fact about the same person attending a party.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "merge",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        },
+        {
+          "eval_pair_id": "ep_0bb42af13886",
+          "entry_a": "Neha office se aa rahi hai",
+          "entry_b": "Neha college se aa rahi hai",
+          "judge_raw": "{\"decision\": \"keep_both\", \"reason\": \"They are about different people.\"}",
+          "judge_decision": "keep_both",
+          "judge_reason": "They are about different people.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "keep_both",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        },
+        {
+          "eval_pair_id": "ep_0bc69265f85a",
+          "entry_a": "Vikram ne do jode kapde diye.",
+          "entry_b": "Vikram ne do tukde kapda diya.",
+          "judge_raw": "{\"decision\": \"merge\", \"reason\": \"Both statements describe Vikram giving two caps.\"}",
+          "judge_decision": "merge",
+          "judge_reason": "Both statements describe Vikram giving two caps.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "merge",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        },
+        {
+          "eval_pair_id": "ep_0c1aff41679e",
+          "entry_a": "Manoj dadaa ek botal doodh laaya.",
+          "entry_b": "Manoj gave some strange milk.",
+          "judge_raw": "{\"decision\": \"keep_both\", \"reason\": \"The entries describe different scenarios.\"}",
+          "judge_decision": "keep_both",
+          "judge_reason": "The entries describe different scenarios.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "keep_both",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        },
+        {
+          "eval_pair_id": "ep_0c7a822043a3",
+          "entry_a": "kal Manoj Pune gaya tha",
+          "entry_b": "Kal Manoj Pune gareebega.",
+          "judge_raw": "{\"decision\": \"keep_both\", \"reason\": \"They express different sentiments about Manoj's future in Pune.\"}",
+          "judge_decision": "keep_both",
+          "judge_reason": "They express different sentiments about Manoj's future in Pune.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "keep_both",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        },
+        {
+          "eval_pair_id": "ep_0d3583ba4a2c",
+          "entry_a": "kehte hain Arjun bimar hai",
+          "entry_b": "maine khud dekha Arjun bimar hai",
+          "judge_raw": "{\"decision\": \"merge\", \"reason\": \"Both state that Arjun is sick.\"}",
+          "judge_decision": "merge",
+          "judge_reason": "Both state that Arjun is sick.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "merge",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        },
+        {
+          "eval_pair_id": "ep_0e9a64760b25",
+          "entry_a": "Markus, wie war dein Urlaub in Italien?",
+          "entry_b": "Markus, wie war Ihr Urlaub in Italien?",
+          "judge_raw": "{\"decision\": \"merge\", \"reason\": \"Both are about the same person and event.\"}",
+          "judge_decision": "merge",
+          "judge_reason": "Both are about the same person and event.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "merge",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        },
+        {
+          "eval_pair_id": "ep_0ea4b6f891d5",
+          "entry_a": "yeh laptop mera hai",
+          "entry_b": "laptop mera hai",
+          "judge_raw": "{\"decision\": \"merge\", \"reason\": \"Both state that the laptop belongs to the user.\"}",
+          "judge_decision": "merge",
+          "judge_reason": "Both state that the laptop belongs to the user.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "merge",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        },
+        {
+          "eval_pair_id": "ep_10e9171f181e",
+          "entry_a": "Suresh ne do jode kapde diye.",
+          "entry_b": "Suresh gave two clothes to him.",
+          "judge_raw": "{\"decision\": \"keep_both\", \"reason\": \"The sentences are about different actions.\"}",
+          "judge_decision": "keep_both",
+          "judge_reason": "The sentences are about different actions.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "keep_both",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        },
+        {
+          "eval_pair_id": "ep_132f435dc64d",
+          "entry_a": "Verma uncle kal ghar aaye the",
+          "entry_b": "Verma bhaiya kal ghar aaye the",
+          "judge_raw": "{\"decision\": \"merge\", \"reason\": \"Both refer to Verma's arrival at the house.\"}",
+          "judge_decision": "merge",
+          "judge_reason": "Both refer to Verma's arrival at the house.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "merge",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        },
+        {
+          "eval_pair_id": "ep_15313d2b8e23",
+          "entry_a": "Anjali is coming.",
+          "entry_b": "अंजलि aa rahi hai",
+          "judge_raw": "{\"decision\": \"merge\", \"reason\": \"Both entries refer to the same person Anjali.\"}",
+          "judge_decision": "merge",
+          "judge_reason": "Both entries refer to the same person Anjali.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "merge",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        },
+        {
+          "eval_pair_id": "ep_16911db6d82e",
+          "entry_a": "Nani ji ne achaar bheja",
+          "entry_b": "Nani ne achaar bheja",
+          "judge_raw": "{\"decision\": \"merge\", \"reason\": \"Both state the same event with the same subject.\"}",
+          "judge_decision": "merge",
+          "judge_reason": "Both state the same event with the same subject.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "merge",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {
+            "kinship": "nani"
+          },
+          "lexicon_b": {
+            "kinship": "nani"
+          }
+        },
+        {
+          "eval_pair_id": "ep_181080352535",
+          "entry_a": "Neha school se aa rahi hai",
+          "entry_b": "Neha gym se aa rahi hai",
+          "judge_raw": "{\"decision\": \"keep_both\", \"reason\": \"They are about different people.\"}",
+          "judge_decision": "keep_both",
+          "judge_reason": "They are about different people.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "keep_both",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        },
+        {
+          "eval_pair_id": "ep_18da7b28b7ac",
+          "entry_a": "Neha está llegando.",
+          "entry_b": "नेहा aa rahi hai",
+          "judge_raw": "{\"decision\": \"keep_both\", \"reason\": \"They are about the same person but in different languages.\"}",
+          "judge_decision": "keep_both",
+          "judge_reason": "They are about the same person but in different languages.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "keep_both",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        },
+        {
+          "eval_pair_id": "ep_1e1799ead1db",
+          "entry_a": "meri mami Jaipur aa rahi hai",
+          "entry_b": "meri mausi Jaipur aa rahi hai",
+          "judge_raw": "{\"decision\": \"keep_both\", \"reason\": \"They are about different family members.\"}",
+          "judge_decision": "keep_both",
+          "judge_reason": "They are about different family members.",
+          "judge_error": null,
+          "gate_compatibility": "incompatible",
+          "gate_decision": "keep_both",
+          "vetoed": false,
+          "first_loss_point": "none",
+          "visible_a": {
+            "kinship": true
+          },
+          "visible_b": {
+            "kinship": true
+          },
+          "lexicon_a": {
+            "kinship": "mami"
+          },
+          "lexicon_b": {
+            "kinship": "mausi"
+          }
+        },
+        {
+          "eval_pair_id": "ep_1f4bfa2a61e5",
+          "entry_a": "Ali geldi",
+          "entry_b": "Ali gelmiş",
+          "judge_raw": "{\"decision\": \"merge\", \"reason\": \"Both statements refer to the same event of Ali coming.\"}",
+          "judge_decision": "merge",
+          "judge_reason": "Both statements refer to the same event of Ali coming.",
+          "judge_error": null,
+          "gate_compatibility": "compatible",
+          "gate_decision": "merge",
+          "vetoed": false,
+          "first_loss_point": "no_detectable_difference",
+          "visible_a": {},
+          "visible_b": {},
+          "lexicon_a": {},
+          "lexicon_b": {}
+        }
+      ],
+      "seconds": 10.8
+    }
+  },
+  "run_info": {
+    "backbone": "Qwen/Qwen2.5-3B-Instruct",
+    "model_config": {
+      "model_id": "Qwen/Qwen2.5-3B-Instruct",
+      "revision": null,
+      "device": "cuda:0",
+      "dtype": "float16",
+      "use_chat_template": true
+    },
+    "resolved_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+    "generation_params": {
+      "max_new_tokens": 256,
+      "do_sample": false,
+      "temperature": 1.0,
+      "top_p": 1.0,
+      "top_k": 0,
+      "repetition_penalty": 1.0,
+      "seed": 0,
+      "batch_size": 8
+    },
+    "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+    "device_name": "Tesla T4",
+    "torch_version": "2.11.0+cu128",
+    "transformers_version": "5.16.1"
+  },
+  "params": {
+    "max_new_tokens": 256,
+    "do_sample": false,
+    "temperature": 1.0,
+    "top_p": 1.0,
+    "top_k": 0,
+    "repetition_penalty": 1.0,
+    "seed": 0,
+    "batch_size": 8
+  },
+  "judge_params": {
+    "max_new_tokens": 128,
+    "do_sample": false,
+    "temperature": 1.0,
+    "top_p": 1.0,
+    "top_k": 0,
+    "repetition_penalty": 1.0,
+    "seed": 0,
+    "batch_size": 8
+  },
+  "prompts": {
+    "current": "e9c4726fffc75febe5e5090b0d38305c76079165d54a9ee38e265c02877ad469",
+    "candidate": "6ca296ec04dc04c02bb7911618359f6ea82aaab25c92edec74d3bcfe635716af",
+    "judge": "3855ef65f50e9a0f017710e5c0d0cb5a63d210a7547fa0e0e336d4c77a45c5ff",
+    "v4": "3b4e1de73ac89d5142d0e0cfba52a18e03307f87ac69b2646fb1c9abbabdf00a"
+  },
+  "candidate_prompt_system": "You convert one user utterance into one memory entry for a personal assistant. The utterance may be in any language or script, or code-mixed.\n\nOutput exactly one JSON object with exactly one key and nothing else (no markdown, no code fences, no commentary):\n{\"fact\": string}\n\n\"fact\":\n- Exactly one short sentence stating the fact in the utterance. Always return one fact; never return an empty string.\n- You should detect the language of the user input and record the fact in the same language.\n- Keep the language and the script of the utterance. Do not translate it into English or into any other language. If the utterance is code-mixed, keep the mix.\n- Keep names and relationship terms exactly as written in the utterance. Do not replace a relationship term with a more general word.\n- Do not add information that is not in the utterance. Do not explain.",
+  "nvidia_smi_L": "GPU 0: Tesla T4 (UUID: GPU-a7d84ce4-3e9f-3598-03c7-5dad3ec0ec74)\nGPU 1: Tesla T4 (UUID: GPU-5059ee71-fbaa-c391-bcd9-47803f831b3d)",
+  "file_sha256": {
+    "dkmem/__init__.py": "b76cf641a7a1f28473aa2242b6de5b0e4e0ca69e39bcfa50f566fc2262aec5cf",
+    "dkmem/config.py": "5046204fd45699ddcaf0ebbfd85d661de0b2a45a6fae0e089620415095a2bb58",
+    "dkmem/backends/__init__.py": "5636e769d42009317b0d4e3385729a98c29ecdc250a4e4ea2fddd74beffc181e",
+    "dkmem/backends/llm.py": "078452212ec5dd4bdd8a649aeae6034e7f3a08d5895aaa758b14fbd5d178aeb5",
+    "dkmem/memory/__init__.py": "5d9e99361f72fc89d73acb8fc18d5a29c21c776444246d527a46ce127174173d",
+    "dkmem/memory/cache.py": "77f7ae8584422f321ed99aaa39f77fd698472c0ff0909f8e492bd8b9a170cff2",
+    "dkmem/memory/consolidation.py": "ebb24de7d2dbc4548439fd7df26ca746d91995c63831347c2eed8012a628bbf4",
+    "dkmem/memory/dkmem_extract.py": "f32cbd1b6e80475031b9a8382efa4a99ec2bd6e96a4ae19fdc27f6bf89ac83e7",
+    "dkmem/memory/distinction_features.json": "d555385ecb53396fe6211ed9b7cc33cbe7ed2633f6f04e3f4e711887afcce8c5",
+    "dkmem/memory/extract.py": "c327b781f68090766dc9dad9fabf86bbeb13222219db0df48173ce72d1bf1c7f",
+    "dkmem/memory/gate.py": "e40e5c0ec29c7439b24356ab3c17be82c5460a67b10e28679e5062d1984ec096",
+    "dkmem/memory/judge.py": "3515bcc0900ab7ddfda07106e5e57bc4fbfaefa054ee4b7045c35ff9c2bae793",
+    "dkmem/memory/lexicon.py": "ab32c69e800d5e63d9c2a65a86b82efd36f2289d670b9738d9e2dd51c51997bb",
+    "dkmem/memory/matcher.py": "63c7990c825fc4e8e591d7b02d76af62b0e889083e873fbf415530d7eee6bbf3",
+    "dkmem/memory/native_extract.py": "c7a7670782fb196f74b23c860321ccd5375e53d48e07b5049e6fa350ced28cf1",
+    "dkmem/memory/prompts.py": "bdf82ed044567f7a2fc79b248ea39d6263fd613533f4e3d848b6b14f720823f1",
+    "dkmem/memory/schema.py": "6015d0dc1690cb030afb4733723beb15e9d640282880046cf07d6a99c3b06a2a",
+    "dkmem/memory/scope.py": "acbb70b56210827b36aa1f91494e88d777343cff81072c1f229b1d2161549e9c",
+    "dkmem/memory/similarity.py": "195334829a2922fcf5a026ebf46b644f012a1a4e19a5d23c97f70a8f5fb1e336",
+    "dkmem/pipeline/__init__.py": "0566b3af78932b96bba257d4a8ec133be07a1dd4f580b093c108cfa997877f4f",
+    "dkmem/pipeline/trace.py": "049805afec5e51389d755b4165ae0e88ad25b05c3cba31eadc42a7ce4f30bccb",
+    "candidate_prompts.py": "85b491e3a351d9d9245276b1e0dc257c45005b119d217fbe6631af7f70a42489"
+  },
+  "slice_sha256": "fb2fd613246b0cfb410e7f9445e5993f00e482ef8ef66895bcea230d6dd06d84",
+  "peak_gpu_memory_gb": 6.95
+}

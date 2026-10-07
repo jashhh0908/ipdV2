@@ -39,7 +39,7 @@ class TestPipelineConfigs(unittest.TestCase):
         # DKMEM_NEW_RESEARCH_IDEA.md Sec 6.2.
         expected = {
             "A": ("english_forced_prompt", "english_gloss", "llm_judge", "L1"),
-            "B": ("mem0_default_prompt", "extractor_output", "llm_judge", "L2"),
+            "B": ("native_language_prompt", "extractor_output", "llm_judge", "L2"),
             "C": ("none_verbatim", "surface_text", "llm_judge", "L3"),
             "D": ("none_verbatim", "surface_text", "embedding_threshold", "L4"),
         }

@@ -1,0 +1,36 @@
+{
+  "episodes": 20,
+  "episodes_skipped_unsupported_language": 0,
+  "sides_extraction_failed": 0,
+  "pairs_no_entries": 0,
+  "pairs_judge_failed": 0,
+  "pairs_ok": 20,
+  "output_language": {},
+  "rows_by_mode": {
+    "off": 20,
+    "lexicon": 20,
+    "lexicon+llm": 20
+  },
+  "first_loss_point": {
+    "no_detectable_difference": 19,
+    "storage": 1
+  },
+  "host_proposed": {
+    "keep_both": 9,
+    "merge": 11
+  },
+  "final_decisions": {
+    "off": {
+      "merge": 11,
+      "no_merge": 9
+    },
+    "lexicon": {
+      "merge": 11,
+      "no_merge": 9
+    },
+    "lexicon+llm": {
+      "merge": 11,
+      "no_merge": 9
+    }
+  }
+}

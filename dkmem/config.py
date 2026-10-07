@@ -4,7 +4,8 @@ Names only: nothing here runs extraction, a merge judge, an embedding or a
 baseline. It defines the labels a run carries so the stage-attribution
 configurations A-D and DK-Mem ON/OFF are recorded the same way everywhere
 (``run_manifest.json`` fields ``pipeline_config`` and ``dkmem_mode``, see
-``dkmem.tier1.io.write_run_manifest``).
+``dkmem.tier1.io.write_run_manifest``). The harness that runs A-D is
+``dkmem.pipeline``.
 
 Stage-attribution configurations (each is run with and without the DK-Mem
 gate; the gate sits in front of the host's merge decision):
@@ -13,15 +14,20 @@ gate; the gate sits in front of the host's merge decision):
 config extraction              storage          merge decision      isolates
 ====== ======================= ================ =================== =======
 A      English-forced prompt   English gloss    LLM judge           L1
-B      Mem0 default prompt     extractor output LLM judge           L2
+B      native-language prompt  extractor output LLM judge           L2
 C      none (verbatim)         surface text     LLM judge           L3
 D      none (verbatim)         surface text     embedding threshold L4
 ====== ======================= ================ =================== =======
 
 (L1 forced-English extraction, L2 extractor language drift, L3 merge-judge
-collapse, L4 embedding collapse.) "Mem0 default prompt" means Mem0's own
-prompt, which records facts in the user's language; it does not exist in this
-repo yet, and neither do the LLM judge or the embedding merge.
+collapse, L4 embedding collapse.) The "native-language prompt" of Config B is our
+own frozen prompt ``native_b_v1`` (``dkmem.memory.native_extract.NATIVE_B_V1``): the
+extractor is told to keep the user's language and script, and what it actually
+wrote (language drift, script drift, corruption) is what B measures. It is **not**
+the Mem0 baseline: a real Mem0 run, pinned to a version, is a separate
+baseline row (Sec 6.3 of the plan) and does not exist in this repo yet. The LLM
+judge is ``dkmem.memory.judge`` and the embedding metric
+``dkmem.backends.embedding``.
 
 DK-Mem mode: ``off`` (host only), ``lexicon`` (gate on, distinctions from the
 lexicon alone) or ``lexicon+llm`` (gate on, lexicon first, model second).
@@ -50,7 +56,7 @@ __all__ = [
 
 PIPELINE_CONFIG_IDS = ("A", "B", "C", "D")
 
-EXTRACTION_MODES = ("english_forced_prompt", "mem0_default_prompt", "none_verbatim")
+EXTRACTION_MODES = ("english_forced_prompt", "native_language_prompt", "none_verbatim")
 STORAGE_MODES = ("english_gloss", "extractor_output", "surface_text")
 MERGE_MECHANISMS = ("llm_judge", "embedding_threshold")
 LOSS_STAGES = ("L1", "L2", "L3", "L4")
@@ -83,7 +89,7 @@ PIPELINE_CONFIGS = MappingProxyType(
         c.config_id: c
         for c in (
             PipelineConfig("A", "english_forced_prompt", "english_gloss", "llm_judge", "L1"),
-            PipelineConfig("B", "mem0_default_prompt", "extractor_output", "llm_judge", "L2"),
+            PipelineConfig("B", "native_language_prompt", "extractor_output", "llm_judge", "L2"),
             PipelineConfig("C", "none_verbatim", "surface_text", "llm_judge", "L3"),
             PipelineConfig("D", "none_verbatim", "surface_text", "embedding_threshold", "L4"),
         )

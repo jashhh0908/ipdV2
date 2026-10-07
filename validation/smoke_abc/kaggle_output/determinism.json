@@ -1,0 +1,55 @@
+{
+  "config_A_rerun": {
+    "fingerprint_equal": true,
+    "group_id_equal": true,
+    "trace_equal": true,
+    "pairwise_rows_equal": {
+      "off": true,
+      "lexicon": true,
+      "lexicon+llm": true
+    }
+  },
+  "stats": {
+    "A": {
+      "prompts_generated": 60,
+      "seconds": 37.2,
+      "paths": {
+        "run_config": "/kaggle/working/runs/A-qwen-qwen2.5-3b-instruct-s0-ac4dda08/run_config.json",
+        "trace": "/kaggle/working/runs/A-qwen-qwen2.5-3b-instruct-s0-ac4dda08/trace.jsonl",
+        "summary": "/kaggle/working/runs/A-qwen-qwen2.5-3b-instruct-s0-ac4dda08/summary.json",
+        "off/pairwise_eval": "/kaggle/working/runs/A-qwen-qwen2.5-3b-instruct-s0-ac4dda08/off/pairwise_eval.jsonl",
+        "lexicon/pairwise_eval": "/kaggle/working/runs/A-qwen-qwen2.5-3b-instruct-s0-ac4dda08/lexicon/pairwise_eval.jsonl",
+        "lexicon+llm/pairwise_eval": "/kaggle/working/runs/A-qwen-qwen2.5-3b-instruct-s0-ac4dda08/lexicon-llm/pairwise_eval.jsonl"
+      }
+    },
+    "B": {
+      "prompts_generated": 83,
+      "seconds": 46.4,
+      "paths": {
+        "run_config": "/kaggle/working/runs/B-qwen-qwen2.5-3b-instruct-s0-95dd76fa/run_config.json",
+        "trace": "/kaggle/working/runs/B-qwen-qwen2.5-3b-instruct-s0-95dd76fa/trace.jsonl",
+        "summary": "/kaggle/working/runs/B-qwen-qwen2.5-3b-instruct-s0-95dd76fa/summary.json",
+        "off/pairwise_eval": "/kaggle/working/runs/B-qwen-qwen2.5-3b-instruct-s0-95dd76fa/off/pairwise_eval.jsonl",
+        "lexicon/pairwise_eval": "/kaggle/working/runs/B-qwen-qwen2.5-3b-instruct-s0-95dd76fa/lexicon/pairwise_eval.jsonl",
+        "lexicon+llm/pairwise_eval": "/kaggle/working/runs/B-qwen-qwen2.5-3b-instruct-s0-95dd76fa/lexicon-llm/pairwise_eval.jsonl"
+      }
+    },
+    "C": {
+      "prompts_generated": 60,
+      "seconds": 40.4,
+      "paths": {
+        "run_config": "/kaggle/working/runs/C-qwen-qwen2.5-3b-instruct-s0-3c4a3617/run_config.json",
+        "trace": "/kaggle/working/runs/C-qwen-qwen2.5-3b-instruct-s0-3c4a3617/trace.jsonl",
+        "summary": "/kaggle/working/runs/C-qwen-qwen2.5-3b-instruct-s0-3c4a3617/summary.json",
+        "off/pairwise_eval": "/kaggle/working/runs/C-qwen-qwen2.5-3b-instruct-s0-3c4a3617/off/pairwise_eval.jsonl",
+        "lexicon/pairwise_eval": "/kaggle/working/runs/C-qwen-qwen2.5-3b-instruct-s0-3c4a3617/lexicon/pairwise_eval.jsonl",
+        "lexicon+llm/pairwise_eval": "/kaggle/working/runs/C-qwen-qwen2.5-3b-instruct-s0-3c4a3617/lexicon-llm/pairwise_eval.jsonl"
+      }
+    }
+  },
+  "rerun_stats": {
+    "prompts_generated": 60,
+    "seconds": 40.0
+  },
+  "peak_gpu_memory_gb": 7.48
+}

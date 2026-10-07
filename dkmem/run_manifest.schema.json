@@ -45,7 +45,7 @@
     "pipeline_config": {
       "type": "string",
       "enum": ["A", "B", "C", "D"],
-      "description": "Stage-attribution configuration of the host pipeline: A = English-forced extraction + English gloss + LLM judge (isolates L1); B = Mem0 default prompt + extractor output + LLM judge (L2); C = verbatim surface text + LLM judge (L3); D = verbatim surface text + embedding threshold (L4). Omitted when the run is not one of the A-D configurations."
+      "description": "Stage-attribution configuration of the host pipeline: A = English-forced extraction + English gloss + LLM judge (isolates L1); B = native-language extraction prompt (keep the user's language and script) + extractor output + LLM judge (L2); C = verbatim surface text + LLM judge (L3); D = verbatim surface text + embedding threshold (L4). Omitted when the run is not one of the A-D configurations."
     },
     "dkmem_mode": {
       "type": "string",

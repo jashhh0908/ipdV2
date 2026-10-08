@@ -1,0 +1,5 @@
+# Byte-exact data files: the sanctioned Tier 1 input is checked against a pinned
+# sha256, and the fixtures are compared byte-for-byte with their generator's output.
+# Keep them LF in the working tree regardless of core.autocrlf.
+dkmem/data/tier1/eval_input/*.jsonl text eol=lf
+tests/fixtures/*.jsonl text eol=lf

@@ -32,7 +32,7 @@ from typing import Any, Callable, Mapping, Protocol, Sequence
 
 from dkmem.backends.llm import GenerationParams
 from dkmem.config import dkmem_gate_enabled, validate_dkmem_mode
-from dkmem.memory.dkmem_extract import apply_lexicon
+from dkmem.memory.dkmem_extract import resolve_distinction
 from dkmem.memory.extract import TextGenerator
 from dkmem.memory.gate import DEFAULT_DISCRIMINATIVE_FEATURES, MERGING_DECISIONS, apply_gate
 from dkmem.memory.judge import MERGE_JUDGE_V1, judge_pairs
@@ -213,18 +213,17 @@ def entry_distinction(
     """The distinction dict the gate sees for one entry in ``mode`` (same rules as the A-D harness).
 
     ``off``: ``{}`` (the gate is not applied). ``lexicon``: the lexicon on the utterance.
-    ``lexicon+llm``: the lexicon first, the V4 model's own distinction as fallback
-    (``apply_lexicon``); ``None`` when there is no V4 extraction -- the caller must then
-    not write the entry (see ``consolidate``).
+    ``lexicon+llm``: the lexicon, and the V4 model's distinction only for a class the lexicon
+    flags as ambiguous (``resolve_distinction``, Sec 5.3); ``v4`` is therefore needed only
+    when the utterance has such a class. ``None`` when it is needed and missing -- the caller
+    must then not write the entry (see ``consolidate``).
     """
     validate_dkmem_mode(mode)
     if mode == "off":
         return {}
     if mode == "lexicon":
         return lexicon_distinction(lexicon, utterance, language)
-    if v4 is None:
-        return None
-    return dict(apply_lexicon(v4, lexicon, language).distinction)
+    return resolve_distinction(lexicon, utterance, language, v4)
 
 
 # --- the write -------------------------------------------------------------------------

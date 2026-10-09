@@ -25,7 +25,7 @@ own frozen prompt ``native_b_v1`` (``dkmem.memory.native_extract.NATIVE_B_V1``):
 extractor is told to keep the user's language and script, and what it actually
 wrote (language drift, script drift, corruption) is what B measures. It is **not**
 the Mem0 baseline: a real Mem0 run, pinned to a version, is a separate
-baseline row (Sec 6.3 of the plan) and does not exist in this repo yet. The LLM
+baseline row (Sec 6.3 of the plan): ``dkmem.baselines.mem0``. The LLM
 judge is ``dkmem.memory.judge`` and the embedding metric
 ``dkmem.backends.embedding``.
 

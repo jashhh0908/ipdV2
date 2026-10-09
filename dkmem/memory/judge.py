@@ -4,14 +4,14 @@ For one candidate pair of stored memory entries the judge answers "merge or
 keep both?". It sees exactly the text each config stores (English gloss in A,
 the extractor's facts in B, the verbatim utterance in C) and nothing else: no
 distinction tags, no language label, and no hint about what kind of difference
-matters. (A prompt that tells the judge to treat different kinship terms as
-different people is the separate "prompt-informed judge" baseline, not built
-here.) Because the judge never sees the DK-Mem metadata, its decision is the
-same whether the DK-Mem gate is on or off, and the gate is applied afterwards
-(``dkmem.memory.gate.apply_gate``).
+matters. (A prompt that explains such differences to the judge is the separate
+"prompt-informed judge" baseline, ``MERGE_JUDGE_INFORMED_V1``, further down: advice
+the judge weighs, not a hard cannot-link rule.) Because the judge never sees the
+DK-Mem metadata, its decision is the same whether the DK-Mem gate is on or off, and
+the gate is applied afterwards (``dkmem.memory.gate.apply_gate``).
 
-``MERGE_JUDGE_V1`` is frozen like the extraction prompts; write a new id
-instead of editing it. The judge answers with exactly
+``MERGE_JUDGE_V1`` and ``MERGE_JUDGE_INFORMED_V1`` are frozen like the extraction
+prompts; write a new id instead of editing either. The judge answers with exactly
 ``{"decision": "merge" | "keep_both", "reason": str}``. Anything else is a
 ``JudgeResult`` with ``error`` set and the raw output kept: a failed judgement
 is never turned into a decision.
@@ -30,6 +30,8 @@ from dkmem.memory.prompts import PromptTemplate
 __all__ = [
     "JUDGE_DECISIONS",
     "MERGE_JUDGE_V1",
+    "MERGE_JUDGE_INFORMED_V1",
+    "JUDGE_PROMPTS",
     "JudgeResult",
     "parse_judge_output",
     "render_judge_prompt",
@@ -68,6 +70,29 @@ MERGE_JUDGE_V1 = PromptTemplate(
     output_keys=("decision", "reason"),
     examples=tuple((q, json.dumps(a, ensure_ascii=False)) for q, a in _JUDGE_EXAMPLES),
 )
+
+# The prompt-informed judge baseline (DKMEM_NEW_RESEARCH_IDEA.md Sec 6.3): merge_judge_v1 plus ONE
+# added paragraph that tells the judge cross-lingual distinctions exist. The paragraph explains and
+# asks the judge to weigh the evidence; it is advice, not a rule -- the judge keeps the decision, so
+# this is deliberately NOT a hard cannot-link constraint (that is what the DK-Mem gate adds). The
+# system text before the paragraph, the two chat examples, the user template and the output format
+# are byte-identical to merge_judge_v1, so the two prompts differ by this paragraph only. The
+# illustrative terms (Hindi "devar" / "jeth") occur neither in the Tier 1 input nor in the lexicon.
+_INFORMED_GUIDANCE = """\
+Note on languages: entries may be written in, or translated from, languages other than English, including romanized Hindi (Hinglish). Other languages often distinguish things that English words do not, so two entries that look alike in English can concern different people or things. For example, Hindi "devar" (husband's younger brother) and "jeth" (husband's elder brother) are different relatives although English calls both "brother-in-law"; some languages mark formality or politeness in the pronoun or verb form; and similar-looking names can belong to different people. When two entries use different source-language terms of this kind, treat that as evidence that they may concern different people or things. Spelling or script variants of the same name or term are not such a difference. Weigh this evidence together with everything else in the entries."""
+
+_MERGE_JUDGE_INFORMED_V1_SYSTEM = _MERGE_JUDGE_V1_SYSTEM + "\n\n" + _INFORMED_GUIDANCE
+
+MERGE_JUDGE_INFORMED_V1 = PromptTemplate(
+    prompt_id="merge_judge_informed_v1",
+    system=_MERGE_JUDGE_INFORMED_V1_SYSTEM,
+    user_template="{utterance}",
+    output_keys=("decision", "reason"),
+    examples=tuple((q, json.dumps(a, ensure_ascii=False)) for q, a in _JUDGE_EXAMPLES),
+)
+
+# Every judge prompt a run may use, by id (the CLIs take the id; run_config.json records id + sha256).
+JUDGE_PROMPTS = {p.prompt_id: p for p in (MERGE_JUDGE_V1, MERGE_JUDGE_INFORMED_V1)}
 
 
 @dataclass(frozen=True)

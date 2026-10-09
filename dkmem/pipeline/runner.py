@@ -31,11 +31,15 @@ Design points
   similarity is strictly above tau (``sim > tau``, as in Sec 5.4 and the
   ``similarity_score`` description of ``pairwise_eval.schema.json``).
 - DK-Mem distinctions never come from the host's extraction alone: mode
-  ``lexicon`` uses the lexicon on the utterance; mode ``lexicon+llm`` adds the
-  V4 model's own distinction as the fallback (``apply_lexicon``). In Config A
-  that is the same V4 call that produced the gloss; in B/C/D a separate V4
-  call is made, used for the gate's distinctions only (never stored or shown
-  to the judge). Mode ``off`` uses none and reports ``compatibility: null``.
+  ``lexicon`` uses the lexicon on the utterance; mode ``lexicon+llm`` consults the
+  V4 model only for a distinction class the lexicon flags as ambiguous on that
+  utterance (Sec 5.3: "a small LLM call only for spans the lexicon flags as
+  ambiguous"; ``resolve_distinction``). In Config A the model's answer is the V4
+  call that produced the gloss; in B/C/D a separate V4 call is made **only for an
+  utterance with an ambiguous class** (usually none), used for the gate's
+  distinctions only (never stored or shown to the judge). A term the lexicon does
+  not cover is not tagged in either mode. Mode ``off`` uses none and reports
+  ``compatibility: null``.
 - Similarity is always computed on the stored text and logged. In Config D it
   decides (``sim > tau``); in A-C it is informational (the judge decides), its
   metric defaults to the difflib placeholder unless one is passed, and the output
@@ -85,7 +89,7 @@ from typing import Any, Mapping, Sequence
 
 from dkmem.backends.llm import GenerationParams
 from dkmem.config import get_pipeline_config, validate_dkmem_mode
-from dkmem.memory.dkmem_extract import apply_lexicon
+from dkmem.memory.dkmem_extract import ambiguous_distinction_classes, resolve_distinction
 from dkmem.memory.extract import (
     ExtractionBatchError,
     ExtractionError,
@@ -94,7 +98,7 @@ from dkmem.memory.extract import (
     extract_many,
 )
 from dkmem.memory.gate import apply_gate
-from dkmem.memory.judge import MERGE_JUDGE_V1, JudgeResult, judge_pairs
+from dkmem.memory.judge import MERGE_JUDGE_INFORMED_V1, MERGE_JUDGE_V1, JudgeResult, judge_pairs
 from dkmem.memory.lexicon import Lexicon
 from dkmem.memory.native_extract import (
     NATIVE_B_V1,
@@ -132,6 +136,7 @@ __all__ = [
     "RUN_CONFIG_SCHEMA",
     "StageAttributionResult",
     "strategy_for",
+    "judge_prompt_id_of",
     "mode_slug",
     "build_run_config",
     "run_stage_attribution",
@@ -141,17 +146,22 @@ __all__ = [
 TRACE_SCHEMA = "dkmem_stage_trace_v1"
 RUN_CONFIG_SCHEMA = "dkmem_run_config_v1"
 
+# What ``lexicon+llm`` means (recorded in the run config and fingerprint of runs that use the mode).
+LEXICON_LLM_POLICY = "model_only_for_lexicon_ambiguous_classes_v1"
+
 _STORAGE_LOSS_STAGE = {"A": "L1", "B": "L2", "C": None, "D": None}
 _HOST_LOSS_STAGE = {"A": "L3", "B": "L3", "C": "L3", "D": "L4"}
 
 
-def strategy_for(config_id: str, dkmem_mode: str) -> str:
+def strategy_for(config_id: str, dkmem_mode: str, judge_prompt_id: str | None = None) -> str:
     """The ``strategy`` label of a (config, DK-Mem mode) run in the output schemas.
 
     Gate on: ``dk-mem-lexicon`` / ``dk-mem-lexicon-llm``. Gate off: the host
     role of Sec 6.3 -- ``mem0`` (Configs A, B), ``store-surface-only`` (C),
     ``embedding-threshold`` (D). ``pipeline_config`` in the manifest
-    distinguishes A from B.
+    distinguishes A from B. A judge config (A-C) run with the prompt-informed
+    judge (``judge_prompt_id`` = ``merge_judge_informed_v1``) and the gate off is
+    the ``prompt-informed-judge`` baseline instead.
     """
     get_pipeline_config(config_id)
     validate_dkmem_mode(dkmem_mode)
@@ -159,6 +169,8 @@ def strategy_for(config_id: str, dkmem_mode: str) -> str:
         return "dk-mem-lexicon"
     if dkmem_mode == "lexicon+llm":
         return "dk-mem-lexicon-llm"
+    if judge_prompt_id == MERGE_JUDGE_INFORMED_V1.prompt_id and config_id != "D":
+        return "prompt-informed-judge"
     return {"A": "mem0", "B": "mem0", "C": "store-surface-only", "D": "embedding-threshold"}[config_id]
 
 
@@ -197,6 +209,7 @@ def build_run_config(
     embedder_info: Mapping[str, Any] | None = None,
     input_info: Mapping[str, Any] | None = None,
     extraction_prompt: PromptTemplate = DEFAULT_EXTRACTION_PROMPT,
+    judge_prompt: PromptTemplate = MERGE_JUDGE_V1,
 ) -> dict[str, Any]:
     """The reproducibility record of a run (model, seed, config, input hash).
 
@@ -211,10 +224,14 @@ def build_run_config(
 
     ``tau`` applies only to Config D (embedding threshold); passing it for an
     LLM-judge config raises ``ValueError`` because there is no cutoff to set.
+    ``judge_prompt`` (default ``merge_judge_v1``) is the LLM judge of Configs A-C; Config D
+    has no judge, so a different one is an error there. Its id and sha256 are recorded
+    under ``prompts.merge_judge`` and therefore in the fingerprint.
     """
     cfg = get_pipeline_config(config_id)
     if tau is not None and cfg.merge_mechanism != "embedding_threshold":
         raise ValueError(f"tau applies only to Config D; Config {config_id} merges with an LLM judge (no cutoff)")
+    _check_judge_prompt(cfg, judge_prompt)
     modes = _clean_modes(dkmem_modes)
     judge_params = judge_params or _default_judge_params(params)
     run_info = None
@@ -228,7 +245,7 @@ def build_run_config(
     if cfg.extraction == "native_language_prompt":
         prompts["native_extraction"] = _prompt_ref(NATIVE_B_V1)
     if cfg.merge_mechanism == "llm_judge":
-        prompts["merge_judge"] = _prompt_ref(MERGE_JUDGE_V1)
+        prompts["merge_judge"] = _prompt_ref(judge_prompt)
 
     pair_hashes = [
         pair_input_hash(r.eval_pair_id, r.language, r.utterance_a, r.utterance_b) for r in records
@@ -244,6 +261,7 @@ def build_run_config(
         "judge_generation_params": asdict(judge_params),
         "prompts": prompts,
         "lexicon": {"sha256": sha256_file_lf(lexicon_path)},
+        **({"lexicon_llm_policy": LEXICON_LLM_POLICY} if "lexicon+llm" in modes else {}),
         "similarity_metric": sim_metric.name,
         "embedder": dict(embedder_info) if embedder_info else None,
         "tau": tau,
@@ -266,6 +284,16 @@ def build_run_config(
         "git": git_state(Path(__file__).resolve().parent),
         "code": source_hashes(),
     }
+
+
+def _check_judge_prompt(cfg, judge_prompt: PromptTemplate) -> None:
+    if cfg.merge_mechanism != "llm_judge" and judge_prompt.prompt_id != MERGE_JUDGE_V1.prompt_id:
+        raise ValueError(f"Config {cfg.config_id} has no merge judge; judge_prompt does not apply")
+
+
+def judge_prompt_id_of(run_config: Mapping[str, Any]) -> str | None:
+    """The merge-judge prompt id recorded in a run config (``None`` for Config D)."""
+    return (run_config.get("prompts", {}).get("merge_judge") or {}).get("prompt_id")
 
 
 def _prompt_ref(prompt: PromptTemplate) -> dict[str, str]:
@@ -320,6 +348,7 @@ class _Side:
     utterance: str
     utterance_id: str
     lex_dist: dict[str, str]
+    ambiguous: tuple[str, ...] = ()  # distinction classes the lexicon flags as ambiguous on this utterance
     v4: Extraction | None = None
     v4_error: ExtractionError | None = None
     native: NativeExtraction | None = None
@@ -356,6 +385,7 @@ def run_stage_attribution(
     similarity: SimilarityMetric | None = None,
     tau: float | None = None,
     extraction_prompt: PromptTemplate = DEFAULT_EXTRACTION_PROMPT,
+    judge_prompt: PromptTemplate = MERGE_JUDGE_V1,
 ) -> StageAttributionResult:
     """Run one configuration over ``records`` in every DK-Mem mode of ``run_config``.
 
@@ -374,6 +404,7 @@ def run_stage_attribution(
         raise ValueError(f"tau must be in [0, 1], got {tau!r}")
     if tau is not None and not embedding_host:
         raise ValueError(f"tau applies only to Config D; Config {config_id} merges with an LLM judge (no cutoff)")
+    _check_judge_prompt(cfg, judge_prompt)
     metric = similarity or DEFAULT_SIMILARITY
     threshold = tau  # None for the LLM-judge configs: there is no cutoff
     judge_params = judge_params or _default_judge_params(params)
@@ -400,14 +431,18 @@ def run_stage_attribution(
             continue
         for side, utt, uid in (("a", record.utterance_a, record.utterance_a_id),
                                ("b", record.utterance_b, record.utterance_b_id)):
-            sides.append(_Side(record, side, utt, uid, lexicon_distinction(lexicon, utt, record.language)))
+            sides.append(_Side(
+                record, side, utt, uid, lexicon_distinction(lexicon, utt, record.language),
+                tuple(sorted(ambiguous_distinction_classes(lexicon, utt, record.language))),
+            ))
 
     # --- extraction -----------------------------------------------------------
     if needs_v4:
+        v4_sides = [s for s in sides if _needs_v4_call(cfg, s)]
         results = _extract_tolerant(
-            [(_probe_for(s.record), s.side) for s in sides], generator, params, extraction_prompt
+            [(_probe_for(s.record), s.side) for s in v4_sides], generator, params, extraction_prompt
         )
-        for s, (ext, err) in zip(sides, results):
+        for s, (ext, err) in zip(v4_sides, results):
             s.v4, s.v4_error = ext, err
 
     if cfg.extraction == "english_forced_prompt":
@@ -450,7 +485,9 @@ def run_stage_attribution(
 
     # --- host decision -----------------------------------------------------------
     if cfg.merge_mechanism == "llm_judge":
-        judged = judge_pairs([(c.text_a, c.text_b) for c in candidates], generator, judge_params)
+        judged = judge_pairs(
+            [(c.text_a, c.text_b) for c in candidates], generator, judge_params, prompt=judge_prompt
+        )
         for c, j in zip(candidates, judged):
             c.judge = j
             c.proposed = j.decision  # None when the answer was unusable
@@ -468,7 +505,7 @@ def run_stage_attribution(
         trace.append(
             _candidate_row(
                 group_id, config_id, cfg, c, modes, lexicon, rows_by_mode, summary,
-                threshold=threshold, tau=tau, metric_name=metric.name,
+                threshold=threshold, tau=tau, metric_name=metric.name, judge_prompt=judge_prompt,
             )
         )
     if cfg.extraction == "native_language_prompt":
@@ -560,6 +597,7 @@ def _extraction_block(s: _Side, cfg) -> dict[str, Any]:
             block["checks"] = s.checks
     if s.status == "extraction_failed":
         block["dropped_at_extraction"] = True
+    block["lexicon_ambiguous"] = list(s.ambiguous)
     if s.v4 is not None:
         block["model_distinction"] = dict(s.v4.distinction)
         block["v4_prompt_id"] = s.v4.prompt_id
@@ -590,13 +628,20 @@ def _episode_row(group_id, config_id, record, status, sa: _Side, sb: _Side, cfg,
     }
 
 
+def _needs_v4_call(cfg, side: "_Side") -> bool:
+    """Whether the V4 extraction is run for ``side``: always in Config A (it is the host's extraction), and in
+    the other configs only for an utterance the lexicon flags as ambiguous (the one case in which the
+    lexicon+llm gate consults the model)."""
+    return cfg.extraction == "english_forced_prompt" or bool(side.ambiguous)
+
+
 def _entry_id(utterance_id: str, index: int) -> str:
     return f"{utterance_id}_e{index}"
 
 
 def _candidate_row(
     group_id, config_id, cfg, c: _Candidate, modes, lexicon, rows_by_mode, summary, *,
-    threshold, tau, metric_name,
+    threshold, tau, metric_name, judge_prompt: PromptTemplate = MERGE_JUDGE_V1,
 ) -> dict[str, Any]:
     record = c.record
     entry_id_a, entry_id_b = _entry_id(c.a.utterance_id, c.ia), _entry_id(c.b.utterance_id, c.ib)
@@ -624,7 +669,7 @@ def _candidate_row(
     }
     if c.judge is not None:
         row["host"]["judge"] = {
-            "prompt_id": MERGE_JUDGE_V1.prompt_id, "prompt_sha256": MERGE_JUDGE_V1.sha256,
+            "prompt_id": judge_prompt.prompt_id, "prompt_sha256": judge_prompt.sha256,
             "raw_output": c.judge.raw_output, "decision": c.judge.decision,
             "reason": c.judge.reason, "error": c.judge.error,
         }
@@ -672,7 +717,7 @@ def _candidate_row(
         )
         out = PairwiseEvalRecord(
             record_id=row["record_id"], run_id=f"{group_id}-{mode_slug(mode)}",
-            strategy=strategy_for(config_id, mode), entry_a=entry_a, entry_b=entry_b,
+            strategy=strategy_for(config_id, mode, judge_prompt.prompt_id), entry_a=entry_a, entry_b=entry_b,
             decision=decision, similarity_score=c.sim, threshold=threshold, compatibility=compat,
             predicted_entity_id=entry_id_a if decision in ("merge", "supersede") else None,
         )
@@ -699,12 +744,11 @@ def _mode_distinctions(mode: str, c: _Candidate, lexicon: Lexicon):
         return {}, {}
     if mode == "lexicon":
         return dict(c.a.lex_dist), dict(c.b.lex_dist)
-    if c.a.v4 is None or c.b.v4 is None:
+    da = resolve_distinction(lexicon, c.a.utterance, c.record.language, c.a.v4)
+    db = resolve_distinction(lexicon, c.b.utterance, c.record.language, c.b.v4)
+    if da is None or db is None:  # an ambiguous utterance whose V4 extraction is missing: no guess
         return None, None
-    return (
-        apply_lexicon(c.a.v4, lexicon, c.record.language).distinction,
-        apply_lexicon(c.b.v4, lexicon, c.record.language).distinction,
-    )
+    return da, db
 
 
 # --- output ----------------------------------------------------------------------
@@ -738,7 +782,8 @@ def write_outputs(out_dir: str | Path, result: StageAttributionResult) -> dict[s
         d.mkdir(exist_ok=True)
         write_run_manifest(
             d / "run_manifest.json", run_id=f"{cfg['group_id']}-{mode_slug(mode)}",
-            strategy=strategy_for(cfg["pipeline_config"]["config_id"], mode), seed=cfg["seed"],
+            strategy=strategy_for(cfg["pipeline_config"]["config_id"], mode, judge_prompt_id_of(cfg)),
+            seed=cfg["seed"],
             backbone=cfg["backbone"], created_at=cfg["created_at"],
             pipeline_config=cfg["pipeline_config"]["config_id"], dkmem_mode=mode,
         )

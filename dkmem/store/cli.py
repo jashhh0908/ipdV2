@@ -23,6 +23,7 @@ from typing import Any, Callable
 from dkmem.backends.llm import GenerationParams
 from dkmem.config import get_pipeline_config
 from dkmem.memory.cache import ExtractionCache
+from dkmem.memory.judge import JUDGE_PROMPTS, MERGE_JUDGE_V1
 from dkmem.memory.lexicon import load_lexicon
 from dkmem.pipeline.cli import (
     EMBEDDING_METRIC_NAME,
@@ -98,10 +99,12 @@ def main(
                 config_id, args.modes, records, generator=generator, lexicon_path=args.lexicon,
                 params=params, similarity=metric if is_d else None, tau=tau,
                 embedder_info=embedder.run_info() if is_d else None, input_info=input_info, k=args.k,
+                judge_prompt=MERGE_JUDGE_V1 if is_d else JUDGE_PROMPTS[args.judge_prompt],
             )
             result = run_store_attribution(
                 records, config_id, lexicon, run_config, generator=generator, params=params,
                 similarity=metric if is_d else None, tau=tau, k=args.k, extraction_cache=cache,
+                judge_prompt=MERGE_JUDGE_V1 if is_d else JUDGE_PROMPTS[args.judge_prompt],
             )
             out_dir = args.out / run_config["group_id"]
             paths = write_store_outputs(out_dir, result)

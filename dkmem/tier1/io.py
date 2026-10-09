@@ -95,12 +95,21 @@ TIER1_INPUT_RECORD_COUNT = 173
 # (``dkmem.pipeline``): Configs A/B -> "mem0", C -> "store-surface-only",
 # D -> "embedding-threshold" (``pipeline_config`` in the manifest tells A from
 # B). They name the host *role* of Sec 6.3, not an installed third-party system.
+#
+# The baselines of ``dkmem.baselines`` add the rest: ``prompt-informed-judge`` (Configs
+# A-C with ``merge_judge_informed_v1``), ``flat-dense-rag`` (never merges) and
+# ``raise-tau`` (Config D at a raised tau; offline sweep points). ``mem0`` is also the
+# label of the pinned Mem0 v1.0.11 reproduction (``pipeline_config`` is absent there).
+# ``a-mem`` is a dropped baseline and is deliberately not emitted.
 TIER1_STRATEGIES = (
     "dk-mem-lexicon",
     "dk-mem-lexicon-llm",
     "mem0",
     "store-surface-only",
     "embedding-threshold",
+    "prompt-informed-judge",
+    "flat-dense-rag",
+    "raise-tau",
 )
 
 PAIRWISE_DECISIONS = ("merge", "no_merge", "supersede", "underdetermined_link")

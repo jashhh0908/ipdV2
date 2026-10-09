@@ -14,20 +14,28 @@ DKMEM_NEW_RESEARCH_IDEA.md Sec 5.3:
        **not** modified or extended here; another team member owns
        ``distinction_features.json``'s real content).
     3. For each distinction class:
-       - the lexicon found exactly one candidate value -> use it, overriding
-         the model's own guess (lexicon-first: a confident deterministic
-         match is trusted over the model, matching the research design's
-         "cheap deterministic primitives beating LLM reasoning" premise);
+       - the lexicon found exactly one candidate value -> use it
+         (lexicon-first: a confident deterministic match is trusted over
+         the model, matching the research design's "cheap deterministic
+         primitives beating LLM reasoning" premise);
        - the lexicon found more than one *different* candidate value for
          the class (a real conflict on this utterance, not the same value
          confirmed twice) -> this is the "ambiguous" case in
-         DKMEM_NEW_RESEARCH_IDEA.md Sec 5.3 ("a small LLM call only for
-         spans the lexicon flags as ambiguous"): the lexicon's own
-         tie-broken guess (from ``match_distinctions``) is set aside and
-         the model's value is kept instead;
-       - the lexicon found nothing for the class ("unmatched") -> the
-         model's value is kept unchanged (if it has none either, the class
-         is simply absent from the result, as before).
+         DKMEM_NEW_RESEARCH_IDEA.md Sec 5.3 and research_idea_context.md
+         ("a small LLM call only for spans the lexicon flags as ambiguous"):
+         the lexicon's own tie-broken guess (from ``match_distinctions``)
+         is set aside and the model's value for that class is used instead
+         (if the model has none, the class is absent);
+       - the lexicon found nothing for the class ("unmatched") -> the class
+         is absent. The model is NOT consulted: Sec 5.3 gives it no role
+         outside lexicon-flagged ambiguity, so a term the lexicon does not
+         cover is not tagged even if the model would tag it. (Until the
+         spec was applied literally on 2026-10-08 the model's value was
+         kept for unmatched classes too; results produced by that earlier
+         cascade are not comparable.)
+    Consequently the model is needed for an utterance only when
+    ``ambiguous_distinction_classes`` is non-empty, and ``resolve_distinction``
+    takes the extraction as optional.
 
 The result is a new ``Extraction`` with the same ``pair_id``/``side``/
 ``gloss``/``surface``/``lang_profile``/``backbone``/``seed`` as the baseline
@@ -68,6 +76,8 @@ from dkmem.memory.schema import Extraction, ProbeItem
 __all__ = [
     "DKMEM_LEXICON_SUFFIX",
     "dkmem_prompt_id",
+    "ambiguous_distinction_classes",
+    "resolve_distinction",
     "apply_lexicon",
     "dkmem_extract_many",
     "dkmem_extract",
@@ -102,34 +112,52 @@ def _ambiguous_classes(lexicon: Lexicon, utterance: str, components: Sequence[st
     return {cls for cls, values in by_class.items() if len(values) > 1}
 
 
-def apply_lexicon(extraction: Extraction, lexicon: Lexicon, lang: str) -> Extraction:
-    """Return a copy of ``extraction`` with ``distinction`` lexicon-augmented.
+def ambiguous_distinction_classes(lexicon: Lexicon, utterance: str, lang: str) -> set[str]:
+    """The distinction classes the lexicon flags as ambiguous on ``utterance`` (more than one distinct
+    candidate value, across the components of ``lang``): the only classes for which the lexicon+LLM
+    cascade consults the model (Sec 5.3)."""
+    return _ambiguous_classes(lexicon, utterance, _parse_lang_tag(lang))
 
-    Scans ``extraction.surface`` (equal to the original utterance, per
-    ``dkmem.memory.extract``'s own validation) against ``lexicon``, once per
-    ``-``-separated component of ``lang`` (so a code-mixed tag like
-    ``"hi-en"`` checks both ``"hi"`` and ``"en"`` entries). See the module
-    docstring for exactly how a confident/ambiguous/unmatched lexicon result
-    is combined with the model's own ``distinction``.
 
-    Everything except ``distinction`` and ``prompt_id`` is copied verbatim.
+def resolve_distinction(
+    lexicon: Lexicon, utterance: str, lang: str, extraction: Extraction | None
+) -> dict[str, str] | None:
+    """The lexicon+LLM ``distinction`` of one utterance (see the module docstring).
+
+    Lexicon-resolved values for every unambiguous class; for each class the lexicon flags as ambiguous, the
+    model's value from ``extraction`` when it has one. Returns ``None`` when the utterance has an ambiguous
+    class but ``extraction`` is ``None`` (the model's answer is needed and unavailable): the caller must not
+    guess. With no ambiguity the extraction is not needed at all and may be ``None``.
     """
     components = _parse_lang_tag(lang)
-    utterance = extraction.surface
-
     resolved: dict[str, str] = {}
     for component in components:
         resolved.update(match_distinctions(lexicon, utterance, component))
     ambiguous = _ambiguous_classes(lexicon, utterance, components)
+    result = {cls: value for cls, value in resolved.items() if cls not in ambiguous}
+    if not ambiguous:
+        return result
+    if extraction is None:
+        return None
+    for cls in sorted(ambiguous):
+        if cls in extraction.distinction:
+            result[cls] = extraction.distinction[cls]
+    return result
 
-    merged = dict(extraction.distinction)  # model's own values: the fallback
-    for distinction_class, value in resolved.items():
-        if distinction_class not in ambiguous:
-            merged[distinction_class] = value
-        # else: ambiguous lexicon evidence for this class on this utterance;
-        # keep whichever value (if any) the model already contributed.
 
-    return replace(extraction, distinction=merged, prompt_id=dkmem_prompt_id(extraction.prompt_id))
+def apply_lexicon(extraction: Extraction, lexicon: Lexicon, lang: str) -> Extraction:
+    """Return a copy of ``extraction`` with ``distinction`` replaced by ``resolve_distinction``.
+
+    Scans ``extraction.surface`` (equal to the original utterance, per
+    ``dkmem.memory.extract``'s own validation) against ``lexicon``, once per
+    ``-``-separated component of ``lang`` (so a code-mixed tag like
+    ``"hi-en"`` checks both ``"hi"`` and ``"en"`` entries). The model's own
+    ``distinction`` is used only for classes the lexicon flags as ambiguous.
+
+    Everything except ``distinction`` and ``prompt_id`` is copied verbatim.
+    """
+    distinction = resolve_distinction(lexicon, extraction.surface, lang, extraction)
+    return replace(extraction, distinction=distinction, prompt_id=dkmem_prompt_id(extraction.prompt_id))
 
 
 def dkmem_extract_many(

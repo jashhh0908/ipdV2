@@ -421,10 +421,15 @@ class TestEntryDistinction(unittest.TestCase):
         kw = dict(utterance=utt, language="hi", lexicon=self.lex)
         self.assertEqual(entry_distinction("off", **kw), {})
         self.assertEqual(entry_distinction("lexicon", **kw), {"kinship": "chachi"})
-        self.assertIsNone(entry_distinction("lexicon+llm", **kw))  # no V4 -> unavailable, never a lexicon fallback
-        v4 = Extraction(pair_id="p", side="a", raw_output="", gloss="g", distinction={"register": "formal"},
+        # lexicon+llm: the model only matters for a lexicon-ambiguous class; none here, so no V4 is needed
+        self.assertEqual(entry_distinction("lexicon+llm", **kw), {"kinship": "chachi"})
+        v4 = Extraction(pair_id="p", side="a", raw_output="", gloss="g", distinction={"register": "formal", "kinship": "mausi"},
                         surface=utt, lang_profile={}, backbone="b", prompt_id="mem0_extraction_v4", seed=0)
-        self.assertEqual(entry_distinction("lexicon+llm", v4=v4, **kw), {"kinship": "chachi", "register": "formal"})
+        self.assertEqual(entry_distinction("lexicon+llm", v4=v4, **kw), {"kinship": "chachi"})  # model ignored
+        amb = "meri chachi aur mausi Pune mein hain"  # the lexicon flags kinship as ambiguous
+        akw = dict(utterance=amb, language="hi", lexicon=self.lex)
+        self.assertIsNone(entry_distinction("lexicon+llm", **akw))  # needed and missing -> unavailable, no guess
+        self.assertEqual(entry_distinction("lexicon+llm", v4=v4, **akw), {"kinship": "mausi"})
         with self.assertRaises(ValueError):
             entry_distinction("gate", **kw)
 

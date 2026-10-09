@@ -29,6 +29,7 @@ from typing import Any, Callable
 
 from dkmem.backends.llm import GenerationParams
 from dkmem.config import DKMEM_MODES, PIPELINE_CONFIG_IDS, get_pipeline_config
+from dkmem.memory.judge import JUDGE_PROMPTS, MERGE_JUDGE_V1
 from dkmem.memory.lexicon import load_lexicon
 from dkmem.pipeline.runner import build_run_config, run_stage_attribution, write_outputs
 from dkmem.pipeline.trace import sha256_file
@@ -87,6 +88,9 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--limit", type=int, default=None, help="use only the first N records (smoke test)")
     ap.add_argument("--embedding-model-id", default="BAAI/bge-m3")
     ap.add_argument("--embedding-revision", default=None)
+    ap.add_argument("--judge-prompt", default=MERGE_JUDGE_V1.prompt_id, choices=sorted(JUDGE_PROMPTS),
+                    help="merge judge of Configs A-C; merge_judge_informed_v1 is the prompt-informed-judge "
+                         "baseline (use with --modes off). Config D has no judge and ignores it.")
     return ap
 
 
@@ -135,10 +139,12 @@ def main(
                 config_id, args.modes, records, generator=generator, lexicon_path=args.lexicon,
                 params=params, similarity=metric if is_d else None, tau=tau,
                 embedder_info=embedder.run_info() if is_d else None, input_info=input_info,
+                judge_prompt=MERGE_JUDGE_V1 if is_d else JUDGE_PROMPTS[args.judge_prompt],
             )
             result = run_stage_attribution(
                 records, config_id, lexicon, run_config, generator=generator, params=params,
                 similarity=metric if is_d else None, tau=tau,
+                judge_prompt=MERGE_JUDGE_V1 if is_d else JUDGE_PROMPTS[args.judge_prompt],
             )
             out_dir = args.out / run_config["group_id"]
             paths = write_outputs(out_dir, result)

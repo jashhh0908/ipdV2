@@ -60,7 +60,7 @@ def llm():
 
     return ScriptedLLM(
         gloss=lambda u: u,  # the gloss is the utterance: the judge then sees distinguishable texts
-        model_distinction=lambda u: {"kinship": "bhaiya"} if "bhaiya" in u else {},
+        model_distinction=lambda u: {},  # the model is consulted only for a lexicon-ambiguous class (none has a value here)
         judge=judge,
     )
 
@@ -68,11 +68,11 @@ def llm():
 RECORDS = [
     rec("ep_1", "meri chachi Pune mein rehti hai", "meri mausi Pune mein rehti hai"),        # incompatible
     rec("ep_2", "mera bhai Delhi gaya", "mera bhai Delhi gaya tha"),                         # same entity
-    rec("ep_3", "FAIL meri chachi Pune mein hai", "meri mausi Pune mein hai"),               # extraction fails (A, B); V4 fails (lexicon+llm)
+    rec("ep_3", "FAIL meri chachi aur mausi Pune mein hai", "meri mausi Pune mein hai"),     # extraction fails (A, B); V4 fails on the ambiguous side (lexicon+llm)
     rec("ep_4", "BADJUDGE meri bua Pune mein hai", "meri mami Pune mein hai"),              # judge fails
     rec("ep_5", "meri chachi Pune mein hai", "meri mausi Pune mein hai", lang="x"),           # unsupported language
     rec("ep_6", "my aunt lives in Pune", "my aunt lives in Delhi", lang="en"),
-    rec("ep_7", "mera bhaiya Pune gaya", "mera bhai Pune gaya"),                              # model-only distinction -> underdetermined
+    rec("ep_7", "meri chachi aur mausi Pune gayi", "meri chachi Pune gayi"),                  # lexicon-ambiguous side: lexicon picks chachi (compatible), the model answers none -> underdetermined
     rec("ep_8", "meri chachi Pune mein rehti hai", "meri chachi Delhi mein rehti hai"),       # compatible (same kinship)
 ]
 

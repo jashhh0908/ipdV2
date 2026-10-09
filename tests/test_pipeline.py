@@ -168,14 +168,53 @@ class TestConfigA(unittest.TestCase):
         self.assertEqual(final(apart, "lexicon"), "no_merge")  # not turned into a link
         self.assertEqual(apart.rows_by_mode["lexicon"][0].compatibility, "underdetermined")
 
-    def test_lexicon_llm_mode_uses_model_distinction_as_fallback(self):
-        r = rec(a="Mehmet dun eve geldi", b="Ali dun eve geldi", lang="tr")
-        llm = FakeLLM(model_distinction=lambda u: {"name_variant": "Mehmet-latin"})
+    def test_lexicon_llm_mode_does_not_use_the_model_where_the_lexicon_is_not_ambiguous(self):
+        # Sec 5.3: the model is consulted only for spans the lexicon flags as ambiguous; a name the lexicon
+        # does not cover is not tagged, and the model's kinship guess does not override the lexicon.
+        r = rec(a="Mehmet dun eve geldi", b="meri chachi eve geldi", lang="hi")
+        llm = FakeLLM(model_distinction=lambda u: {"name_variant": "Mehmet-latin", "kinship": "mausi"})
         res = run("A", [r], llm)
         g = res.trace[0]["gate"]
         self.assertEqual(g["lexicon"]["distinction_a"], {})
-        self.assertEqual(g["lexicon+llm"]["distinction_a"], {"name_variant": "Mehmet-latin"})
-        self.assertEqual(res.rows_by_mode["lexicon+llm"][0].entry_a.distinction.cls, "name_variant")
+        self.assertEqual(g["lexicon+llm"]["distinction_a"], {})
+        self.assertEqual(g["lexicon+llm"]["distinction_b"], {"kinship": "chachi"})
+        self.assertEqual(g["lexicon+llm"], {**g["lexicon"], "applied": True})
+        self.assertEqual(res.trace[0]["extraction"]["a"]["lexicon_ambiguous"], [])
+
+    def test_lexicon_llm_mode_takes_the_models_value_for_a_lexicon_ambiguous_class(self):
+        ambiguous = "meri chachi aur mausi Pune mein hain"  # two different kinship terms: the lexicon flags it
+        r = rec(a=ambiguous, b="meri bua Pune mein hai")
+        llm = FakeLLM(model_distinction=lambda u: {"kinship": "mausi", "register": "tu"} if u == ambiguous else {})
+        res = run("A", [r], llm)
+        t = res.trace[0]
+        self.assertEqual(t["extraction"]["a"]["lexicon_ambiguous"], ["kinship"])
+        self.assertEqual(t["gate"]["lexicon+llm"]["distinction_a"], {"kinship": "mausi"})  # the model's value; register ignored
+
+    def test_the_model_is_called_for_the_gate_only_on_ambiguous_utterances(self):
+        ambiguous = "meri chachi aur mausi Pune mein hain"
+        records = [rec("ep_1", ambiguous, "meri bua Pune mein hai"), rec("ep_2", "mera bhai Pune mein hai", "mera bhai Delhi mein hai")]
+        llm = FakeLLM(model_distinction=lambda u: {"kinship": "chachi"}, judge=lambda a, b: ("keep_both", "x"))
+        res = run("C", records, llm)
+        self.assertEqual(llm.calls["v4"], 1)  # one ambiguous utterance in four; Config C's host makes no V4 call
+        self.assertEqual(res.trace[0]["extraction"]["a"]["model_distinction"], {"kinship": "chachi"})
+        self.assertIsNone(res.trace[0]["extraction"]["b"]["model_distinction"])
+        self.assertEqual(res.trace[0]["gate"]["lexicon+llm"]["distinction_a"], {"kinship": "chachi"})
+        self.assertEqual(res.run_config["lexicon_llm_policy"], "model_only_for_lexicon_ambiguous_classes_v1")
+        no_llm_mode = run("C", records, FakeLLM(), modes=["off", "lexicon"])
+        self.assertNotIn("lexicon_llm_policy", no_llm_mode.run_config)
+
+    def test_an_ambiguous_utterance_whose_v4_call_failed_is_not_gated_in_lexicon_llm_mode(self):
+        ambiguous = "meri chachi aur mausi Pune mein hain"
+        llm = FakeLLM()
+        orig = llm.generate
+        llm.generate = lambda prompts, params=None: ["not json" if (p[0]["content"].startswith("You convert") and ambiguous in p[-1]["content"]) else x
+                                                   for p, x in zip(prompts, orig(prompts, params))]
+        res = run("C", [rec("ep_1", ambiguous, "meri bua Pune mein hai")], llm)
+        t = res.trace[0]
+        self.assertEqual(t["gate"]["lexicon+llm"], {"applied": False, "skipped": "no V4 extraction for the model fallback"})
+        self.assertIsNone(t["final"]["lexicon+llm"])
+        self.assertEqual(len(res.rows_by_mode["lexicon+llm"]), 0)
+        self.assertEqual(len(res.rows_by_mode["lexicon"]), 1)
 
     def test_extraction_failure_yields_trace_but_no_rows(self):
         llm = FakeLLM()
@@ -225,7 +264,7 @@ class TestConfigB(unittest.TestCase):
         self.assertEqual(t["extraction"]["a"]["prompt_id"], NATIVE_B_V1.prompt_id)
         self.assertEqual(t["extraction"]["a"]["prompt_sha256"], NATIVE_B_V1.sha256)
         self.assertEqual(llm.calls["native"], 2)
-        self.assertEqual(llm.calls["v4"], 2)  # lexicon+llm fallback only; not stored
+        self.assertEqual(llm.calls["v4"], 0)  # no ambiguous utterance: lexicon+llm needs no model call; nothing stored
         # b's text no longer shows *mausi*, but it still differs from a's: not a storage loss
         d = t["diagnosis"]
         self.assertEqual((d["storage_state"], d["first_loss_point"], d["loss_stage"]), ("distinct_not_visible", "host_merge", "L3"))

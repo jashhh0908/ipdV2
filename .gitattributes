@@ -3,3 +3,6 @@
 # Keep them LF in the working tree regardless of core.autocrlf.
 dkmem/data/tier1/eval_input/*.jsonl text eol=lf
 tests/fixtures/*.jsonl text eol=lf
+
+# Vendored upstream Mem0 sources are hash-pinned (dkmem/baselines/mem0/source.py): keep them LF byte-for-byte.
+dkmem/baselines/mem0/upstream/* text eol=lf

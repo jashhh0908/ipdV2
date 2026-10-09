@@ -48,7 +48,7 @@ python -m dkmem.pipeline.cli --configs A B C D --modes off lexicon lexicon+llm \
 
 Output: five run groups (A, B, C and D at three thresholds), each `<config>-qwen-qwen2.5-3b-instruct-s0-<fingerprint8>/` with `run_config.json`, `trace.jsonl`, `summary.json`, `invocation.json`, and `off/`, `lexicon/`, `lexicon-llm/` each holding `run_manifest.json` + `pairwise_eval.jsonl`.
 
-Rough cost (from the 20-record smoke test, scaled to 173): about 6 minutes of generation per LLM config at 3B plus model loading; D and its three thresholds add one V4 pass (for `lexicon+llm`) and bge-m3 embedding of 346 texts. Expect well under an hour in total.
+Rough cost (from the 20-record smoke test, scaled to 173): about 6 minutes of generation per LLM config at 3B plus model loading; D and its three thresholds add V4 calls only for lexicon-ambiguous utterances (for `lexicon+llm`; usually none) and bge-m3 embedding of 346 texts. Expect well under an hour in total.
 
 ## 3. After the run (checks, in this order)
 

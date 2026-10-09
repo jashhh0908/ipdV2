@@ -49,8 +49,10 @@ from typing import Any, Mapping, Sequence
 from dkmem.backends.llm import GenerationParams
 from dkmem.config import get_pipeline_config
 from dkmem.memory.cache import CacheKey, ExtractionCache
+from dkmem.memory.dkmem_extract import ambiguous_distinction_classes
 from dkmem.memory.extract import TextGenerator, _parse_lang_tag
 from dkmem.memory.gate import DEFAULT_DISCRIMINATIVE_FEATURES
+from dkmem.memory.judge import MERGE_JUDGE_V1
 from dkmem.memory.lexicon import Lexicon
 from dkmem.memory.native_extract import (
     NATIVE_B_V1,
@@ -75,6 +77,8 @@ from dkmem.pipeline.runner import (
     _skipped_row,
     _stored_block,
     _backbone_slug,
+    _check_judge_prompt,
+    _needs_v4_call,
     _episode_row,
     build_run_config,
     mode_slug,
@@ -140,6 +144,7 @@ def build_store_run_config(
     input_info: Mapping[str, Any] | None = None,
     extraction_prompt: PromptTemplate = DEFAULT_EXTRACTION_PROMPT,
     k: int = DEFAULT_K,
+    judge_prompt: PromptTemplate = MERGE_JUDGE_V1,
 ) -> dict[str, Any]:
     """The reproducibility record of a store run.
 
@@ -152,7 +157,7 @@ def build_store_run_config(
     base = build_run_config(
         config_id, dkmem_modes, records, generator=generator, lexicon_path=lexicon_path, params=params,
         judge_params=judge_params, similarity=similarity, tau=tau, embedder_info=embedder_info,
-        input_info=input_info, extraction_prompt=extraction_prompt,
+        input_info=input_info, extraction_prompt=extraction_prompt, judge_prompt=judge_prompt,
     )
     deterministic = {key: value for key, value in base.items() if key not in _OUTSIDE_FINGERPRINT}
     deterministic["schema"] = STORE_RUN_CONFIG_SCHEMA
@@ -165,7 +170,7 @@ def build_store_run_config(
         "merge": "single target: highest-ranked candidate that survives the gate; newer text replaces older, old text kept in history",
         "links": "unresolved link only when the host proposed a merge the gate changed to link_unresolved; logging-only",
         "failures": "no V4 fallback: lexicon+llm entry without V4 is not written; host failures are never decisions",
-        "judge": "merge_judge_v1 once per stored-text pair, pre-warmed in input order, shared across modes",
+        "judge": f"{judge_prompt.prompt_id} once per stored-text pair, pre-warmed in input order, shared across modes",
     }
     fingerprint = config_fingerprint(deterministic)
     group_id = f"store-{config_id}-{_backbone_slug(deterministic['backbone'])}-s{params.seed}-{fingerprint[:8]}"
@@ -244,6 +249,7 @@ def run_store_attribution(
     k: int = DEFAULT_K,
     extraction_prompt: PromptTemplate = DEFAULT_EXTRACTION_PROMPT,
     extraction_cache: ExtractionCache | None = None,
+    judge_prompt: PromptTemplate = MERGE_JUDGE_V1,
 ) -> StoreRunResult:
     """Run one configuration over ``records`` through the memory store in every DK-Mem mode of
     ``run_config`` (``build_store_run_config``'s output for these same arguments).
@@ -262,6 +268,7 @@ def run_store_attribution(
         raise ValueError(f"tau must be in [0, 1], got {tau!r}")
     if tau is not None and not embedding_host:
         raise ValueError(f"tau applies only to Config D; Config {config_id} merges with an LLM judge (no cutoff)")
+    _check_judge_prompt(cfg, judge_prompt)
     metric = similarity or DEFAULT_SIMILARITY
     judge_params = judge_params or _default_judge_params(params)
     needs_v4 = cfg.extraction == "english_forced_prompt" or "lexicon+llm" in modes
@@ -289,12 +296,16 @@ def run_store_attribution(
             continue
         for side, utt, uid in (("a", record.utterance_a, record.utterance_a_id),
                                ("b", record.utterance_b, record.utterance_b_id)):
-            sides.append(_Side(record, side, utt, uid, lexicon_distinction(lexicon, utt, record.language)))
+            sides.append(_Side(
+                record, side, utt, uid, lexicon_distinction(lexicon, utt, record.language),
+                tuple(sorted(ambiguous_distinction_classes(lexicon, utt, record.language))),
+            ))
 
     # --- extraction (same code and batch order as the frozen harness) ------------------------------
     cache_stats = {"hits": 0, "generated": 0}
     if needs_v4:
-        for s, (ext, err) in zip(sides, _extract_v4(sides, generator, params, extraction_prompt, extraction_cache, cache_stats)):
+        v4_sides = [s for s in sides if _needs_v4_call(cfg, s)]
+        for s, (ext, err) in zip(v4_sides, _extract_v4(v4_sides, generator, params, extraction_prompt, extraction_cache, cache_stats)):
             s.v4, s.v4_error = ext, err
     if cfg.extraction == "english_forced_prompt":
         for s in sides:
@@ -322,7 +333,7 @@ def run_store_attribution(
 
     # --- host ------------------------------------------------------------------------------------------
     if cfg.merge_mechanism == "llm_judge":
-        host: Any = CachingHost(JudgeHost(generator, judge_params))
+        host: Any = CachingHost(JudgeHost(generator, judge_params, prompt=judge_prompt))
         host.prewarm(
             [
                 (ta, tb)
@@ -372,7 +383,7 @@ def run_store_attribution(
     rows_by_mode = {
         mode: pairwise_records(
             [ev for s in stores[mode] for ev in s.events], mode=mode, run_id=f"{group_id}-{mode_slug(mode)}",
-            strategy=strategy_for(config_id, mode), threshold=tau, gold=gold,
+            strategy=strategy_for(config_id, mode, judge_prompt.prompt_id), threshold=tau, gold=gold,
         )
         for mode in modes
     }

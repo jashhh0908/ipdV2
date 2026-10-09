@@ -133,7 +133,7 @@ class TestRealLexiconIntegration(unittest.TestCase):
         result = dkmem_extract(probe, "a", gen, self.lex, params=GenerationParams(seed=0))
         self.assertEqual(result.distinction, {})
 
-    def test_unrelated_utterance_keeps_model_value_untouched(self):
+    def test_unrelated_utterance_gets_no_model_value(self):
         probe = ProbeItem(
             pair_id="real-5", utt_a="Priya ne mera call uthaya.", utt_b="x",
             lang="hi", distinction_class="name_variant", distinction_value_a="Priya-latin",
@@ -143,8 +143,30 @@ class TestRealLexiconIntegration(unittest.TestCase):
             lambda u: model_output(u, distinction={"name_variant": "Priya-latin"})
         )
         result = dkmem_extract(probe, "a", gen, self.lex, params=GenerationParams(seed=0))
-        # No lexicon entry covers name_variant: the model's own value survives.
-        self.assertEqual(result.distinction, {"name_variant": "Priya-latin"})
+        # No lexicon entry covers name_variant and nothing is ambiguous: the model is not consulted.
+        self.assertEqual(result.distinction, {})
+
+    def baseline_for(self, surface, distinction=None):
+        return extract(
+            ProbeItem("p", surface, surface, "hi", "kinship", None, None, True, "q"),
+            "a",
+            FakeGenerator(lambda u: model_output(u, distinction=distinction)),
+            GenerationParams(seed=0),
+        )
+
+    def test_resolve_distinction_needs_the_model_only_for_ambiguity(self):
+        from dkmem.memory.dkmem_extract import ambiguous_distinction_classes, resolve_distinction
+
+        self.assertEqual(resolve_distinction(self.lex, "Meri chachi aayi.", "hi", None), {"kinship": "chachi"})
+        self.assertEqual(resolve_distinction(self.lex, "Priya ne bola.", "hi", None), {})
+        self.assertEqual(ambiguous_distinction_classes(self.lex, "Meri chachi aayi.", "hi"), set())
+        # "chachi aur mausi": two different kinship values on one utterance -> ambiguous
+        utt = "meri chachi aur mausi aayi."
+        self.assertEqual(ambiguous_distinction_classes(self.lex, utt, "hi"), {"kinship"})
+        self.assertIsNone(resolve_distinction(self.lex, utt, "hi", None))  # the model's answer is needed and missing
+        model = self.baseline_for(utt, distinction={"kinship": "chachi", "register": "tu"})
+        self.assertEqual(resolve_distinction(self.lex, utt, "hi", model), {"kinship": "chachi"})  # only the flagged class
+        self.assertEqual(resolve_distinction(self.lex, utt, "hi", self.baseline_for(utt, distinction={})), {})
 
     def test_batch_through_real_lexicon(self):
         probes = [
@@ -190,10 +212,17 @@ class TestApplyLexicon(unittest.TestCase):
         out = apply_lexicon(base, self.lex, "hi")
         self.assertEqual(out.distinction, {"register": "tu"})
 
-    def test_model_value_kept_when_lexicon_has_no_opinion(self):
-        base = self.baseline("Priya ne bola.", distinction={"name_variant": "Priya-latin"})
+    def test_model_value_is_not_used_when_the_lexicon_has_no_opinion(self):
+        # Sec 5.3: the model is consulted only for spans the lexicon flags as ambiguous; a class the
+        # lexicon does not cover is not tagged even if the model would tag it.
+        base = self.baseline("Priya ne bola.", distinction={"name_variant": "Priya-latin", "kinship": "bhaiya"})
         out = apply_lexicon(base, self.lex, "hi")
-        self.assertEqual(out.distinction, {"name_variant": "Priya-latin"})
+        self.assertEqual(out.distinction, {})
+
+    def test_model_value_is_ignored_for_a_class_the_lexicon_resolves_unambiguously(self):
+        base = self.baseline("Tu kal aana.", distinction={"register": "aap"})
+        out = apply_lexicon(base, self.lex, "hi")
+        self.assertEqual(out.distinction, {"register": "tu"})
 
     def test_no_match_and_no_model_value_is_empty(self):
         base = self.baseline("Priya ne bola.", distinction={})

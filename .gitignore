@@ -29,6 +29,11 @@ runs/
 outputs/
 results/
 
+# Team B's gold answer key (relation labels): blinded from Team A, never commit or embed it
+# (tests/test_key_protection.py checks this and that nothing under dkmem/ or tests/ holds gold labels)
+teamB_answer_key.jsonl
+*answer_key*.jsonl
+
 # Extraction / LLM caches
 *_cache.jsonl
 extraction_cache.jsonl

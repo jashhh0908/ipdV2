@@ -21,7 +21,7 @@ from typing import Any
 
 from dkmem.eval.ablation import ablation_report
 from dkmem.eval.fairness import check_comparable
-from dkmem.eval.gold import load_gold
+from dkmem.eval.gold import check_alignment, load_gold
 from dkmem.eval.groups import GroupData, load_group
 from dkmem.eval.metrics import score
 from dkmem.eval.sweep import compare_at_matched_mcr, sweep_config_d
@@ -51,6 +51,7 @@ def main(argv: list[str] | None = None) -> dict[str, Any]:
 
     records, _ = load_records(args.input)
     gold = load_gold(args.gold)
+    check_alignment(gold, records)
     groups = [load_group(p) for p in args.group]
 
     if args.command == "score":

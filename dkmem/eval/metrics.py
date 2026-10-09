@@ -19,6 +19,7 @@ flagged. ``link_unresolved`` / ``underdetermined_link`` is *not merged*.
 from __future__ import annotations
 
 import json
+import math
 from collections import Counter
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
@@ -32,7 +33,11 @@ __all__ = [
     "INDICATIVE_BELOW",
     "read_jsonl",
     "pair_outcomes",
+    "wilson_interval",
+    "mcnemar_exact",
     "rates",
+    "paired_difference",
+    "check_passthrough",
     "breakdown",
     "score",
 ]
@@ -107,6 +112,31 @@ def pair_outcomes(
     return out
 
 
+def wilson_interval(k: int, n: int, z: float = 1.96) -> list[float] | None:
+    """Wilson score interval (95% by default) for ``k`` of ``n``; ``None`` when ``n`` is 0.
+
+    Deterministic and well behaved at the small cells of Tier 1 (4 to 98 pairs), where a normal approximation would
+    leave ``[0, 1]``. It treats pairs as independent draws from the probe distribution: it says how far a rate could
+    move on other pairs of the same kind, not whether two systems differ (use ``paired_difference`` for that).
+    """
+    if n == 0:
+        return None
+    p, d = k / n, 1 + z * z / n
+    centre = (p + z * z / (2 * n)) / d
+    half = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / d
+    # the exact interval always contains p; clamp so rounding at k = 0 or k = n cannot leave it out
+    return [min(p, max(0.0, centre - half)), max(p, min(1.0, centre + half))]
+
+
+def mcnemar_exact(only_a: int, only_b: int) -> float:
+    """Two-sided exact McNemar p-value from the two discordant counts (1.0 when there are none)."""
+    d = only_a + only_b
+    if d == 0:
+        return 1.0
+    tail = sum(math.comb(d, i) for i in range(min(only_a, only_b) + 1)) / 2**d
+    return min(1.0, 2 * tail)
+
+
 def _check_universe(outcomes: Mapping[str, str], gold: Mapping[str, GoldPair]) -> None:
     unknown = sorted(set(gold) - set(outcomes))
     if unknown:
@@ -126,10 +156,70 @@ def rates(outcomes: Mapping[str, str], gold: Mapping[str, GoldPair], pair_ids: I
     return {
         "fcr": false_merged / n_diff if n_diff else None,
         "mcr": missed / n_same if n_same else None,
+        "fcr_ci95": wilson_interval(false_merged, n_diff), "mcr_ci95": wilson_interval(missed, n_same),
         "n_different": n_diff, "n_same": n_same, "false_merged": false_merged, "missed": missed,
         "indicative": {"fcr": 0 < n_diff < INDICATIVE_BELOW, "mcr": 0 < n_same < INDICATIVE_BELOW},
         "outcomes": {rel: {o: c[o] for o in OUTCOMES} for rel, c in by_rel.items()},
     }
+
+
+def paired_difference(
+    outcomes_a: Mapping[str, str], outcomes_b: Mapping[str, str], gold: Mapping[str, GoldPair],
+    pair_ids: Iterable[str] | None = None,
+) -> dict[str, Any]:
+    """System ``b`` against reference ``a`` (e.g. gate ``lexicon`` against ``off``) on the *same* gold pairs.
+
+    An *error* is a false merge for a gold-``different`` pair and a missed merge for a gold-``same`` pair. Per rate
+    (``fcr`` over the different pairs, ``mcr`` over the same pairs): ``only_a`` / ``only_b`` count the pairs on which
+    just that system errs, ``both`` / ``neither`` the rest; ``delta`` is the rate of ``b`` minus the rate of ``a``
+    (negative: ``b`` errs less); ``p_mcnemar`` is the exact two-sided McNemar p-value on the discordant pairs. This is
+    the test for "the gate lowers FCR": it uses the pairing, so it needs far fewer discordant pairs than comparing
+    two independent intervals would.
+    """
+    _check_universe(outcomes_a, gold)
+    _check_universe(outcomes_b, gold)
+    ids = list(gold) if pair_ids is None else list(pair_ids)
+    out: dict[str, Any] = {}
+    for rel, name in (("different", "fcr"), ("same", "mcr")):
+        counts: Counter = Counter()
+        for p in ids:
+            if gold[p].relation != rel:
+                continue
+            if rel == "different":
+                err_a, err_b = outcomes_a[p] == "merged", outcomes_b[p] == "merged"
+            else:
+                err_a, err_b = outcomes_a[p] != "merged", outcomes_b[p] != "merged"
+            counts["both" if err_a and err_b else "only_a" if err_a else "only_b" if err_b else "neither"] += 1
+        n = sum(counts.values())
+        cell: dict[str, Any] = {k: counts[k] for k in ("only_a", "only_b", "both", "neither")}
+        cell.update(
+            n=n,
+            rate_a=(counts["only_a"] + counts["both"]) / n if n else None,
+            rate_b=(counts["only_b"] + counts["both"]) / n if n else None,
+            delta=(counts["only_b"] - counts["only_a"]) / n if n else None,
+            p_mcnemar=mcnemar_exact(counts["only_a"], counts["only_b"]) if n else None,
+        )
+        out[name] = cell
+    return out
+
+
+def check_passthrough(rows: Iterable[Mapping[str, Any]], records: Sequence[Tier1Record]) -> None:
+    """Contract Sec 3: raise ``GoldError`` if an entry's ``gold_entity_id`` is not the input's opaque id for its
+    ``source_utterance_id``. Entries of utterances not in the input are ignored (as in ``pair_outcomes``)."""
+    expected: dict[str, str] = {}
+    for r in records:
+        expected[r.utterance_a_id], expected[r.utterance_b_id] = r.opaque_entity_id_a, r.opaque_entity_id_b
+    bad = []
+    for row in rows:
+        for side in ("entry_a", "entry_b"):
+            e = row[side]
+            u = e.get("source_utterance_id")
+            if u in expected and e.get("gold_entity_id") != expected[u]:
+                bad.append(f"{row.get('record_id')}: {side} {u} has gold_entity_id {e.get('gold_entity_id')!r}")
+    if bad:
+        raise GoldError(
+            f"{len(bad)} entr(ies) whose gold_entity_id does not match their source utterance, e.g. {bad[:2]}"
+        )
 
 
 def breakdown(
@@ -159,6 +249,10 @@ def score(
     no_entry_ids: Iterable[str] = (),
     by: Sequence[str] = ("distinction_class", "language"),
 ) -> dict[str, Any]:
-    """Overall rates plus the per-class / per-language / cell breakdown for one ``pairwise_eval`` file."""
+    """Overall rates plus the per-class / per-language / cell breakdown for one ``pairwise_eval`` file.
+
+    Raises ``GoldError`` first if an entry's ``gold_entity_id`` contradicts the input (``check_passthrough``)."""
+    rows = list(rows)
+    check_passthrough(rows, records)
     outcomes = pair_outcomes(rows, records, no_entry_ids=no_entry_ids)
     return {"overall": rates(outcomes, gold), "breakdown": breakdown(outcomes, gold, by), "outcomes": outcomes}

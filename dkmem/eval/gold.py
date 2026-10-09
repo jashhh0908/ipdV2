@@ -8,9 +8,11 @@ runners never import this module.
 File format (JSONL, one object per gold pair)::
 
     {"eval_pair_id": "ep_...", "relation": "same" | "different",
-     "distinction_class": "kinship" | ... (optional), "language": "hi" | ... (optional)}
+     "distinction_class": "kinship" | ... (optional), "language": "hi" | ... (optional),
+     "utterance_a_id", "utterance_b_id", "opaque_entity_id_a", "opaque_entity_id_b": (optional)}
 
-``gold_relation`` is accepted as an alias of ``relation``. Extra fields are ignored. Tier 1 v2 has 98 ``different``
+``gold_relation`` is accepted as an alias of ``relation``. Other fields are ignored, except the four optional id
+fields: when the key carries them (Team B's does), ``check_alignment`` verifies them against the input. Tier 1 v2 has 98 ``different``
 and 75 ``same`` pairs (``dkmem/tier1_eval_contract.md`` Sec 5-6); the 53 excluded ambiguous candidates are simply
 absent from the key and are not scored.
 """
@@ -22,7 +24,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Mapping
 
-__all__ = ["RELATIONS", "GoldError", "GoldPair", "load_gold", "gold_from_pairs"]
+__all__ = ["RELATIONS", "GoldError", "GoldPair", "load_gold", "gold_from_pairs", "check_alignment"]
 
 RELATIONS = ("same", "different")
 
@@ -37,6 +39,10 @@ class GoldPair:
     relation: str
     distinction_class: str | None = None
     language: str | None = None
+    utterance_a_id: str | None = None
+    utterance_b_id: str | None = None
+    opaque_entity_id_a: str | None = None
+    opaque_entity_id_b: str | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.eval_pair_id, str) or not self.eval_pair_id:
@@ -63,7 +69,39 @@ def load_gold(path: str | Path) -> dict[str, GoldPair]:
         try:
             obj: Mapping = json.loads(line)
             relation = obj["relation"] if "relation" in obj else obj["gold_relation"]
-            pairs.append(GoldPair(obj["eval_pair_id"], relation, obj.get("distinction_class"), obj.get("language")))
+            pairs.append(
+                GoldPair(
+                    obj["eval_pair_id"], relation, obj.get("distinction_class"), obj.get("language"),
+                    obj.get("utterance_a_id"), obj.get("utterance_b_id"),
+                    obj.get("opaque_entity_id_a"), obj.get("opaque_entity_id_b"),
+                )
+            )
         except (json.JSONDecodeError, KeyError, TypeError, GoldError) as e:
             raise GoldError(f"{path}:{i}: {e!r}") from e
     return gold_from_pairs(pairs)
+
+
+_ALIGNED_FIELDS = ("language", "utterance_a_id", "utterance_b_id", "opaque_entity_id_a", "opaque_entity_id_b")
+
+
+def check_alignment(gold: Mapping[str, GoldPair], records: Iterable) -> None:
+    """Raise ``GoldError`` if the key disagrees with the input file it is meant to score.
+
+    For every key pair that carries the optional fields (``language``, the two utterance ids and the two opaque entity
+    ids), they must equal the input record's with the same ``eval_pair_id``; a key pair with no record is an error.
+    A key made for another regeneration of the input (the contract's ``--regenerate``) would otherwise be joined by
+    ``eval_pair_id`` alone. Pairs of the input that the key does not list (the contract's excluded ones) are fine.
+    """
+    by_id = {r.eval_pair_id: r for r in records}
+    problems = []
+    for pid, g in gold.items():
+        r = by_id.get(pid)
+        if r is None:
+            problems.append(f"{pid}: in the key but not in the input")
+            continue
+        for f in _ALIGNED_FIELDS:
+            want = getattr(g, f)
+            if want is not None and want != getattr(r, f):
+                problems.append(f"{pid}: {f} is {want!r} in the key but {getattr(r, f)!r} in the input")
+    if problems:
+        raise GoldError(f"{len(problems)} key/input disagreement(s), e.g. " + "; ".join(problems[:3]))

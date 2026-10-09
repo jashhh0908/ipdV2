@@ -34,7 +34,7 @@ from typing import Any, Mapping, Sequence
 
 from dkmem.eval.gold import GoldPair
 from dkmem.eval.groups import GroupData
-from dkmem.eval.metrics import pair_outcomes, rates
+from dkmem.eval.metrics import check_passthrough, pair_outcomes, paired_difference, rates
 from dkmem.tier1.io import Tier1Record
 
 __all__ = ["ABLATION_MODES", "ablation_report"]
@@ -84,9 +84,15 @@ def ablation_report(
         "lexicon_sha256": (group.run_config.get("lexicon") or {}).get("sha256"), "modes": {},
         "pairing_violations": _pairing_violations(group),
     }
+    off_outcomes = None
     for mode in modes:
+        check_passthrough(group.rows(mode), records)
         outcomes = pair_outcomes(group.rows(mode), records, no_entry_ids=group.no_entry_ids())
+        if mode == "off":
+            off_outcomes = outcomes
         entry: dict[str, Any] = {"rates": rates(outcomes, gold), "extra_llm_calls": _extra_llm_calls(group, mode)}
+        if mode != "off" and off_outcomes is not None:
+            entry["paired_vs_off"] = paired_difference(off_outcomes, outcomes, gold)  # the gate's effect, pair by pair
         if mode != "off":
             gates = [((t.get("gate") or {}).get(mode), (t.get("final") or {}).get(mode)) for t in group.trace if t.get("status") == "ok"]
             decided = [(g, f) for g, f in gates if g is not None and "skipped" not in g]

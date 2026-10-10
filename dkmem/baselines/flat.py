@@ -31,7 +31,9 @@ from dkmem.backends.llm import GenerationParams
 from dkmem.memory.extract import TextGenerator, _parse_lang_tag
 from dkmem.memory.prompts import PromptTemplate
 from dkmem.memory.similarity import SimilarityMetric
-from dkmem.pipeline.runner import _backbone_slug, _count, _entry_id, _input_block, _skipped_row, mode_slug
+from dkmem.pipeline.runner import (
+    _backbone_slug, _count, _entry_id, _input_block, _skipped_row, ensure_fresh_group_dir, mode_slug,
+)
 from dkmem.pipeline.trace import config_fingerprint, git_state, inputs_hash, pair_input_hash, source_hashes
 from dkmem.store.consolidate import ConsolidationConfig, HostProposal, HostQuery, WriteResult, consolidate
 from dkmem.store.entry import StoredEntry
@@ -223,8 +225,7 @@ def run_flat_baseline(
 def write_flat_outputs(out_dir: str | Path, result: FlatRunResult) -> dict[str, str]:
     """``run_config.json``, ``trace.jsonl``, ``summary.json``, ``off/{run_manifest.json, pairwise_eval.jsonl,
     store_events.jsonl, store_final.jsonl}``."""
-    out = Path(out_dir)
-    out.mkdir(parents=True, exist_ok=True)
+    out = ensure_fresh_group_dir(out_dir)
     cfg = result.run_config
     paths: dict[str, str] = {}
     (out / "run_config.json").write_text(json.dumps(cfg, ensure_ascii=False, allow_nan=False, indent=2), encoding="utf-8")

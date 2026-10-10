@@ -91,7 +91,9 @@ def pair_outcomes(
         pair = utt_pair[ua]
         compared.add(pair)
         for e, u in ((ea, ua), (eb, ub)):
-            entry_src[e["entry_id"]] = u
+            if entry_src.setdefault(e["entry_id"], u) != u:
+                # contract Sec 3: entry_id is unique within a run; a reused id would join unrelated entries
+                raise GoldError(f"entry_id {e['entry_id']!r} is used by two utterances ({entry_src[e['entry_id']]}, {u})")
             sources.setdefault(pair, set()).add(e["entry_id"])
         if row["decision"] in UNIFYING_DECISIONS:
             uf.union(ea["entry_id"], eb["entry_id"])

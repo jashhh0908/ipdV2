@@ -305,7 +305,7 @@ class TestFairness(unittest.TestCase):
             self.assertIn("seed", keys)
             keys = {i["key"] for i in check_comparable([base, fewer])["issues"]}
             self.assertTrue({"inputs", "pair_order"} <= keys)
-            tweaked = written(run_d(0.8), d)
+            tweaked = written(run_d(0.8), Path(d) / "tweaked")  # same group id as base: a fresh dir, never an overwrite
             tweaked.run_config["generation_params"]["max_new_tokens"] = 99
             tweaked.run_config["group_id"] = "tweaked"
             self.assertIn("decoding", {i["key"] for i in check_comparable([base, tweaked])["issues"]})

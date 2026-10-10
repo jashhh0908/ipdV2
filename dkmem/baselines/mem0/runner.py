@@ -34,7 +34,9 @@ from dkmem.baselines.mem0.memory import SEARCH_LIMIT, BatchEmbedder, GeneratorLL
 from dkmem.baselines.mem0.source import PinnedMem0, load_pinned
 from dkmem.memory.extract import TextGenerator, _parse_lang_tag
 from dkmem.memory.similarity import SimilarityMetric
-from dkmem.pipeline.runner import _backbone_slug, _count, _entry_id, _input_block, _skipped_row, mode_slug
+from dkmem.pipeline.runner import (
+    _backbone_slug, _count, _entry_id, _input_block, _skipped_row, ensure_fresh_group_dir, mode_slug,
+)
 from dkmem.pipeline.trace import config_fingerprint, git_state, inputs_hash, pair_input_hash, source_hashes
 from dkmem.tier1.io import (
     DECISION_TRANSLATION,
@@ -278,8 +280,7 @@ def _count_actions(trace: list[dict[str, Any]]) -> dict[str, int]:
 
 def write_mem0_outputs(out_dir: str | Path, result: Mem0RunResult) -> dict[str, str]:
     """Write ``run_config.json``, ``trace.jsonl``, ``summary.json`` and ``off/{run_manifest.json,pairwise_eval.jsonl}``."""
-    out = Path(out_dir)
-    out.mkdir(parents=True, exist_ok=True)
+    out = ensure_fresh_group_dir(out_dir)
     cfg = result.run_config
     paths: dict[str, str] = {}
     (out / "run_config.json").write_text(json.dumps(cfg, ensure_ascii=False, allow_nan=False, indent=2), encoding="utf-8")

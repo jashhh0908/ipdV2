@@ -1,6 +1,8 @@
 # First full real-model run of Configs A–D
 
-Status: **specified and tested with fake models; not run.** Nothing below has been executed on a real model except the pieces named in "What has and has not run on real hardware".
+Status: **specified and tested with fake models; no valid real-model run exists.** Nothing below has been executed on a real model except the pieces named in "What has and has not run on real hardware". An earlier full run (`results/abcd_3b_s0`, not in this checkout) predates the `lexicon+llm` fix and is void (`DKMEM_BASELINES.md` §7).
+
+**Update 2026-10-10:** the analysis plan, the decisions taken for Team B (seeds, τ, schema items, bge-m3 pin) and the current commands are in [`DKMEM_ANALYSIS_PLAN.md`](DKMEM_ANALYSIS_PLAN.md); it supersedes §2 and §6 below where they differ. Use your own Kaggle account in place of `jashnikumbhe`, and a fresh `--out`/results directory per run (writers now refuse to overwrite an existing group).
 
 ## 1. What is frozen for this run
 
@@ -15,7 +17,7 @@ Status: **specified and tested with fake models; not run.** Nothing below has be
 | Gate | `apply_gate` (veto only) with the 15-entry lexicon `dkmem/memory/distinction_features.json` |
 | Backbone | Qwen2.5-3B-Instruct, weights pinned to `aa8e72537993ba99e69dfaafa59ed015b17504d1`, fp16 |
 | Decoding | greedy, seed 0, batch 8, `max_new_tokens` 256 (same as every validation run) |
-| Embedding (D) | `BAAI/bge-m3`, dense CLS, L2-normalised, fp16; revision not pinned yet (the resolved commit is recorded in `run_config.json` and should be pinned after this run) |
+| Embedding (D) | `BAAI/bge-m3`, dense CLS, L2-normalised, fp16; pinned to `5617a9f61b028005a4858fdac845db406aefb181` (`--embedding-revision`, as in `DKMEM_BASELINES.md` and `dkmem/store/cli.py`) |
 | Config D threshold | `--tau-d 0.80 0.85 0.90` (see "To confirm") |
 
 Configs A–C carry no threshold: their rows have `threshold: null`, `run_config.tau: null`.
@@ -27,7 +29,7 @@ Build the Kaggle notebook (embeds the code, schemas, lexicon, Tier 1 input and t
 ```
 python validation/abcd_first_run/build_kernel.py --user jashnikumbhe --out <scratch>/kernel_3b_s0 \
     --slug dk-mem-abcd-3b-s0 --model-id Qwen/Qwen2.5-3B-Instruct \
-    --revision aa8e72537993ba99e69dfaafa59ed015b17504d1 --seed 0 --tau-d 0.80 0.85 0.90
+    --revision aa8e72537993ba99e69dfaafa59ed015b17504d1     --embedding-revision 5617a9f61b028005a4858fdac845db406aefb181 --seed 0 --tau-d 0.80 0.85 0.90
 ```
 
 Save the version and run it (Internet on, 2 x T4: both are in the metadata and the push flag; the push saves version 1 and starts it):
@@ -43,16 +45,16 @@ The notebook runs the full unit-test suite first (it must pass on the Kaggle ima
 ```
 python -m dkmem.pipeline.cli --configs A B C D --modes off lexicon lexicon+llm \
     --model-id Qwen/Qwen2.5-3B-Instruct --revision aa8e72537993ba99e69dfaafa59ed015b17504d1 \
-    --seed 0 --tau-d 0.80 0.85 0.90 --out /kaggle/working/runs
+    --seed 0 --tau-d 0.80 0.85 0.90 --embedding-revision 5617a9f61b028005a4858fdac845db406aefb181 --out /kaggle/working/runs
 ```
 
-Output: five run groups (A, B, C and D at three thresholds), each `<config>-qwen-qwen2.5-3b-instruct-s0-<fingerprint8>/` with `run_config.json`, `trace.jsonl`, `summary.json`, `invocation.json`, and `off/`, `lexicon/`, `lexicon-llm/` each holding `run_manifest.json` + `pairwise_eval.jsonl`.
+Output: six run groups (A, B, C and D at three thresholds), each `<config>-qwen-qwen2.5-3b-instruct-s0-<fingerprint8>/` with `run_config.json`, `trace.jsonl`, `summary.json`, `invocation.json`, and `off/`, `lexicon/`, `lexicon-llm/` each holding `run_manifest.json` + `pairwise_eval.jsonl`.
 
 Rough cost (from the 20-record smoke test, scaled to 173): about 6 minutes of generation per LLM config at 3B plus model loading; D and its three thresholds add V4 calls only for lexicon-ambiguous utterances (for `lexicon+llm`; usually none) and bge-m3 embedding of 346 texts. Expect well under an hour in total.
 
 ## 3. After the run (checks, in this order)
 
-1. `exit code 0`, unit tests `OK` in the notebook log; five groups present; `episodes_skipped_unsupported_language` 0.
+1. `exit code 0`, unit tests `OK` in the notebook log; six groups present; `episodes_skipped_unsupported_language` 0.
 2. Per group `summary.json`: `sides_extraction_failed` (A, B) and `pairs_judge_failed` (A, B, C) should be near 0; any non-zero is read from the raw outputs in `trace.jsonl` before anything else.
 3. Config B: `stored_language` (source / translated = language drift / script_changed = script drift / mixed) and `extraction_checks` side by side; the corruption rate is **not** an automatic number: hand-label the non-copy outputs as in `validation/native_b_prefreeze/` (`analysis.py`, `report_stage.py`).
 4. `run_config.json`: `code.tree_sha256` and per-file hashes recorded; `input.sanctioned: true`; the resolved embedding revision (pin it for the next run).

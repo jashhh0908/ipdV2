@@ -754,16 +754,29 @@ def _mode_distinctions(mode: str, c: _Candidate, lexicon: Lexicon):
 # --- output ----------------------------------------------------------------------
 
 
+def ensure_fresh_group_dir(out_dir: str | Path) -> Path:
+    """Create ``out_dir`` and refuse to reuse one that already holds a run group (a ``run_config.json``).
+
+    The group id carries no timestamp, so the same config re-run into the same ``--out`` would otherwise overwrite
+    the earlier group in place; prior results are never overwritten silently. Use a fresh ``--out`` for a re-run.
+    """
+    out = Path(out_dir)
+    if (out / "run_config.json").exists():
+        raise FileExistsError(f"{out} already holds a run group (run_config.json); write to a fresh --out directory")
+    out.mkdir(parents=True, exist_ok=True)
+    return out
+
+
 def write_outputs(out_dir: str | Path, result: StageAttributionResult) -> dict[str, str]:
     """Write ``run_config.json``, ``trace.jsonl``, ``summary.json`` and, per DK-Mem
     mode, ``<mode>/run_manifest.json`` + ``<mode>/pairwise_eval.jsonl``.
 
-    Returns the paths written (as strings, keyed by file).
+    Returns the paths written (as strings, keyed by file). Raises ``FileExistsError`` if ``out_dir`` already
+    holds a run group (``ensure_fresh_group_dir``).
     """
     import json
 
-    out = Path(out_dir)
-    out.mkdir(parents=True, exist_ok=True)
+    out = ensure_fresh_group_dir(out_dir)
     cfg = result.run_config
     paths = {}
     p = out / "run_config.json"

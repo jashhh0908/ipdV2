@@ -7,7 +7,8 @@ Everything here works without the key: it checks the *places* the key could leak
   else, so no file in those two trees may hold gold labels -- a pair record carrying both a real ``ep_`` id and a
   ``relation``, or an original ``t1_NNNN`` pair id;
 * the system code never imports the evaluation package (the key is read only by ``dkmem.eval``, given explicitly);
-* no run output under ``results/`` carries gold labels either.
+* no run output or report under ``results/``, ``runs/``, ``outputs/`` or ``validation/`` (JSON or JSONL) carries
+  gold labels either.
 
 Run: python -m unittest discover -s tests
 """
@@ -21,6 +22,7 @@ from pathlib import Path
 REPO = Path(__file__).parent.parent
 EMBEDDED_TREES = ("dkmem", "tests")  # what validation/*/build_kernel.py embeds
 EMBEDDED_SUFFIXES = (".py", ".json", ".jsonl", ".md", ".txt")
+OUTPUT_TREES = ("results", "runs", "outputs", "validation")  # where run outputs, scores and reports are written
 SYSTEM_PACKAGES = ("backends", "baselines", "memory", "pipeline", "store", "tier1")
 
 REAL_EP_ID = re.compile(r"ep_[0-9a-f]{12}")
@@ -76,15 +78,18 @@ class TestNothingEmbeddedHoldsGoldLabels(unittest.TestCase):
             if "for top in" in src:
                 self.assertIn('for top in ("dkmem", "tests")', src, builder)
 
-    @unittest.skipUnless((REPO / "results").is_dir(), "no results/ directory")
     def test_run_outputs_carry_no_gold_labels(self):
+        # every place run outputs and reports land (gitignored or committed), JSON and JSONL alike
         offenders = []
-        for p in (REPO / "results").rglob("*.jsonl"):
-            if "src" in p.relative_to(REPO / "results").parts:  # embedded source copies
-                continue
-            head = p.read_text(encoding="utf-8", errors="replace")
-            if RELATION.search(head) and REAL_EP_ID.search(head):
-                offenders.append(str(p.relative_to(REPO)))
+        for top in OUTPUT_TREES:
+            for p in (REPO / top).rglob("*"):
+                if not p.is_file() or p.suffix not in (".json", ".jsonl"):
+                    continue
+                if "src" in p.relative_to(REPO / top).parts:  # embedded source copies
+                    continue
+                text = p.read_text(encoding="utf-8", errors="replace")
+                if (RELATION.search(text) and REAL_EP_ID.search(text)) or ORIGINAL_PAIR_ID.search(text):
+                    offenders.append(str(p.relative_to(REPO)))
         self.assertEqual(offenders, [])
 
 
